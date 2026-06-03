@@ -1,0 +1,47 @@
+
+:root {
+  /* Elegant Color Palette */
+  --bg-primary: #eef5f8;       /* Soft light blue-teal background from hero */
+  --bg-secondary: #f8fafc;     /* Clean slate-light background */
+  --bg-card: #ffffff;          /* White card base */
+  --text-main: #1e293b;        /* Deep charcoal for readable body */
+  --text-dark: #07232b;        /* Premium deep slate-teal for headings */
+  --text-muted: #64748b;       /* Muted grey for subheadings */
+  
+  --primary-color: #0e3f4c;    /* Rich deep teal for borders and highlights */
+  --primary-hover: #07232b;    /* Darker teal */
+  
+  --accent-color: #d68032;     /* Warm camel / soft orange for CTAs and sales */
+  --accent-hover: #b86720;     /* Rich terracotta-orange */
+  
+  --border-color: #cbd5e1;     /* Fine line dividers */
+  --border-card: #e2e8f0;       /* Card structural border */
+  
+  --star-color: #f59e0b;       /* Gold stars for reviews */
+  --success-color: #10b981;    /* Vibrant green for success */
+  --error-color: #ef4444;      /* High contrast red for errors */
+
+  /* Typography */
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.12), 0 4px 6px -4px rgba(15, 23, 42, 0.08);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+
+  /* Borders & Grid Frame */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Timing & Transitions */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms var(--ease-smooth);
+  --transition-normal: 300ms var(--ease-smooth);
+  --transition-slow: 500ms var(--ease-smooth);
+
+  --site-header-offset: 88px;
+}

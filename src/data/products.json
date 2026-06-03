@@ -1,0 +1,144 @@
+[
+  {
+    "id": "prod-1",
+    "name": "Classic Camel Trench Coat",
+    "category": "Apparel",
+    "price": 15499,
+    "rating": 4.8,
+    "reviewsCount": 124,
+    "image": "/hero_trench_coat.png",
+    "description": "A timeless double-breasted outer layer tailored from premium organic cotton twill. Features water-repellent coating, adjustable waist belt, and classic tortoiseshell buttons.",
+    "features": [
+      "100% Organic Cotton Twill",
+      "Water-repellent storm shell coating",
+      "Adjustable wrist cuffs and waist belt",
+      "Spacious interior and button-welt pockets"
+    ],
+    "inStock": true,
+    "isBestSeller": true
+  },
+  {
+    "id": "prod-2",
+    "name": "Acoustic Smart Speaker",
+    "category": "Electronics",
+    "price": 9999,
+    "rating": 4.6,
+    "reviewsCount": 85,
+    "image": "/hero_speaker.png",
+    "description": "A sleek, room-filling 360-degree wireless speaker. Engineered with deep rich bass and crystal clear high frequencies, seamlessly integrating voice assistants and Bluetooth 5.2.",
+    "features": [
+      "360° omnidirectional spatial sound",
+      "Up to 12 hours of rechargeable battery life",
+      "Built-in smart voice assistant control",
+      "Waterproof IPX5 fabric grill"
+    ],
+    "inStock": true,
+    "isNew": true
+  },
+  {
+    "id": "prod-3",
+    "name": "Sculptural Ceramic Vases",
+    "category": "Home Decor",
+    "price": 4999,
+    "rating": 4.9,
+    "reviewsCount": 92,
+    "image": "/featured_collections.png",
+    "description": "A gorgeous set of modern, organically shaped ceramic vases in matching neutral glaze tones. Individually hand-thrown and glazed, perfect for dried stems or stand-alone art.",
+    "features": [
+      "Set of three nesting ceramic shapes",
+      "Handmade stoneware with matte earth glazes",
+      "Perfect styling piece for shelving or mantels",
+      "Water-resistant interior lining"
+    ],
+    "inStock": true,
+    "isBestSeller": true
+  },
+  {
+    "id": "prod-4",
+    "name": "Botanical Skincare Serum",
+    "category": "Skincare",
+    "price": 3499,
+    "rating": 4.7,
+    "reviewsCount": 143,
+    "image": "/new_arrivals.png",
+    "description": "A luxury concentrated botanical dropper serum. Formulated with organic squalane, active Vitamin C, and cold-pressed botanical seed oils to restore natural hydration, tone, and skin radiance.",
+    "features": [
+      "98% naturally derived organic ingredients",
+      "Cruelty-free, vegan, and paraben-free",
+      "Lightweight dry-oil absorption",
+      "Comes in UV-protective amber glass"
+    ],
+    "inStock": true,
+    "isNew": true
+  },
+  {
+    "id": "prod-5",
+    "name": "Luxe Sunglasses & Knit Combo",
+    "category": "Apparel",
+    "price": 8999,
+    "rating": 4.7,
+    "reviewsCount": 68,
+    "image": "/trending_now.png",
+    "description": "The ultimate weekend set. Includes our UV-400 acetate polarized retro sunglasses and a high-comfort, drop-shoulder fine knit sweater for an effortlessly stylish silhouette.",
+    "features": [
+      "Sunglasses: Handcrafted premium acetate frames",
+      "Knit: 100% fine cotton yarns",
+      "Polarized amber lens coating with anti-scratch layer",
+      "Warm teal-harmonious coordinates"
+    ],
+    "inStock": true,
+    "isNew": true
+  },
+  {
+    "id": "prod-6",
+    "name": "Terrazzo Indoor Planter",
+    "category": "Home Decor",
+    "price": 2499,
+    "rating": 4.5,
+    "reviewsCount": 41,
+    "image": "/featured_collections.png",
+    "description": "A contemporary terrazzo planter with a beautiful speckled marble design. Comes with a matching drainage tray, ideal for bringing leafy greenery and fresh oxygen into your workspace.",
+    "features": [
+      "Real speckled concrete and marble chips",
+      "Includes drainage hole and circular saucer",
+      "Diameter: 6 inches, Height: 5.5 inches",
+      "Sleek modern geometric cylindrical profile"
+    ],
+    "inStock": true
+  },
+  {
+    "id": "prod-7",
+    "name": "Minimalist Wireless Earbuds",
+    "category": "Electronics",
+    "price": 6999,
+    "rating": 4.4,
+    "reviewsCount": 57,
+    "image": "/hero_speaker.png",
+    "description": "Ultra-lightweight wireless earbuds with adaptive active noise cancellation (ANC). Ergonomically designed to sit comfortably all day, delivering clean acoustics and high definition mic clarity.",
+    "features": [
+      "Hybrid active noise cancelling",
+      "24 hours total play time with magnetic case",
+      "Sweat and water-resistant (IPX4 rating)",
+      "Touch control for track skip, volume, and calls"
+    ],
+    "inStock": true,
+    "discountPrice": 5499
+  },
+  {
+    "id": "prod-8",
+    "name": "Squalane Hydrating Cream",
+    "category": "Skincare",
+    "price": 2999,
+    "rating": 4.8,
+    "reviewsCount": 110,
+    "image": "/new_arrivals.png",
+    "description": "A deep-nourishing daily facial moisturiser packed with clean plant squalane, hyaluronic acid, and ceramides. Formulated to lock in moisture and protect your skin’s barrier overnight.",
+    "features": [
+      "Locks in moisture for up to 24 hours",
+      "Fragrance-free and hypoallergenic",
+      "Contains 5% sugarcane-derived squalane",
+      "Eco-friendly recyclable aluminum tube"
+    ],
+    "inStock": false
+  }
+]

@@ -1,0 +1,153 @@
+
+.collections-section {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  width: 100%;
+  @media (max-width: 1024px) {
+    padding: 20px 20px 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .collections-section {
+    padding: 16px 16px 56px;
+  }
+
+  .collections-grid {
+    gap: 24px;
+  }
+
+  .collection-card-overlay {
+    padding: 20px;
+  }
+
+  .collection-btn-label {
+    font-size: 1.1rem;
+  }
+
+  .collection-desc {
+    font-size: 0.88rem;
+  }
+}
+
+.collections-container {
+  width: 100%;
+}
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.collection-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.collection-title-header {
+  font-family: var(--font-sans);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.collection-card {
+  position: relative;
+  aspect-ratio: 0.95;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background-color: var(--bg-card);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.collection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+}
+
+.collection-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+.collection-card:hover .collection-bg {
+  transform: scale(1.08);
+}
+
+/* Gradient overlay exactly aligning text bottom left */
+.collection-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(7, 35, 43, 0.98) 0%,
+    rgba(7, 35, 43, 0.8) 30%,
+    rgba(14, 63, 76, 0.2) 60%,
+    rgba(238, 245, 248, 0) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+  color: #ffffff;
+}
+
+.collection-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.collection-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 20px;
+  line-height: 1.5;
+  max-width: 90%;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Collection CTA button as shown in reference: Tag + Label */
+.collection-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  color: #ffffff;
+  text-align: left;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 4px;
+  transition: border-color var(--transition-fast);
+  margin-bottom: 12px;
+}
+
+.collection-btn:hover {
+  border-color: #ffffff;
+}
+
+.collection-btn span:first-child {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.collection-btn-label {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}

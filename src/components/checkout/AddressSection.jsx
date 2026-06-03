@@ -72,7 +72,7 @@ export default function AddressSection({
                 onClick={(e) => {
                   e.stopPropagation();
                   handleDeleteAddress(address.id);
-                }}git add 
+                }}
                 title="Delete Address"
                 aria-label={`Delete Address ${address.tag}`}
               >

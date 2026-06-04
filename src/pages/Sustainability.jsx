@@ -1,3 +1,5 @@
+import { BRAND_NAME } from '../utils/constants';
+
 export default function Sustainability() {
   return (
     <div className="sustainability-page" style={{ padding: '80px 24px', maxWidth: '800px', margin: '0 auto', fontFamily: 'inherit' }}>
@@ -5,7 +7,7 @@ export default function Sustainability() {
         Sustainability & Conscious Craft
       </h1>
       <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '16px' }}>
-        Consciously crafted, sustainably manufactured, and built to endure. At Aurora Goods, sustainability is not just a buzzword—it is at the core of every design decision we make.
+        Consciously crafted, sustainably manufactured, and built to endure. At {BRAND_NAME}, sustainability is not just a buzzword—it is at the core of every design decision we make.
       </p>
 
       <h2 style={{ fontSize: '1.5rem', marginTop: '32px', marginBottom: '16px', color: 'var(--text-dark)' }}>Sustainable Sourcing</h2>

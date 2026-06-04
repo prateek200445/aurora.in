@@ -44,14 +44,17 @@ function MainApp() {
   }, [location.pathname, location.search]);
 
   useEffect(() => {
-    const handleHomeLogoClick = (e) => {
-      const link = e.target.closest('a');
-      if (link && link.getAttribute('href') === '/' && location.pathname === '/') {
+    const handleLogoClick = (e) => {
+      const target = e.target.closest('.site-logo, .footer-brand a');
+      if (target && location.pathname === '/') {
+        e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
-    document.addEventListener('click', handleHomeLogoClick);
-    return () => document.removeEventListener('click', handleHomeLogoClick);
+    document.addEventListener('click', handleLogoClick);
+    return () => {
+      document.removeEventListener('click', handleLogoClick);
+    };
   }, [location.pathname]);
 
   return (

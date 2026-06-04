@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BRAND_NAME, PROMO_CODE_AURORA10 } from '../utils/constants';
 
 export default function CartDrawer({ isOpen, onClose }) {
   const {
@@ -83,7 +84,7 @@ export default function CartDrawer({ isOpen, onClose }) {
               </div>
               <h3>Order Placed Successfully!</h3>
               <p>
-                Thank you for shopping with Aurora Goods. We have sent a confirmation email along with shipping details.
+                Thank you for shopping with {BRAND_NAME}. We have sent a confirmation email along with shipping details.
               </p>
               <button
                 className="btn btn-primary"
@@ -102,14 +103,8 @@ export default function CartDrawer({ isOpen, onClose }) {
               </div>
               <h3>Your cart is empty</h3>
               <p>Explore our premium collections and find everything you love today.</p>
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  onClose();
-                  navigate('/shop');
-                }}
-              >
-                Start Shopping 
+              <button className="btn btn-primary" onClick={onClose}>
+                Start Shopping
               </button>
             </div>
           ) : (
@@ -182,7 +177,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                   id="promo-code-input"
                   name="promoCode"
                   type="text"
-                  placeholder="Enter code (e.g. AURORA10)"
+                  placeholder={`Enter code (e.g. ${PROMO_CODE_AURORA10})`}
                   value={promoInput}
                   onChange={(e) => setPromoInput(e.target.value)}
                   disabled={couponApplied || isCouponLoading}
@@ -215,7 +210,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                 </p>
               )}
               {!couponApplied && (
-                <span className="promo-hint">Tip: Try promo code <strong>AURORA10</strong> to get 10% off</span>
+                <span className="promo-hint">Tip: Try promo code <strong>{PROMO_CODE_AURORA10}</strong> to get 10% off</span>
               )}
             </form>
 

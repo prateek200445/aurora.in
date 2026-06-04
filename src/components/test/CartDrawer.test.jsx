@@ -222,4 +222,15 @@ describe('CartDrawer', () => {
     expect(onCloseMock).toHaveBeenCalled()
     expect(mockNavigate).toHaveBeenCalledWith('/checkout')
   })
+
+  it('closes cart drawer and navigates to /shop when clicking start shopping button', () => {
+    const onCloseMock = vi.fn()
+    render(<CartDrawer isOpen={true} onClose={onCloseMock} />)
+
+    const startShoppingBtn = screen.getByRole('button', { name: /start shopping/i })
+    fireEvent.click(startShoppingBtn)
+
+    expect(onCloseMock).toHaveBeenCalled()
+    expect(mockNavigate).toHaveBeenCalledWith('/shop')
+  })
 })

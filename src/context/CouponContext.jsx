@@ -19,7 +19,7 @@ function loadStoredCouponState() {
 
     const legacyValue = window.localStorage.getItem(LEGACY_STORAGE_KEY);
     return legacyValue ? JSON.parse(legacyValue) : null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -60,7 +60,7 @@ export function CouponProvider({ children }) {
           setCouponApplied(false);
         }
       });
-    } catch (error) {
+    } catch {
       if (requestId !== latestCouponRequestId.current) {
         return;
       }
@@ -101,7 +101,7 @@ export function CouponProvider({ children }) {
           couponApplied
         })
       );
-    } catch (error) {
+    } catch {
     }
   }, [couponCode, discountPercent, couponMessage, couponApplied]);
 

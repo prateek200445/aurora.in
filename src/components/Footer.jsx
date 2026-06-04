@@ -1,8 +1,7 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BRAND_NAME, CONTACT_EMAIL, CONTACT_PHONE } from '../utils/constants';
 
 export default function Footer() {
-  const location = useLocation();
 
   return (
     <footer className="site-footer">

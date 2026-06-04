@@ -1,4 +1,4 @@
-import { useState, useTransition, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
@@ -14,7 +14,6 @@ import SuccessModal from '../components/checkout/SuccessModal';
 export default function Checkout() {
   const { cartItems, subtotal, clearCart } = useCart();
   const {
-    couponCode,
     discountPercent,
     couponMessage,
     isCouponLoading,

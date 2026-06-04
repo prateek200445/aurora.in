@@ -1,7 +1,7 @@
 import { useWishlist } from '../context/WishlistContext';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
-import { Heart, ArrowLeft, ShoppingBag } from 'lucide-react';
+import { Heart, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Wishlist({ onQuickView }) {

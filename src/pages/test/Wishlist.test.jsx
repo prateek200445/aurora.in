@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Wishlist from '../Wishlist'
 import { useWishlist } from '../../context/WishlistContext'
-import { useCart } from '../../context/CartContext'
 
 vi.mock('../../context/WishlistContext', () => ({
   useWishlist: vi.fn()

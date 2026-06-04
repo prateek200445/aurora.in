@@ -4,8 +4,6 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { MemoryRouter } from 'react-router-dom'
 import Home from '../Home'
-import { useCart } from '../../context/CartContext'
-import { useWishlist } from '../../context/WishlistContext'
 import { api } from '../../data/products'
 
 vi.mock('../../context/CartContext', () => ({

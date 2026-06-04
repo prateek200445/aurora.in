@@ -10,7 +10,6 @@ export default function CartDrawer({ isOpen, onClose }) {
     cartItems,
     updateQuantity,
     removeFromCart,
-    clearCart,
     subtotal
   } = useCart();
   const {
@@ -26,7 +25,6 @@ export default function CartDrawer({ isOpen, onClose }) {
 
   const navigate = useNavigate();
   const [promoInput, setPromoInput] = useState('');
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
 
   // Prevent background scrolling when Cart drawer is open
@@ -248,19 +246,9 @@ export default function CartDrawer({ isOpen, onClose }) {
             <button
               className="btn btn-primary btn-lg btn-checkout w-full"
               onClick={handleCheckout}
-              disabled={isCheckingOut}
             >
-              {isCheckingOut ? (
-                <>
-                  <span className="spinner"></span>
-                  <span>Processing Payment...</span>
-                </>
-              ) : (
-                <>
-                  <span>Checkout Securely</span>
-                  <ArrowRight className="icon-sm" />
-                </>
-              )}
+              <span>Checkout Securely</span>
+              <ArrowRight className="icon-sm" />
             </button>
           </div>
         )}

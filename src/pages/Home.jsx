@@ -20,10 +20,7 @@ export default function Home({ onQuickView }) {
   return (
     <div className="home-page">
       <HeroSection />
-
       <CollectionsSection />
-
-
       <section className="trust-badges-section">
         <div className="trust-badges-container">
           <div className="badge-item">

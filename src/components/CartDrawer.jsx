@@ -102,8 +102,14 @@ export default function CartDrawer({ isOpen, onClose }) {
               </div>
               <h3>Your cart is empty</h3>
               <p>Explore our premium collections and find everything you love today.</p>
-              <button className="btn btn-primary" onClick={onClose}>
-                Start Shopping
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  onClose();
+                  navigate('/shop');
+                }}
+              >
+                Start Shopping 
               </button>
             </div>
           ) : (

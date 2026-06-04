@@ -1,4 +1,5 @@
 import { vi } from 'vitest'
+import { isValidEmail } from '../utils/validation'
 
 function filterProducts(products, filters = {}) {
   let result = [...products]
@@ -77,7 +78,7 @@ export function createMockProductsModule(actual) {
         return { success: false, message: 'Invalid or expired promo code.' }
       }),
       subscribeNewsletter: vi.fn(async (email) => {
-        if (!email || !email.includes('@')) {
+        if (!isValidEmail(email)) {
           throw new Error('Please enter a valid email address.')
         }
 

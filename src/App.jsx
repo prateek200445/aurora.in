@@ -8,6 +8,7 @@ import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { CouponProvider } from './context/CouponContext';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import QuickViewModal from './components/QuickViewModal';
 
@@ -17,6 +18,10 @@ import ProductDetails from './pages/ProductDetails';
 import Wishlist from './pages/Wishlist';
 import Checkout from './pages/Checkout';
 import NotFound from './pages/NotFound';
+import Returns from './pages/Returns';
+import Sustainability from './pages/Sustainability';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 import './App.css';
 
@@ -38,6 +43,20 @@ function MainApp() {
     window.scrollTo(0, 0);
   }, [location.pathname, location.search]);
 
+  useEffect(() => {
+    const handleLogoClick = (e) => {
+      const target = e.target.closest('.site-logo, .footer-brand a');
+      if (target && location.pathname === '/') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    document.addEventListener('click', handleLogoClick);
+    return () => {
+      document.removeEventListener('click', handleLogoClick);
+    };
+  }, [location.pathname]);
+
   return (
     <div className="app-wrapper">
      
@@ -53,6 +72,10 @@ function MainApp() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/wishlist" element={<Wishlist onQuickView={setActiveQuickViewProduct} />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/returns" element={<Returns />} />
+          <Route path="/sustainability" element={<Sustainability />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
@@ -67,64 +90,7 @@ function MainApp() {
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} />
 
-      {/* Site Footer */}
-      
-      <footer className="site-footer">
-        <div className="footer-container">
-          <div className="footer-grid">
-            <div className="footer-column footer-about">
-              <h3 className="footer-brand" style={{ marginBottom: '10px' }}>
-                <Link
-                  to="/"
-                  onClick={(e) => {
-                    if (location.pathname === '/') {
-                      e.preventDefault();
-                      window.location.reload();
-                    }
-                  }}
-                  style={{ color: 'inherit', textDecoration: 'none' }}
-                >
-                  Aurora Goods
-                </Link>
-              </h3>
-              <p className="footer-about-desc" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                Designing modern essentials that seamlessly elevate your daily life. Consciously crafted, sustainably manufactured, and built to endure.
-              </p>
-            </div>
-            <div className="footer-column footer-links-column">
-              <h4>Shop Catalog</h4>
-              <ul>
-                <li><Link to="/shop?category=Apparel">Apparel</Link></li>
-                <li><Link to="/shop?category=Home%20Decor">Home Decor</Link></li>
-                <li><Link to="/shop?category=Skincare">Skincare</Link></li>
-                <li><Link to="/shop?category=Electronics">Electronics</Link></li>
-              </ul>
-            </div>
-            <div className="footer-column footer-links-column">
-              <h4>Customer Care</h4>
-              <ul>
-                <li><a href="#" onClick={(e) => e.preventDefault()}>Shipping Policy</a></li>
-                <li><a href="#" onClick={(e) => e.preventDefault()}>Return & Exchange</a></li>
-                <li><a href="#" onClick={(e) => e.preventDefault()}>Sustainable Sourcing</a></li>
-                <li><a href="#" onClick={(e) => e.preventDefault()}>FAQ Help Desk</a></li>
-              </ul>
-            </div>
-            <div className="footer-column footer-links-column">
-              <h4>Contact Us</h4>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '10px' }}>Got questions or feedback? Connect with our support team.</p>
-              <p className="email-contact" style={{ fontWeight: '700', color: 'var(--text-dark)' }}>hello@auroragoods.in</p>
-              <p className="phone-contact" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>+91 (800) 456-7890</p>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} Aurora Goods. All rights reserved.</p>
-            <div className="footer-legal-links">
-              <a href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginRight: '16px' }}>Privacy Policy</a>
-              <a href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Terms of Service</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import NewsletterForm from '../components/NewsletterForm';
 import ProductCard from '../components/ProductCard';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { FREE_SHIPPING_THRESHOLD } from '../utils/constants';
 
 export default function Home({ onQuickView }) {
 
@@ -30,7 +31,7 @@ export default function Home({ onQuickView }) {
             <Truck className="badge-icon" />
             <div className="badge-text">
               <h4>Free Shipping</h4>
-              <p>On all orders above ₹4,999</p>
+              <p>On all orders above ₹{FREE_SHIPPING_THRESHOLD.toLocaleString('en-IN')}</p>
             </div>
           </div>
           <div className="badge-item">

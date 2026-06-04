@@ -1,4 +1,6 @@
+import { isValidEmail } from '../utils/validation';
 import productsData from './products.json';
+import { PROMO_CODE_AURORA10, PROMO_CODE_FREESHIP } from '../utils/constants';
 
 export const collections = [
   {
@@ -117,10 +119,10 @@ export const api = {
     return new Promise((resolve) => {
       setTimeout(() => {
         const normalized = code.toUpperCase().trim();
-        if (normalized === 'AURORA10') {
-          resolve({ success: true, discountPercent: 10, message: 'AURORA10 applied: 10% Discount!' });
-        } else if (normalized === 'FREESHIP') {
-          resolve({ success: true, discountPercent: 0, message: 'FREESHIP applied: Free Shipping!' });
+        if (normalized === PROMO_CODE_AURORA10) {
+          resolve({ success: true, discountPercent: 10, message: `${PROMO_CODE_AURORA10} applied: 10% Discount!` });
+        } else if (normalized === PROMO_CODE_FREESHIP) {
+          resolve({ success: true, discountPercent: 0, message: `${PROMO_CODE_FREESHIP} applied: Free Shipping!` });
         } else {
           resolve({ success: false, message: 'Invalid or expired promo code.' });
         }
@@ -131,7 +133,7 @@ export const api = {
   subscribeNewsletter: async (email) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (!email || !email.includes('@')) {
+        if (!isValidEmail(email)) {
           reject(new Error('Please enter a valid email address.'));
           return;
         }

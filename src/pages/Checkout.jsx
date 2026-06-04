@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
 import { ArrowLeft, ShoppingBag } from 'lucide-react';
+import { toast } from 'react-toastify';
 import '../styles/checkout.css';
 
 import PincodeChecker from '../components/checkout/PincodeChecker';
@@ -179,7 +180,7 @@ export default function Checkout() {
     const { tag, name, phone, street, city, state, pincode } = newAddress;
 
     if (!name || !phone || !street || !city || !state || !pincode) {
-      alert('Please fill out all address fields.');
+      toast.error('Please fill out all address fields.');
       return;
     }
 
@@ -224,7 +225,7 @@ export default function Checkout() {
 
   const handlePlaceOrder = () => {
     if (!selectedAddressId) {
-      alert('Please add and select a shipping address before placing your order.');
+      toast.error('Please add and select a shipping address before placing your order.');
       return;
     }
     setIsPlacingOrder(true);

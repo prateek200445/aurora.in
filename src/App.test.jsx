@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderAppAt } from './test/renderApp.jsx'
+import { isValidEmail } from './utils/validation.js'
 
 vi.mock('./data/products', async () => {
   const actual = await vi.importActual('./data/products')
@@ -81,7 +82,7 @@ vi.mock('./data/products', async () => {
         return { success: false, message: 'Invalid or expired promo code.' }
       }),
       subscribeNewsletter: vi.fn(async (email) => {
-        if (!email || !email.includes('@')) {
+        if (!isValidEmail(email)) {
           throw new Error('Please enter a valid email address.')
         }
 

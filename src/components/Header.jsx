@@ -145,12 +145,6 @@ export default function Header({ onCartToggle, onQuickView }) {
           <Link
             to="/"
             className="site-logo"
-            onClick={(e) => {
-              if (location.pathname === '/') {
-                e.preventDefault();
-                window.location.reload();
-              }
-            }}
           >
             <span className="logo-full">Aurora Goods</span>
             <span className="logo-short">AG</span>

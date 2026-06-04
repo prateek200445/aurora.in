@@ -84,10 +84,16 @@ describe('CartDrawer', () => {
       total: 0
     })
 
-    render(<CartDrawer isOpen={true} onClose={vi.fn()} />)
+    const onCloseMock = vi.fn()
+    render(<CartDrawer isOpen={true} onClose={onCloseMock} />)
 
     expect(screen.getByText('Your cart is empty')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /start shopping/i })).toBeInTheDocument()
+    const startShoppingBtn = screen.getByRole('button', { name: /start shopping/i })
+    expect(startShoppingBtn).toBeInTheDocument()
+    
+    fireEvent.click(startShoppingBtn)
+    expect(onCloseMock).toHaveBeenCalled()
+    expect(mockNavigate).toHaveBeenCalledWith('/shop')
   })
 
   it('renders cart items and details correctly', () => {

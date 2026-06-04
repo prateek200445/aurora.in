@@ -20,7 +20,7 @@ export default function PincodeChecker({
       </div>
       
       <div className="pincode-checker-box">
-        <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+        <p className="pincode-desc">
           Enter your delivery pincode to check service availability. Enjoy static guaranteed 5-day delivery on all orders.
         </p>
         
@@ -35,8 +35,7 @@ export default function PincodeChecker({
           />
           <button 
             type="submit" 
-            className="btn btn-primary"
-            style={{ borderRadius: 'var(--radius-sm)' }}
+            className="btn btn-primary pincode-btn"
             disabled={isPincodeChecking}
           >
             {isPincodeChecking ? <span className="spinner-sm"></span> : 'Check'}
@@ -46,16 +45,16 @@ export default function PincodeChecker({
         {pincodeStatus && (
           <div className={`pincode-result ${pincodeStatus}`}>
             {pincodeStatus === 'success' ? (
-              <CheckCircle2 className="icon-xs" style={{ marginTop: '2px', flexShrink: 0 }} />
+              <CheckCircle2 className="icon-xs pincode-status-icon" />
             ) : (
-              <AlertCircle className="icon-xs" style={{ marginTop: '2px', flexShrink: 0 }} />
+              <AlertCircle className="icon-xs pincode-status-icon" />
             )}
             <span>{pincodeMessage}</span>
           </div>
         )}
 
         <div className="delivery-badge-card">
-          <Calendar className="icon-sm" style={{ color: 'var(--accent-color)' }} />
+          <Calendar className="icon-sm delivery-icon" />
           <div className="delivery-badge-text">
             Standard Delivery Guaranteed: <span>Delivered in 5 Days</span> ({deliveryDateString})
           </div>

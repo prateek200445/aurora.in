@@ -29,8 +29,8 @@ export default function ProductDetails() {
 
   if (isLoading) {
     return (
-      <div className="product-details-page loading" style={{ padding: '80px 24px', textAlign: 'center' }}>
-        <div className="spinner" style={{ margin: '0 auto 20px', width: '40px', height: '40px' }}></div>
+      <div className="product-details-page loading">
+        <div className="spinner"></div>
         <p>Loading product details...</p>
       </div>
     );
@@ -38,8 +38,8 @@ export default function ProductDetails() {
 
   if (isError || !product) {
     return (
-      <div className="product-details-page error" style={{ padding: '80px 24px', textAlign: 'center' }}>
-        <p style={{ color: 'var(--error-color)', marginBottom: '20px' }}>
+      <div className="product-details-page error">
+        <p className="product-details-error-msg">
           {error?.message || 'Product not found.'}
         </p>
         <Link to="/shop" className="btn btn-primary">
@@ -54,25 +54,25 @@ export default function ProductDetails() {
   const hasDiscount = product.discountPrice !== undefined;
 
   return (
-    <div className="product-details-page" style={{ padding: '40px 24px 80px', maxWidth: '1300px', margin: '0 auto' }}>
-      <Link to="/shop" className="btn btn-outline" style={{ marginBottom: '32px', padding: '8px 16px', fontSize: '0.9rem', display: 'inline-flex' }}>
+    <div className="product-details-page">
+      <Link to="/shop" className="btn btn-outline details-back-btn">
         <ArrowLeft className="icon-xs" />
         <span>Back to Catalog</span>
       </Link>
 
-      <div className="modal-grid" style={{ backgroundColor: 'var(--bg-card)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--border-card)', boxShadow: 'var(--shadow-md)', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0' }}>
-        <div className="modal-image-container" style={{ aspectRatio: '0.95', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="details-grid">
+        <div className="details-image-container">
           {product.isNew && <span className="modal-badge badge-new">New</span>}
           {product.isBestSeller && <span className="modal-badge badge-bestseller">Best Seller</span>}
-          <img src={product.image} alt={product.name} className="modal-image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={product.image} alt={product.name} className="details-image" />
         </div>
 
-        <div className="modal-details" style={{ padding: '50px' }}>
+        <div className="details-info-pane">
           <span className="modal-category">{product.category}</span>
-          <h1 className="modal-title" style={{ fontSize: '2.2rem', marginBottom: '16px' }}>{product.name}</h1>
+          <h1 className="details-title">{product.name}</h1>
 
           {/* Star Rating */}
-          <div className="modal-rating" style={{ marginBottom: '20px' }}>
+          <div className="details-rating-row">
             <div className="stars">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
@@ -86,25 +86,25 @@ export default function ProductDetails() {
             <span className="reviews-count">({product.reviewsCount} verified customer reviews)</span>
           </div>
 
-          <div className="modal-price" style={{ marginBottom: '24px' }}>
+          <div className="details-price-row">
             {hasDiscount ? (
               <>
-                <span className="price price-discount" style={{ fontSize: '2rem' }}>₹{product.discountPrice?.toLocaleString('en-IN')}</span>
-                <span className="price price-original" style={{ fontSize: '1.25rem' }}>₹{product.price.toLocaleString('en-IN')}</span>
+                <span className="price price-discount details-price-discount">₹{product.discountPrice?.toLocaleString('en-IN')}</span>
+                <span className="price price-original details-price-original">₹{product.price.toLocaleString('en-IN')}</span>
               </>
             ) : (
-              <span className="price" style={{ fontSize: '2rem' }}>₹{product.price.toLocaleString('en-IN')}</span>
+              <span className="price details-price-regular">₹{product.price.toLocaleString('en-IN')}</span>
             )}
           </div>
 
-          <p className="modal-description" style={{ fontSize: '1.02rem', lineHeight: '1.7', marginBottom: '32px' }}>{product.description}</p>
+          <p className="details-description">{product.description}</p>
 
           {/* Features Checklist */}
-          <div className="modal-features" style={{ marginBottom: '32px' }}>
-            <h4 className="features-heading" style={{ fontSize: '1.05rem', marginBottom: '16px' }}>Product Specifications:</h4>
+          <div className="details-features-section">
+            <h4 className="details-features-heading">Product Specifications:</h4>
             <ul className="features-list">
               {product.features.map((feature, i) => (
-                <li key={i} className="feature-item" style={{ marginBottom: '8px' }}>
+                <li key={i} className="details-feature-item">
                   <Check className="feature-check" />
                   <span>{feature}</span>
                 </li>
@@ -113,7 +113,7 @@ export default function ProductDetails() {
           </div>
 
           {/* Inventory Status */}
-          <div className="modal-status" style={{ marginBottom: '36px' }}>
+          <div className="details-status-row">
             <span className={`status-indicator ${product.inStock ? 'in-stock' : 'out-of-stock'}`}></span>
             <span className="status-text">
               {product.inStock ? 'In Stock — Dispatched within 24 hours' : 'Out of Stock'}
@@ -121,12 +121,11 @@ export default function ProductDetails() {
           </div>
 
           {/* Action Buttons */}
-          <div className="modal-actions" style={{ gap: '20px' }}>
+          <div className="details-actions-row">
             <button
-              className="btn btn-primary btn-lg flex-1"
+              className="btn btn-primary btn-lg flex-1 details-action-btn"
               onClick={() => addToCart(product)}
               disabled={!product.inStock}
-              style={{ padding: '16px' }}
             >
               <ShoppingBag className="icon-sm" />
               <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
@@ -135,7 +134,6 @@ export default function ProductDetails() {
               className={`btn btn-outline btn-lg btn-wishlist-toggle ${isWishlisted ? 'active' : ''}`}
               onClick={() => toggleWishlist(product.id)}
               aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-              style={{ padding: '16px' }}
             >
               <Heart className="icon-sm" fill={isWishlisted ? 'var(--accent-color)' : 'none'} />
               <span>{isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}</span>
@@ -144,18 +142,18 @@ export default function ProductDetails() {
 
           {/* Shipping Perks Footer Info */}
           
-          <div style={{ marginTop: '40px', paddingTop: '24px', borderTop: '1px solid var(--border-card)', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', textAlign: 'center' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-              <Truck className="icon-sm" style={{ color: 'var(--accent-color)' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-dark)' }}>Free Shipping</span>
+          <div className="details-trust-badges">
+            <div className="details-trust-item">
+              <Truck className="icon-sm details-trust-icon" />
+              <span className="details-trust-text">Free Shipping</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-              <RotateCcw className="icon-sm" style={{ color: 'var(--accent-color)' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-dark)' }}>7 Day Returns</span>
+            <div className="details-trust-item">
+              <RotateCcw className="icon-sm details-trust-icon" />
+              <span className="details-trust-text">7 Day Returns</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-              <Shield className="icon-sm" style={{ color: 'var(--accent-color)' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-dark)' }}>Secured Checkout</span>
+            <div className="details-trust-item">
+              <Shield className="icon-sm details-trust-icon" />
+              <span className="details-trust-text">Secured Checkout</span>
             </div>
           </div>
         </div>
@@ -164,9 +162,9 @@ export default function ProductDetails() {
       {/* Related Products Showcase */}
       
       {relatedProducts.length > 0 && (
-        <section className="product-section" style={{ marginTop: '80px', paddingLeft: '0', paddingRight: '0' }}>
+        <section className="product-section details-related-section">
           <div className="section-container">
-            <div className="section-header" style={{ marginBottom: '40px' }}>
+            <div className="section-header details-related-header">
               <div>
                 <span className="section-subtitle">Customers Also Viewed</span>
                 <h2 className="section-title">Related Essentials</h2>
@@ -175,17 +173,17 @@ export default function ProductDetails() {
 
             <div className="products-grid">
               {relatedProducts.map((p) => (
-                <div key={p.id} style={{ position: 'relative' }}>
+                <div key={p.id} className="details-related-card-wrap">
 
-                  <Link to={`/product/${p.id}`} style={{ position: 'absolute', inset: '0', zIndex: '2' }} />
-                  <div style={{ position: 'relative', zIndex: '3', pointerEvents: 'none' }}>
-                    <div style={{ pointerEvents: 'auto' }}>
+                  <Link to={`/product/${p.id}`} className="details-related-link-overlay" />
+                  <div className="details-related-inner">
+                    <div className="details-related-interactive">
                       <Link to={`/product/${p.id}`}>
-                        <img src={p.image} alt={p.name} style={{ width: '100%', aspectRatio: '0.92', objectFit: 'cover', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-card)', marginBottom: '12px' }} />
+                        <img src={p.image} alt={p.name} className="details-related-img" />
                       </Link>
-                      <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '700', letterSpacing: '1px', display: 'block', marginBottom: '4px' }}>{p.category}</span>
-                      <h4 style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-dark)', marginBottom: '6px' }}>{p.name}</h4>
-                      <span style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--text-dark)' }}>₹{p.price.toLocaleString('en-IN')}</span>
+                      <span className="details-related-category">{p.category}</span>
+                      <h4 className="details-related-name">{p.name}</h4>
+                      <span className="details-related-price">₹{p.price.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
                 </div>

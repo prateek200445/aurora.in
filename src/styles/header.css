@@ -363,6 +363,7 @@ body.no-scroll {
   background-color: rgba(14, 63, 76, 0.08);
 }
 
+.action-btn .cart-badge,
 .cart-trigger .cart-badge {
   position: absolute;
   top: 0;
@@ -378,6 +379,10 @@ body.no-scroll {
   align-items: center;
   justify-content: center;
   border: 2px solid var(--bg-primary);
+}
+
+.wishlist-active {
+  color: var(--accent-color) !important;
 }
 
 .search-wrapper {

@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="footer-container">
         <div className="footer-grid">
           <div className="footer-column footer-about">
-            <h3 className="footer-brand" style={{ marginBottom: '10px' }}>
+            <h3 className="footer-brand">
               <Link
                 to="/"
                 className="site-logo"
@@ -17,7 +17,7 @@ export default function Footer() {
                 {BRAND_NAME}
               </Link>
             </h3>
-            <p className="footer-about-desc" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>
+            <p className="footer-about-desc">
               Designing modern essentials that seamlessly elevate your daily life. Consciously crafted, sustainably manufactured, and built to endure.
             </p>
           </div>
@@ -39,16 +39,16 @@ export default function Footer() {
           </div>
           <div className="footer-column footer-links-column">
             <h4>Contact Us</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '10px' }}>Got questions or feedback? Connect with our support team.</p>
-            <p className="email-contact" style={{ fontWeight: '700', color: 'var(--text-dark)' }}>{CONTACT_EMAIL}</p>
-            <p className="phone-contact" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{CONTACT_PHONE}</p>
+            <p className="contact-desc">Got questions or feedback? Connect with our support team.</p>
+            <p className="email-contact">{CONTACT_EMAIL}</p>
+            <p className="phone-contact">{CONTACT_PHONE}</p>
           </div>
         </div>
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} {BRAND_NAME}. All rights reserved.</p>
           <div className="footer-legal-links">
-            <Link to="/privacy" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginRight: '16px' }}>Privacy Policy</Link>
-            <Link to="/terms" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Terms of Service</Link>
+            <Link to="/privacy" className="footer-legal-link">Privacy Policy</Link>
+            <Link to="/terms" className="footer-legal-link">Terms of Service</Link>
           </div>
         </div>
       </div>

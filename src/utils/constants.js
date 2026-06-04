@@ -5,3 +5,12 @@ export const CONTACT_PHONE = '+91 (800) 456-7890';
 export const FREE_SHIPPING_THRESHOLD = 4999;
 export const PROMO_CODE_AURORA10 = 'AURORA10';
 export const PROMO_CODE_FREESHIP = 'FREESHIP';
+
+export const HERO_GRID_CARDS = [
+  { productId: 'prod-5', className: 'card-1' },
+  { productId: 'prod-3', className: 'card-2' },
+  { productId: 'prod-2', className: 'card-3' },
+  { productId: 'prod-4', className: 'card-4' },
+  { productId: 'prod-1', className: 'card-5' },
+  { productId: 'prod-8', className: 'card-6' }
+];

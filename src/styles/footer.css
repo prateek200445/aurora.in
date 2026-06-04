@@ -66,6 +66,42 @@
   font-weight: 800;
   color: var(--text-dark);
   letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+
+.footer-about-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.contact-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.email-contact {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.phone-contact {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.footer-legal-links {
+  display: inline-flex;
+}
+
+.footer-legal-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-legal-link:first-child {
+  margin-right: 16px;
 }
 
 .footer-about {

@@ -19,7 +19,7 @@ function loadStoredCartState() {
 
     const legacyValue = window.localStorage.getItem(LEGACY_STORAGE_KEY);
     return legacyValue ? JSON.parse(legacyValue) : null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -52,10 +52,6 @@ function isValidProduct(product) {
     product.id != null &&
     typeof product.price === 'number'
   );
-}
-
-function roundMoney(value) {
-  return Math.round((value + Number.EPSILON) * 100) / 100;
 }
 
 export function CartProvider({ children }) {
@@ -137,7 +133,7 @@ export function CartProvider({ children }) {
           cartById
         })
       );
-    } catch (error) {
+    } catch {
     }
   }, [cartById]);
 

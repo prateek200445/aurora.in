@@ -57,7 +57,7 @@ export default function Shop({ onQuickView }) {
   };
 
   return (
-    <div className="shop-page" style={{ padding: '40px 0 80px' }}>
+    <div className="shop-page">
       <section className="product-section" id="products">
         <div className="section-container">
 
@@ -76,9 +76,9 @@ export default function Shop({ onQuickView }) {
             </div>
 
             {/* Search and Filter Result Banners */}
-            <div className="banners-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '16px' }}>
+            <div className="banners-container">
               {searchQuery && (
-                <div className="search-banner" style={{ margin: 0 }}>
+                <div className="search-banner">
                   <span>Showing results for "<strong>{searchQuery}</strong>"</span>
                   <button onClick={handleSearchClear} className="btn-clear-search">
                     <X className="icon-xs" />
@@ -87,7 +87,7 @@ export default function Shop({ onQuickView }) {
               )}
 
               {selectedFilter && (
-                <div className="search-banner" style={{ margin: 0 }}>
+                <div className="search-banner">
                   <span>Filtered by: <strong>{
                     selectedFilter === 'new' ? 'New Arrivals' :
                     selectedFilter === 'bestseller' ? 'Best Sellers' : 'Sale'

@@ -8,7 +8,7 @@ export default function AddressForm({
 }) {
   return (
     <div className="address-form-container">
-      <h4 style={{ fontSize: '0.95rem', fontWeight: '700', marginBottom: '16px', color: 'var(--text-dark)' }}>New Delivery Address</h4>
+      <h4 className="address-form-title">New Delivery Address</h4>
       <form onSubmit={handleNewAddressSubmit}>
         <div className="form-grid">
           <div className="form-group">
@@ -108,16 +108,14 @@ export default function AddressForm({
         <div className="form-actions">
           <button 
             type="button" 
-            className="btn btn-outline"
+            className="btn btn-outline address-form-btn"
             onClick={() => setShowAddressForm(false)}
-            style={{ padding: '8px 16px', borderRadius: 'var(--radius-sm)' }}
           >
             Cancel
           </button>
           <button 
             type="submit" 
-            className="btn btn-primary"
-            style={{ padding: '8px 16px', borderRadius: 'var(--radius-sm)' }}
+            className="btn btn-primary address-form-btn"
           >
             Save & Use Address
           </button>

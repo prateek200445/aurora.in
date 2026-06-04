@@ -22,7 +22,7 @@ function loadStoredWishlist() {
 
     const legacyState = JSON.parse(legacyValue);
     return legacyState?.wishlist ?? [];
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -41,7 +41,7 @@ export function WishlistProvider({ children }) {
   useEffect(() => {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wishlist));
-    } catch (error) {
+    } catch {
     }
   }, [wishlist]);
 

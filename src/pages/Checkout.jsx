@@ -1,4 +1,4 @@
-import { useState, useTransition, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
@@ -11,29 +11,9 @@ import PaymentSection from '../components/checkout/PaymentSection';
 import OrderSummary from '../components/checkout/OrderSummary';
 import SuccessModal from '../components/checkout/SuccessModal';
 
-const INITIAL_ADDRESSES = [
-  {
-    id: '1',
-    tag: 'Home (Default)',
-    name: 'Prateek Sharma',
-    details: '123, Lavender Heights, Sector 62, Noida, Uttar Pradesh',
-    pincode: '201301',
-    phone: '+91 98765 43210'
-  },
-  {
-    id: '2',
-    tag: 'Office',
-    name: 'Prateek Sharma',
-    details: 'Block B, Sector 63, Noida, Uttar Pradesh',
-    pincode: '201301',
-    phone: '+91 98765 49999'
-  }
-];
-
 export default function Checkout() {
   const { cartItems, subtotal, clearCart } = useCart();
   const {
-    couponCode,
     discountPercent,
     couponMessage,
     isCouponLoading,
@@ -232,7 +212,7 @@ export default function Checkout() {
     setTimeout(() => {
       setIsPlacingOrder(false);
       setIsOrderPlaced(true);
-      setPlacedOrderId(`AUR-2026-${Math.floor(100000 + Math.random() * 900000)}`);
+      setPlacedOrderId(`AUR-2026-${crypto.randomUUID().slice(0, 8).toUpperCase()}`);
     }, 1800);
   };
 
@@ -251,11 +231,11 @@ export default function Checkout() {
     return (
       <div className="checkout-page empty-checkout-page">
         <div className="grid-empty-state checkout-empty-state">
-          <div className="empty-search-icon" style={{ marginBottom: '20px' }}>
-            <ShoppingBag className="icon-lg" style={{ color: 'var(--text-muted)', margin: '0 auto' }} />
+          <div className="empty-icon-box">
+            <ShoppingBag className="icon-lg empty-shopping-bag" />
           </div>
-          <h3 style={{ fontSize: '1.40rem', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '8px' }}>Your cart is empty</h3>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
+          <h3 className="empty-cart-title">Your cart is empty</h3>
+          <p className="empty-cart-text">
             You cannot proceed to checkout without items in your cart. Add premium essentials to your bag first.
           </p>
           <Link to="/shop" className="btn btn-primary">
@@ -271,7 +251,7 @@ export default function Checkout() {
       <div className="checkout-header">
         <div>
           <span className="section-subtitle">Secure Checkout</span>
-          <h1 className="section-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--text-dark)' }}>Checkout</h1>
+          <h1 className="section-title checkout-title">Checkout</h1>
         </div>
         <Link to="/shop" className="btn btn-outline checkout-back-btn">
           <ArrowLeft className="icon-xs" />

@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { api } from '../data/products';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { BRAND_NAME, BRAND_SHORT } from '../utils/constants';
 
 export default function Header({ onCartToggle, onQuickView }) {
   const navigate = useNavigate();
@@ -146,8 +147,8 @@ export default function Header({ onCartToggle, onQuickView }) {
             to="/"
             className="site-logo"
           >
-            <span className="logo-full">Aurora Goods</span>
-            <span className="logo-short">AG</span>
+            <span className="logo-full">{BRAND_NAME}</span>
+            <span className="logo-short">{BRAND_SHORT}</span>
           </Link>
         </div>
 
@@ -262,15 +263,13 @@ export default function Header({ onCartToggle, onQuickView }) {
             )}
           </div>
 
-          {/* Wishlist Link Shortcut */}
-          <Link to="/wishlist" className="action-btn" aria-label="View Wishlist" style={{ position: 'relative' }} onClick={closeMobileMenu}>
+          <Link to="/wishlist" className="action-btn" aria-label="View Wishlist" onClick={closeMobileMenu}>
             <Heart 
-              className="icon" 
+              className={`icon ${wishlist.length > 0 ? 'wishlist-active' : ''}`}
               fill={wishlist.length > 0 ? 'var(--accent-color)' : 'none'} 
-              style={{ color: wishlist.length > 0 ? 'var(--accent-color)' : 'var(--text-dark)' }} 
             />
             {wishlist.length > 0 && (
-              <span className="cart-badge" style={{ position: 'absolute', top: '0', right: '0', backgroundColor: 'var(--accent-color)', width: '16px', height: '16px', border: '2px solid var(--bg-primary)' }}>
+              <span className="cart-badge">
                 {wishlist.length}
               </span>
             )}

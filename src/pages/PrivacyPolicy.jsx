@@ -1,4 +1,4 @@
-export default function PrivacyPolicy() {
+const PrivacyPolicy = () => {
   return (
     <div className="privacy-policy-page" style={{ padding: '80px 24px', maxWidth: '800px', margin: '0 auto', fontFamily: 'inherit' }}>
       <h1 style={{ fontSize: '2.5rem', marginBottom: '24px', color: 'var(--text-dark)', fontWeight: '800' }}>
@@ -25,3 +25,5 @@ export default function PrivacyPolicy() {
     </div>
   );
 }
+
+export default PrivacyPolicy;

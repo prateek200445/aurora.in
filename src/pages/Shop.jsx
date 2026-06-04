@@ -1,37 +1,35 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
-import { api } from '../data/products';
-import ProductCard from '../components/ProductCard';
-import { ArrowUpDown, Search, RefreshCw, X } from 'lucide-react';
+import { useProducts } from '../hooks/useProducts';
+import {
+  CategoryTabs,
+  SortControls,
+  SearchBanner,
+  FilterBanner,
+  ProductSkeletonGrid,
+  ProductGridError,
+  ProductGridEmpty,
+  ProductsList
+} from '../components/ProductCatalogShared';
 
 export default function Shop({ onQuickView }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get('category') || 'All';
   const searchQuery = searchParams.get('search') || '';
   const selectedFilter = searchParams.get('filter') || ''; // 'new', 'bestseller', 'sale'
-  const [sortBy, setSortBy] = useState('featured');
 
   const {
-    data: productsList = [],
+    productsList,
     isLoading,
     isError,
     error,
     refetch,
-    isFetching
-  } = useQuery({
-    queryKey: ['products', selectedCategory, searchQuery, selectedFilter, sortBy],
-    queryFn: () => {
-      const params = {
-        category: selectedCategory,
-        search: searchQuery,
-        sortBy: sortBy
-      };
-      if (selectedFilter) {
-        params.filter = selectedFilter;
-      }
-      return api.getProducts(params);
-    }
+    isFetching,
+    sortBy,
+    setSortBy
+  } = useProducts({
+    category: selectedCategory,
+    search: searchQuery,
+    filter: selectedFilter
   });
 
   const categories = ['All', 'Apparel', 'Home Decor', 'Skincare', 'Electronics'];
@@ -52,6 +50,14 @@ export default function Shop({ onQuickView }) {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev.toString());
       next.delete('search');
+      return next;
+    });
+  };
+
+  const handleFilterClear = () => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev.toString());
+      next.delete('filter');
       return next;
     });
   };
@@ -77,140 +83,60 @@ export default function Shop({ onQuickView }) {
 
             {/* Search and Filter Result Banners */}
             <div className="banners-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '16px' }}>
-              {searchQuery && (
-                <div className="search-banner" style={{ margin: 0 }}>
-                  <span>Showing results for "<strong>{searchQuery}</strong>"</span>
-                  <button onClick={handleSearchClear} className="btn-clear-search">
-                    <X className="icon-xs" />
-                  </button>
-                </div>
-              )}
+              <SearchBanner
+                searchQuery={searchQuery}
+                onSearchClear={handleSearchClear}
+                style={{ margin: 0 }}
+              />
 
-              {selectedFilter && (
-                <div className="search-banner" style={{ margin: 0 }}>
-                  <span>Filtered by: <strong>{
-                    selectedFilter === 'new' ? 'New Arrivals' :
-                    selectedFilter === 'bestseller' ? 'Best Sellers' : 'Sale'
-                  }</strong></span>
-                  <button 
-                    onClick={() => setSearchParams((prev) => {
-                      const next = new URLSearchParams(prev.toString());
-                      next.delete('filter');
-                      return next;
-                    })} 
-                    className="btn-clear-search"
-                    aria-label="Clear filter"
-                  >
-                    <X className="icon-xs" />
-                  </button>
-                </div>
-              )}
+              <FilterBanner
+                selectedFilter={selectedFilter}
+                onFilterClear={handleFilterClear}
+                style={{ margin: 0 }}
+              />
             </div>
           </div>
 
           {/* Filter and Sort Toolbar */}
           <div className="toolbar-container">
-            {/* Category Tabs */}
-            <div className="tabs-container">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  className={`tab-btn ${selectedCategory === cat ? 'active' : ''}`}
-                  onClick={() => handleCategorySelect(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+            <CategoryTabs
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategorySelect={handleCategorySelect}
+            />
 
-            {/* Sort Controls */}
-            <div className="sort-controls">
-              <div className="sort-select-wrapper">
-                <ArrowUpDown className="sort-icon" />
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="sort-select"
-                  aria-label="Sort products"
-                >
-                  <option value="featured">Featured</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Top Rated</option>
-                </select>
-              </div>
-
-              {/* Manual Refetch */}
-              <button
-                onClick={() => refetch()}
-                className={`btn-refetch ${isFetching && !isLoading ? 'spinning' : ''}`}
-                title="Refresh Products"
-                aria-label="Refresh product list"
-              >
-                <RefreshCw className="icon-sm" />
-              </button>
-            </div>
+            <SortControls
+              sortBy={sortBy}
+              onSortChange={setSortBy}
+              onRefresh={refetch}
+              isFetching={isFetching}
+              isLoading={isLoading}
+            />
           </div>
 
           {/* Error State */}
           {isError && (
-            <div className="grid-error-state">
-              <p>Failed to load products: {error?.message || 'Unknown error'}</p>
-              <button onClick={() => refetch()} className="btn btn-primary">
-                <RefreshCw className="icon-sm" />
-                <span>Retry Load</span>
-              </button>
-            </div>
+            <ProductGridError message={error?.message} onRetry={refetch} />
           )}
 
           {/* Loading Skeletons */}
           {isLoading && (
-            <div className="products-grid">
-              {Array.from({ length: 8 }).map((_, idx) => (
-                <div key={idx} className="skeleton-card">
-                  <div className="skeleton-image pulse"></div>
-                  <div className="skeleton-details">
-                    <div className="skeleton-line pulse w-33"></div>
-                    <div className="skeleton-line pulse w-75"></div>
-                    <div className="skeleton-line pulse w-50"></div>
-                    <div className="skeleton-line pulse w-25"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ProductSkeletonGrid count={8} />
           )}
 
           {/* Empty State */}
           {!isLoading && !isError && productsList.length === 0 && (
-            <div className="grid-empty-state">
-              <div className="empty-search-icon">
-                <Search className="icon-lg" />
-              </div>
-              <h3>No products found</h3>
-              <p>We couldn't find anything matching your filters or search query. Try resetting them.</p>
-              <button
-                onClick={() => {
-                  setSearchParams({});
-                  setSortBy('featured');
-                }}
-                className="btn btn-outline"
-              >
-                Reset Filters
-              </button>
-            </div>
+            <ProductGridEmpty
+              onReset={() => {
+                setSearchParams({});
+                setSortBy('featured');
+              }}
+            />
           )}
 
           {/* Products Grid */}
           {!isLoading && !isError && productsList.length > 0 && (
-            <div className="products-grid">
-              {productsList.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onQuickView={onQuickView}
-                />
-              ))}
-            </div>
+            <ProductsList products={productsList} onQuickView={onQuickView} />
           )}
         </div>
       </section>

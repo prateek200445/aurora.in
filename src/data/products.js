@@ -1,4 +1,5 @@
 import productsData from './products.json';
+import { isValidEmail } from '../utils/validation';
 
 export const collections = [
   {
@@ -131,7 +132,7 @@ export const api = {
   subscribeNewsletter: async (email) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (!email || !email.includes('@')) {
+        if (!isValidEmail(email)) {
           reject(new Error('Please enter a valid email address.'));
           return;
         }

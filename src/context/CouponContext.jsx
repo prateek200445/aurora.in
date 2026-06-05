@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState, useTransition, useCallback } from 'react';
 import { api } from '../data/products';
 import { useCart } from './CartContext';
 
@@ -38,7 +38,7 @@ export function CouponProvider({ children }) {
   const [couponApplied, setCouponApplied] = useState(() => storedState?.couponApplied ?? false);
   const [isPending, startTransition] = useTransition();
 
-  const applyPromoCode = async (code) => {
+  const applyPromoCode = useCallback(async (code) => {
     const requestId = ++latestCouponRequestId.current;
 
     try {
@@ -71,14 +71,14 @@ export function CouponProvider({ children }) {
         setCouponApplied(false);
       });
     }
-  };
+  }, []);
 
-  const removePromoCode = () => {
+  const removePromoCode = useCallback(() => {
     setCouponCode('');
     setDiscountPercent(0);
     setCouponMessage('');
     setCouponApplied(false);
-  };
+  }, []);
 
   const discountAmount = useMemo(
     () => roundMoney((subtotal * discountPercent) / 100),
@@ -121,6 +121,8 @@ export function CouponProvider({ children }) {
     couponMessage,
     isPending,
     couponApplied,
+    applyPromoCode,
+    removePromoCode,
     discountAmount,
     total
   ]);

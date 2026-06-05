@@ -1,5 +1,7 @@
 import React from 'react';
 import { ShoppingBag, ShieldCheck } from 'lucide-react';
+import { formatCurrency } from '../../utils/helpers';
+import Spinner from '../Spinner';
 
 export default function OrderSummary({
   cartItems,
@@ -43,10 +45,10 @@ export default function OrderSummary({
                 />
                 <div className="checkout-item-details">
                   <div className="checkout-item-title">{item.product.name}</div>
-                  <div className="checkout-item-qty">Qty: {item.quantity} • ₹{activePrice.toLocaleString('en-IN')}</div>
+                  <div className="checkout-item-qty">Qty: {item.quantity} • {formatCurrency(activePrice)}</div>
                 </div>
                 <div className="checkout-item-total">
-                  ₹{(activePrice * item.quantity).toLocaleString('en-IN')}
+                  {formatCurrency(activePrice * item.quantity)}
                 </div>
               </div>
             );
@@ -86,7 +88,7 @@ export default function OrderSummary({
                   disabled={isCouponLoading || !promoInput.trim()}
                   className="btn btn-sm btn-primary btn-promo-apply"
                 >
-                  {isCouponLoading ? <span className="spinner-sm"></span> : 'Apply'}
+                  {isCouponLoading ? <Spinner size="sm" /> : 'Apply'}
                 </button>
               )}
             </div>
@@ -137,12 +139,12 @@ export default function OrderSummary({
         <div className="checkout-summary-breakdown">
           <div className="checkout-summary-row">
             <span>Subtotal</span>
-            <span>₹{subtotal.toLocaleString('en-IN')}</span>
+            <span>{formatCurrency(subtotal)}</span>
           </div>
           {couponApplied && (
             <div className="checkout-summary-row discount">
               <span>Discount ({discountPercent}%)</span>
-              <span>-₹{discountAmount.toLocaleString('en-IN')}</span>
+              <span>-{formatCurrency(discountAmount)}</span>
             </div>
           )}
           <div className="checkout-summary-row">
@@ -153,7 +155,7 @@ export default function OrderSummary({
 
         <div className="checkout-summary-row total">
           <span>Total</span>
-          <span>₹{total.toLocaleString('en-IN')}</span>
+          <span>{formatCurrency(total)}</span>
         </div>
 
         {/* Place Order Button */}
@@ -168,7 +170,7 @@ export default function OrderSummary({
         >
           {isPlacingOrder ? (
             <>
-              <span className="spinner-sm"></span>
+              <Spinner size="sm" />
               <span>Placing Order...</span>
             </>
           ) : !selectedAddressId ? (

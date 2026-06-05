@@ -1,7 +1,10 @@
-import { X, Heart, ShoppingBag, Check, Star } from 'lucide-react';
+import { X, Heart, ShoppingBag, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useEffect, useRef } from 'react';
+import { formatCurrency } from '../utils/helpers';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
+import RatingStars from './RatingStars';
 
 export default function QuickViewModal({ product, onClose }) {
   const { addToCart } = useCart();
@@ -21,14 +24,7 @@ export default function QuickViewModal({ product, onClose }) {
   }, [onClose]);
 
   // Prevent background scrolling when Quick View modal is open
-  useEffect(() => {
-    document.body.classList.add('no-scroll');
-    document.documentElement.classList.add('no-scroll');
-    return () => {
-      document.body.classList.remove('no-scroll');
-      document.documentElement.classList.remove('no-scroll');
-    };
-  }, []);
+  useLockBodyScroll(true);
 
   // Click outside modal content closes modal
   const handleOverlayClick = (e) => {
@@ -64,15 +60,7 @@ export default function QuickViewModal({ product, onClose }) {
 
             {/* Star Rating */}
             <div className="modal-rating">
-              <div className="stars">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`star-icon ${i < Math.floor(product.rating) ? 'filled' : ''}`}
-                    fill={i < Math.floor(product.rating) ? 'var(--star-color)' : 'none'}
-                  />
-                ))}
-              </div>
+              <RatingStars rating={product.rating} />
               <span className="rating-value">{product.rating}</span>
               <span className="reviews-count">({product.reviewsCount} verified reviews)</span>
             </div>
@@ -81,11 +69,11 @@ export default function QuickViewModal({ product, onClose }) {
             <div className="modal-price">
               {hasDiscount ? (
                 <>
-                  <span className="price price-discount">₹{product.discountPrice?.toLocaleString('en-IN')}</span>
-                  <span className="price price-original">₹{product.price.toLocaleString('en-IN')}</span>
+                  <span className="price price-discount">{formatCurrency(product.discountPrice)}</span>
+                  <span className="price price-original">{formatCurrency(product.price)}</span>
                 </>
               ) : (
-                <span className="price">₹{product.price.toLocaleString('en-IN')}</span>
+                <span className="price">{formatCurrency(product.price)}</span>
               )}
             </div>
 

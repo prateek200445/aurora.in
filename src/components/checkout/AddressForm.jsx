@@ -1,4 +1,5 @@
 import React from 'react';
+import { cleanPincode } from '../../utils/validation';
 
 export default function AddressForm({
   newAddress,
@@ -61,7 +62,7 @@ export default function AddressForm({
               className="checkout-input"
               placeholder="e.g. 201301"
               value={newAddress.pincode}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, pincode: e.target.value.replace(/\D/g, '') }))}
+              onChange={(e) => setNewAddress(prev => ({ ...prev, pincode: cleanPincode(e.target.value) }))}
             />
           </div>
 

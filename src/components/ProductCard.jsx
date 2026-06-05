@@ -1,7 +1,9 @@
-import { Heart, ShoppingBag, Eye, Star } from 'lucide-react';
+import { Heart, ShoppingBag, Eye } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { Link } from 'react-router-dom';
+import { formatCurrency, calculateDiscountPercentage } from '../utils/helpers';
+import RatingStars from './RatingStars';
 
 export default function ProductCard({ product, onQuickView }) {
   const { addToCart } = useCart();
@@ -9,6 +11,7 @@ export default function ProductCard({ product, onQuickView }) {
   const isWishlisted = wishlist.includes(product.id);
 
   const hasDiscount = product.discountPrice !== undefined;
+  const discountPercentage = calculateDiscountPercentage(product.price, product.discountPrice);
 
   return (
     <div className="product-card">
@@ -19,7 +22,7 @@ export default function ProductCard({ product, onQuickView }) {
           {product.isBestSeller && <span className="badge badge-bestseller">Best Seller</span>}
           {hasDiscount && (
             <span className="badge badge-sale">
-              -{Math.round(((product.price - (product.discountPrice ?? 0)) / product.price) * 100)}%
+              -{discountPercentage}%
             </span>
           )}
         </div>
@@ -73,15 +76,7 @@ export default function ProductCard({ product, onQuickView }) {
 
         {/* Ratings */}
         <div className="product-card-rating">
-          <div className="stars">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className={`star-icon ${i < Math.floor(product.rating) ? 'filled' : ''}`}
-                fill={i < Math.floor(product.rating) ? 'var(--star-color)' : 'none'}
-              />
-            ))}
-          </div>
+          <RatingStars rating={product.rating} />
           <span className="rating-value">{product.rating}</span>
           <span className="reviews-count">({product.reviewsCount})</span>
         </div>
@@ -90,11 +85,11 @@ export default function ProductCard({ product, onQuickView }) {
         <div className="product-card-price-container">
           {hasDiscount ? (
             <>
-              <span className="price price-discount">₹{product.discountPrice?.toLocaleString('en-IN')}</span>
-              <span className="price price-original">₹{product.price.toLocaleString('en-IN')}</span>
+              <span className="price price-discount">{formatCurrency(product.discountPrice)}</span>
+              <span className="price price-original">{formatCurrency(product.price)}</span>
             </>
           ) : (
-            <span className="price">₹{product.price.toLocaleString('en-IN')}</span>
+            <span className="price">{formatCurrency(product.price)}</span>
           )}
         </div>
       </div>

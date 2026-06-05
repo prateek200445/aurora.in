@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { BRAND_NAME } from '../../utils/constants';
+import { formatCurrency } from '../../utils/helpers';
 
 export default function SuccessModal({
   isOrderPlaced,
@@ -45,7 +46,7 @@ export default function SuccessModal({
           </div>
           <div className="success-detail-row border-none">
             <span>Paid Amount:</span>
-            <span>₹{total.toLocaleString('en-IN')}</span>
+            <span>{formatCurrency(total)}</span>
           </div>
         </div>
 

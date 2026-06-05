@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useRef, useState,
 import { api } from '../data/products';
 import { useCart } from './CartContext';
 import { STORAGE_KEYS } from '../utils/constants';
+import { roundMoney } from '../utils/helpers';
 
 const CouponContext = createContext(null);
 
@@ -29,9 +30,7 @@ function loadStoredCouponState() {
   }
 }
 
-function roundMoney(value) {
-  return Math.round((value + Number.EPSILON) * 100) / 100;
-}
+
 
 export function CouponProvider({ children }) {
   const { subtotal } = useCart();

@@ -1,9 +1,12 @@
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../data/products';
-import { Heart, ShoppingBag, Check, Star, ArrowLeft, Shield, RotateCcw, Truck } from 'lucide-react';
+import { Heart, ShoppingBag, Check, ArrowLeft, Shield, RotateCcw, Truck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { formatCurrency } from '../utils/helpers';
+import Spinner from '../components/Spinner';
+import RatingStars from '../components/RatingStars';
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -28,12 +31,7 @@ export default function ProductDetails() {
   });
 
   if (isLoading) {
-    return (
-      <div className="product-details-page loading">
-        <div className="spinner"></div>
-        <p>Loading product details...</p>
-      </div>
-    );
+    return <Spinner size="lg" message="Loading product details..." />;
   }
 
   if (isError || !product) {
@@ -73,15 +71,7 @@ export default function ProductDetails() {
 
           {/* Star Rating */}
           <div className="details-rating-row">
-            <div className="stars">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className={`star-icon ${i < Math.floor(product.rating) ? 'filled' : ''}`}
-                  fill={i < Math.floor(product.rating) ? 'var(--star-color)' : 'none'}
-                />
-              ))}
-            </div>
+            <RatingStars rating={product.rating} />
             <span className="rating-value">{product.rating}</span>
             <span className="reviews-count">({product.reviewsCount} verified customer reviews)</span>
           </div>
@@ -89,11 +79,11 @@ export default function ProductDetails() {
           <div className="details-price-row">
             {hasDiscount ? (
               <>
-                <span className="price price-discount details-price-discount">₹{product.discountPrice?.toLocaleString('en-IN')}</span>
-                <span className="price price-original details-price-original">₹{product.price.toLocaleString('en-IN')}</span>
+                <span className="price price-discount details-price-discount">{formatCurrency(product.discountPrice)}</span>
+                <span className="price price-original details-price-original">{formatCurrency(product.price)}</span>
               </>
             ) : (
-              <span className="price details-price-regular">₹{product.price.toLocaleString('en-IN')}</span>
+              <span className="price details-price-regular">{formatCurrency(product.price)}</span>
             )}
           </div>
 
@@ -183,7 +173,7 @@ export default function ProductDetails() {
                       </Link>
                       <span className="details-related-category">{p.category}</span>
                       <h4 className="details-related-name">{p.name}</h4>
-                      <span className="details-related-price">₹{p.price.toLocaleString('en-IN')}</span>
+                      <span className="details-related-price">{formatCurrency(p.price)}</span>
                     </div>
                   </div>
                 </div>

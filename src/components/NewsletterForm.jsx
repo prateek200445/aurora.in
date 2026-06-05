@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { api } from '../data/products';
+import Spinner from './Spinner';
 
 export default function NewsletterForm() {
   const [message, setMessage] = useState('');
@@ -60,7 +61,7 @@ export default function NewsletterForm() {
             className="btn btn-primary newsletter-submit-btn"
           >
             {isLoading ? (
-              <span className="spinner-sm"></span>
+              <Spinner size="sm" />
             ) : (
               <>
                 <span>Subscribe</span>

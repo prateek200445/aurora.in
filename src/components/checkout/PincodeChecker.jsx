@@ -1,5 +1,7 @@
 import React from 'react';
 import { Truck, CheckCircle2, AlertCircle, Calendar } from 'lucide-react';
+import { cleanPincode } from '../../utils/validation';
+import Spinner from '../Spinner';
 
 export default function PincodeChecker({
   pincodeQuery,
@@ -31,14 +33,14 @@ export default function PincodeChecker({
             placeholder="Enter 6-digit Pincode (e.g. 201301)"
             className="checkout-input"
             value={pincodeQuery}
-            onChange={(e) => setPincodeQuery(e.target.value.replace(/\D/g, ''))}
+            onChange={(e) => setPincodeQuery(cleanPincode(e.target.value))}
           />
           <button 
             type="submit" 
             className="btn btn-primary pincode-btn"
             disabled={isPincodeChecking}
           >
-            {isPincodeChecking ? <span className="spinner-sm"></span> : 'Check'}
+            {isPincodeChecking ? <Spinner size="sm" /> : 'Check'}
           </button>
         </form>
 

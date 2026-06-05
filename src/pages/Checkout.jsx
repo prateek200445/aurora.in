@@ -5,6 +5,8 @@ import { useCoupon } from '../context/CouponContext';
 import { ArrowLeft, ShoppingBag } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { STORAGE_KEYS } from '../utils/constants';
+import { isValidPincode } from '../utils/validation';
+import { getDeliveryDateString } from '../utils/helpers';
 import '../styles/checkout.css';
 
 import PincodeChecker from '../components/checkout/PincodeChecker';
@@ -71,16 +73,7 @@ export default function Checkout() {
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [placedOrderId, setPlacedOrderId] = useState('');
 
-  const deliveryDateString = useMemo(() => {
-    const date = new Date();
-    date.setDate(date.getDate() + 5);
-    return date.toLocaleDateString('en-IN', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  }, []);
+  const deliveryDateString = useMemo(() => getDeliveryDateString(5), []);
 
   useEffect(() => {
     try {
@@ -121,8 +114,7 @@ export default function Checkout() {
       return;
     }
     
-    const cleanPin = pincodeQuery.replace(/\s+/g, '');
-    if (!/^\d{6}$/.test(cleanPin)) {
+    if (!isValidPincode(pincodeQuery)) {
       setPincodeStatus('error');
       setPincodeMessage('Please enter a valid 6-digit pincode.');
       return;

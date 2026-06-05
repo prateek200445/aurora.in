@@ -1,9 +1,12 @@
 import { X, Minus, Plus, Trash2, Tag, ShoppingCart, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BRAND_NAME, PROMO_CODE_AURORA10 } from '../utils/constants';
+import { formatCurrency } from '../utils/helpers';
+import Spinner from './Spinner';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 export default function CartDrawer({ isOpen, onClose }) {
   const {
@@ -28,19 +31,7 @@ export default function CartDrawer({ isOpen, onClose }) {
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
 
   // Prevent background scrolling when Cart drawer is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add('no-scroll');
-      document.documentElement.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-      document.documentElement.classList.remove('no-scroll');
-    }
-    return () => {
-      document.body.classList.remove('no-scroll');
-      document.documentElement.classList.remove('no-scroll');
-    };
-  }, [isOpen]);
+  useLockBodyScroll(isOpen);
 
   const handleApplyPromo = (e) => {
     e.preventDefault();
@@ -147,11 +138,11 @@ export default function CartDrawer({ isOpen, onClose }) {
                         </div>
                         <div className="cart-item-pricing">
                           <span className="cart-item-price">
-                            ₹{(activePrice * item.quantity).toLocaleString('en-IN')}
+                            {formatCurrency(activePrice * item.quantity)}
                           </span>
                           {item.quantity > 1 && (
                             <span className="cart-item-unit-price">
-                              (₹{activePrice.toLocaleString('en-IN')} each)
+                              ({formatCurrency(activePrice)} each)
                             </span>
                           )}
                         </div>
@@ -204,7 +195,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                     disabled={isCouponLoading || !promoInput.trim()}
                     className="btn btn-sm btn-primary btn-promo"
                   >
-                    {isCouponLoading ? <span className="spinner-sm"></span> : 'Apply'}
+                    {isCouponLoading ? <Spinner size="sm" /> : 'Apply'}
                   </button>
                 )}
               </div>
@@ -223,14 +214,14 @@ export default function CartDrawer({ isOpen, onClose }) {
             <div className="cart-summary">
               <div className="summary-row">
                 <span>Subtotal</span>
-                <span>₹{subtotal.toLocaleString('en-IN')}</span>
+                <span>{formatCurrency(subtotal)}</span>
               </div>
               {couponApplied && (
                 <div className="summary-row discount">
                   <span className="flex items-center gap-1">
                     Discount ({discountPercent}%)
                   </span>
-                  <span>-₹{discountAmount.toLocaleString('en-IN')}</span>
+                  <span>-{formatCurrency(discountAmount)}</span>
                 </div>
               )}
               <div className="summary-row shipping">
@@ -239,7 +230,7 @@ export default function CartDrawer({ isOpen, onClose }) {
               </div>
               <div className="summary-row total">
                 <span>Total</span>
-                <span>₹{total.toLocaleString('en-IN')}</span>
+                <span>{formatCurrency(total)}</span>
               </div>
             </div>
 

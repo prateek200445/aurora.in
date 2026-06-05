@@ -29,14 +29,30 @@ function roundMoney(value) {
 }
 
 export function CouponProvider({ children }) {
-  const { subtotal } = useCart();
+  const { subtotal, cartItems } = useCart();
   const storedState = loadStoredCouponState();
+
   const latestCouponRequestId = useRef(0);
   const [couponCode, setCouponCode] = useState(() => storedState?.couponCode ?? '');
   const [discountPercent, setDiscountPercent] = useState(() => storedState?.discountPercent ?? 0);
   const [couponMessage, setCouponMessage] = useState(() => storedState?.couponMessage ?? '');
   const [couponApplied, setCouponApplied] = useState(() => storedState?.couponApplied ?? false);
   const [isPending, startTransition] = useTransition();
+
+  // Clear coupon state when the cart is completely empty
+  useEffect(() => {
+    if (cartItems.length === 0 && (couponCode || discountPercent || couponMessage || couponApplied)) {
+      setCouponCode('');
+      setDiscountPercent(0);
+      setCouponMessage('');
+      setCouponApplied(false);
+      try {
+        window.localStorage.removeItem(STORAGE_KEY);
+      } catch (error) {
+        // ignore
+      }
+    }
+  }, [cartItems.length, couponCode, discountPercent, couponMessage, couponApplied]);
 
   const applyPromoCode = async (code) => {
     const requestId = ++latestCouponRequestId.current;

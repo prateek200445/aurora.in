@@ -26,7 +26,7 @@ vi.mock('../../data/products', async () => {
 })
 
 function CouponTestComponent() {
-  const { addToCart } = useCart()
+  const { addToCart, clearCart } = useCart()
   const {
     couponCode,
     discountPercent,
@@ -53,6 +53,7 @@ function CouponTestComponent() {
       <button onClick={() => applyPromoCode('FREESHIP')}>Apply FREESHIP</button>
       <button onClick={() => applyPromoCode('INVALID')}>Apply INVALID</button>
       <button onClick={removePromoCode}>Remove Coupon</button>
+      <button onClick={clearCart}>Clear Cart</button>
     </div>
   )
 }
@@ -169,6 +170,16 @@ describe('CouponContext', () => {
   })
 
   it('restores coupon state from localStorage', () => {
+    const storedCart = {
+      cartById: {
+        'p1': {
+          product: { id: 'p1', name: 'Product 1', price: 100 },
+          quantity: 1
+        }
+      }
+    }
+    window.localStorage.setItem('aurora-goods-cart', JSON.stringify(storedCart))
+
     const storedState = {
       couponCode: 'AURORA10',
       discountPercent: 10,
@@ -188,5 +199,47 @@ describe('CouponContext', () => {
     expect(screen.getByTestId('coupon-code').textContent).toBe('AURORA10')
     expect(screen.getByTestId('discount-percent').textContent).toBe('10')
     expect(screen.getByTestId('coupon-applied').textContent).toBe('true')
+  })
+
+  it('clears coupon state when the cart becomes empty', async () => {
+    render(
+      <CartProvider>
+        <CouponProvider>
+          <CouponTestComponent />
+        </CouponProvider>
+      </CartProvider>
+    )
+
+    // 1. Add product to the cart
+    act(() => {
+      screen.getByText('Add Product 100').click()
+    })
+
+    // 2. Apply Coupon
+    await act(async () => {
+      screen.getByText('Apply AURORA10').click()
+    })
+
+    await waitFor(() => {
+      expect(screen.getByTestId('coupon-applied').textContent).toBe('true')
+    })
+
+    // 3. Clear Cart
+    act(() => {
+      screen.getByText('Clear Cart').click()
+    })
+
+    // 4. Verify coupon state is cleared
+    await waitFor(() => {
+      expect(screen.getByTestId('coupon-code').textContent).toBe('')
+      expect(screen.getByTestId('discount-percent').textContent).toBe('0')
+      expect(screen.getByTestId('coupon-applied').textContent).toBe('false')
+      expect(screen.getByTestId('coupon-message').textContent).toBe('')
+    })
+
+    // 5. Verify localStorage for coupon is also cleared/empty
+    const storedCoupon = JSON.parse(window.localStorage.getItem('aurora-goods-coupon'))
+    expect(storedCoupon?.couponApplied ?? false).toBe(false)
+    expect(storedCoupon?.couponCode ?? '').toBe('')
   })
 })

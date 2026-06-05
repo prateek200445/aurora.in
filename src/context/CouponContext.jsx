@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { api } from '../data/products';
 import { useCart } from './CartContext';
+import { STORAGE_KEYS } from '../utils/constants';
 
 const CouponContext = createContext(null);
-const STORAGE_KEY = 'aurora-goods-coupon';
-const LEGACY_STORAGE_KEY = 'aurora-goods-cart';
 
 function loadStoredCouponState() {
   if (typeof window === 'undefined') {
@@ -12,12 +11,12 @@ function loadStoredCouponState() {
   }
 
   try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEY);
+    const storedValue = window.localStorage.getItem(STORAGE_KEYS.COUPON);
     if (storedValue) {
       return JSON.parse(storedValue);
     }
 
-    const legacyValue = window.localStorage.getItem(LEGACY_STORAGE_KEY);
+    const legacyValue = window.localStorage.getItem(STORAGE_KEYS.CART);
     return legacyValue ? JSON.parse(legacyValue) : null;
   } catch (error) {
     return null;
@@ -92,7 +91,7 @@ export function CouponProvider({ children }) {
   useEffect(() => {
     try {
       window.localStorage.setItem(
-        STORAGE_KEY,
+        STORAGE_KEYS.COUPON,
         JSON.stringify({
           couponCode,
           discountPercent,

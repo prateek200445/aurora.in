@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
 import { ArrowLeft, ShoppingBag } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { STORAGE_KEYS } from '../utils/constants';
 import '../styles/checkout.css';
 
 import PincodeChecker from '../components/checkout/PincodeChecker';
@@ -49,7 +50,7 @@ export default function Checkout() {
 
   const [addresses, setAddresses] = useState(() => {
     try {
-      const saved = window.localStorage.getItem('aurora-goods-checkout-addresses');
+      const saved = window.localStorage.getItem(STORAGE_KEYS.CHECKOUT_ADDRESSES);
       return saved ? JSON.parse(saved) : [];
     } catch (e) {
       console.error('Error loading checkout addresses from localStorage', e);
@@ -58,7 +59,7 @@ export default function Checkout() {
   });
   const [selectedAddressId, setSelectedAddressId] = useState(() => {
     try {
-      return window.localStorage.getItem('aurora-goods-checkout-selected-address-id') || null;
+      return window.localStorage.getItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID) || null;
     } catch (e) {
       console.error('Error loading selected address ID from localStorage', e);
       return null;
@@ -103,7 +104,7 @@ export default function Checkout() {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem('aurora-goods-checkout-addresses', JSON.stringify(addresses));
+      window.localStorage.setItem(STORAGE_KEYS.CHECKOUT_ADDRESSES, JSON.stringify(addresses));
     } catch (e) {
       console.error('Error saving checkout addresses to localStorage', e);
     }
@@ -112,9 +113,9 @@ export default function Checkout() {
   useEffect(() => {
     try {
       if (selectedAddressId) {
-        window.localStorage.setItem('aurora-goods-checkout-selected-address-id', selectedAddressId);
+        window.localStorage.setItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID, selectedAddressId);
       } else {
-        window.localStorage.removeItem('aurora-goods-checkout-selected-address-id');
+        window.localStorage.removeItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID);
       }
     } catch (e) {
       console.error('Error saving selected address ID to localStorage', e);

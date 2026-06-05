@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState, useTransition, useCallback } from 'react';
 import { api } from '../data/products';
 import { useCart } from './CartContext';
+import { STORAGE_KEYS } from '../utils/constants';
 
 const CouponContext = createContext(null);
-const STORAGE_KEY = 'aurora-goods-coupon';
-const LEGACY_STORAGE_KEY = 'aurora-goods-cart';
 
 function loadStoredCouponState() {
   if (typeof window === 'undefined') {
@@ -12,13 +11,19 @@ function loadStoredCouponState() {
   }
 
   try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEY);
+    const storedValue = window.localStorage.getItem(STORAGE_KEYS.COUPON);
     if (storedValue) {
       return JSON.parse(storedValue);
     }
 
-    const legacyValue = window.localStorage.getItem(LEGACY_STORAGE_KEY);
-    return legacyValue ? JSON.parse(legacyValue) : null;
+    const legacyValue = window.localStorage.getItem(STORAGE_KEYS.CART);
+    if (legacyValue) {
+      const parsed = JSON.parse(legacyValue);
+      if (parsed && typeof parsed === 'object' && ('couponCode' in parsed || 'couponApplied' in parsed)) {
+        return parsed;
+      }
+    }
+    return null;
   } catch (error) {
     return null;
   }
@@ -30,12 +35,11 @@ function roundMoney(value) {
 
 export function CouponProvider({ children }) {
   const { subtotal } = useCart();
-  const storedState = loadStoredCouponState();
   const latestCouponRequestId = useRef(0);
-  const [couponCode, setCouponCode] = useState(() => storedState?.couponCode ?? '');
-  const [discountPercent, setDiscountPercent] = useState(() => storedState?.discountPercent ?? 0);
-  const [couponMessage, setCouponMessage] = useState(() => storedState?.couponMessage ?? '');
-  const [couponApplied, setCouponApplied] = useState(() => storedState?.couponApplied ?? false);
+  const [couponCode, setCouponCode] = useState(() => loadStoredCouponState()?.couponCode ?? '');
+  const [discountPercent, setDiscountPercent] = useState(() => loadStoredCouponState()?.discountPercent ?? 0);
+  const [couponMessage, setCouponMessage] = useState(() => loadStoredCouponState()?.couponMessage ?? '');
+  const [couponApplied, setCouponApplied] = useState(() => loadStoredCouponState()?.couponApplied ?? false);
   const [isPending, startTransition] = useTransition();
 
   const applyPromoCode = useCallback(async (code) => {
@@ -93,7 +97,7 @@ export function CouponProvider({ children }) {
   useEffect(() => {
     try {
       window.localStorage.setItem(
-        STORAGE_KEY,
+        STORAGE_KEYS.COUPON,
         JSON.stringify({
           couponCode,
           discountPercent,

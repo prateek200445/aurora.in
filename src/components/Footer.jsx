@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { BRAND_NAME, CONTACT_EMAIL, CONTACT_PHONE } from '../utils/constants';
 
 export default function Footer() {
   const location = useLocation();
@@ -13,7 +14,7 @@ export default function Footer() {
                 to="/"
                 className="site-logo"
               >
-                Aurora Goods
+                {BRAND_NAME}
               </Link>
             </h3>
             <p className="footer-about-desc" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>
@@ -39,12 +40,12 @@ export default function Footer() {
           <div className="footer-column footer-links-column">
             <h4>Contact Us</h4>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '10px' }}>Got questions or feedback? Connect with our support team.</p>
-            <p className="email-contact" style={{ fontWeight: '700', color: 'var(--text-dark)' }}>hello@auroragoods.in</p>
-            <p className="phone-contact" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>+91 (800) 456-7890</p>
+            <p className="email-contact" style={{ fontWeight: '700', color: 'var(--text-dark)' }}>{CONTACT_EMAIL}</p>
+            <p className="phone-contact" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{CONTACT_PHONE}</p>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Aurora Goods. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {BRAND_NAME}. All rights reserved.</p>
           <div className="footer-legal-links">
             <Link to="/privacy" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginRight: '16px' }}>Privacy Policy</Link>
             <Link to="/terms" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Terms of Service</Link>

@@ -1,3 +1,5 @@
+import { BRAND_NAME } from '../utils/constants';
+
 export default function Sustainability() {
   return (
     <div
@@ -26,8 +28,8 @@ export default function Sustainability() {
           marginBottom: "16px",
         }}
       >
-        Consciously crafted, sustainably manufactured, and built to endure. At
-        Aurora Goods, sustainability is not just a buzzword—it is at the core of
+        Consciously crafted, sustainably manufactured, and built to endure. At{" "}
+        {BRAND_NAME}, sustainability is not just a buzzword—it is at the core of
         every design decision we make.
       </p>
 

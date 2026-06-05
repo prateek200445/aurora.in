@@ -1,3 +1,5 @@
+import { BRAND_NAME } from '../utils/constants';
+
 export default function TermsOfService() {
   return (
     <div
@@ -26,7 +28,7 @@ export default function TermsOfService() {
           marginBottom: "16px",
         }}
       >
-        Welcome to Aurora Goods. By accessing or using our website, you agree to
+        Welcome to {BRAND_NAME}. By accessing or using our website, you agree to
         comply with and be bound by the following Terms of Service.
       </p>
 
@@ -92,7 +94,7 @@ export default function TermsOfService() {
         }}
       >
         All content on this site, including text, designs, images, and logos, is
-        the property of Aurora Goods and is protected by copyright and
+        the property of {BRAND_NAME} and is protected by copyright and
         intellectual property laws.
       </p>
     </div>

@@ -30,6 +30,6 @@ describe('HeroSection', () => {
     expect(collectionsLink.getAttribute('href')).toBe('#collections')
 
     // Child component (HeroGrid) renders its elements too
-    expect(screen.getByAltText('Model in trench coat and sunglasses')).toBeInTheDocument()
+    expect(screen.getByAltText('Luxe Sunglasses & Knit Combo')).toBeInTheDocument()
   })
 })

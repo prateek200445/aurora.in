@@ -10,8 +10,8 @@ describe('HeroGrid', () => {
     const images = screen.getAllByRole('img')
     expect(images.length).toBe(6)
 
-    expect(screen.getByAltText('Model in trench coat and sunglasses')).toBeInTheDocument()
-    expect(screen.getByAltText('Minimalist vase and houseplant decor')).toBeInTheDocument()
-    expect(screen.getByAltText('Sleek smart wireless speaker')).toBeInTheDocument()
+    expect(screen.getByAltText('Luxe Sunglasses & Knit Combo')).toBeInTheDocument()
+    expect(screen.getByAltText('Sculptural Ceramic Vases')).toBeInTheDocument()
+    expect(screen.getByAltText('Acoustic Smart Speaker')).toBeInTheDocument()
   })
 })

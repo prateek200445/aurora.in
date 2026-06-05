@@ -24,7 +24,7 @@ function loadStoredCouponState() {
       }
     }
     return null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

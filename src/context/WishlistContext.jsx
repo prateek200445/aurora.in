@@ -40,7 +40,7 @@ export function WishlistProvider({ children }) {
   useEffect(() => {
     try {
       window.localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
-    } catch (error) {
+    } catch {
     }
   }, [wishlist]);
 

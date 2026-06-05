@@ -12,7 +12,7 @@ function loadStoredCartState() {
   try {
     const storedValue = window.localStorage.getItem(STORAGE_KEYS.CART);
     return storedValue ? JSON.parse(storedValue) : null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

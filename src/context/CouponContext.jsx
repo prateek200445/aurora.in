@@ -17,7 +17,13 @@ function loadStoredCouponState() {
     }
 
     const legacyValue = window.localStorage.getItem(STORAGE_KEYS.CART);
-    return legacyValue ? JSON.parse(legacyValue) : null;
+    if (legacyValue) {
+      const parsed = JSON.parse(legacyValue);
+      if (parsed && typeof parsed === 'object' && ('couponCode' in parsed || 'couponApplied' in parsed)) {
+        return parsed;
+      }
+    }
+    return null;
   } catch (error) {
     return null;
   }

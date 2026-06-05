@@ -189,4 +189,51 @@ describe('CouponContext', () => {
     expect(screen.getByTestId('discount-percent').textContent).toBe('10')
     expect(screen.getByTestId('coupon-applied').textContent).toBe('true')
   })
+
+  it('safely migrates legacy coupon state from the cart storage key', () => {
+    const legacyState = {
+      cartById: {},
+      couponCode: 'FREESHIP',
+      discountPercent: 0,
+      couponMessage: 'FREESHIP applied: Free Shipping!',
+      couponApplied: true
+    }
+    window.localStorage.setItem('aurora-goods-cart', JSON.stringify(legacyState))
+
+    render(
+      <CartProvider>
+        <CouponProvider>
+          <CouponTestComponent />
+        </CouponProvider>
+      </CartProvider>
+    )
+
+    expect(screen.getByTestId('coupon-code').textContent).toBe('FREESHIP')
+    expect(screen.getByTestId('discount-percent').textContent).toBe('0')
+    expect(screen.getByTestId('coupon-applied').textContent).toBe('true')
+  })
+
+  it('prevents pure cart-only state from being deserialized into coupon state', () => {
+    const pureCartState = {
+      cartById: {
+        p1: {
+          product: { id: 'p1', name: 'Product 1', price: 100 },
+          quantity: 2
+        }
+      }
+    }
+    window.localStorage.setItem('aurora-goods-cart', JSON.stringify(pureCartState))
+
+    render(
+      <CartProvider>
+        <CouponProvider>
+          <CouponTestComponent />
+        </CouponProvider>
+      </CartProvider>
+    )
+
+    expect(screen.getByTestId('coupon-code').textContent).toBe('')
+    expect(screen.getByTestId('discount-percent').textContent).toBe('0')
+    expect(screen.getByTestId('coupon-applied').textContent).toBe('false')
+  })
 })

@@ -1,10 +1,8 @@
 import React, { createContext, useEffect, useMemo, useState, useContext } from 'react';
 import { toast } from 'react-toastify';
+import { STORAGE_KEYS } from '../utils/constants';
 
 const CartContext = createContext(null);
-
-const STORAGE_KEY = 'aurora-goods-cart';
-const LEGACY_STORAGE_KEY = 'aurora-goods-cart';
 
 function loadStoredCartState() {
   if (typeof window === 'undefined') {
@@ -12,13 +10,8 @@ function loadStoredCartState() {
   }
 
   try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEY);
-    if (storedValue) {
-      return JSON.parse(storedValue);
-    }
-
-    const legacyValue = window.localStorage.getItem(LEGACY_STORAGE_KEY);
-    return legacyValue ? JSON.parse(legacyValue) : null;
+    const storedValue = window.localStorage.getItem(STORAGE_KEYS.CART);
+    return storedValue ? JSON.parse(storedValue) : null;
   } catch (error) {
     return null;
   }
@@ -59,9 +52,7 @@ function roundMoney(value) {
 }
 
 export function CartProvider({ children }) {
-  const storedState = loadStoredCartState();
-
-  const [cartById, setCartById] = useState(() => hydrateCartById(storedState));
+  const [cartById, setCartById] = useState(() => hydrateCartById(loadStoredCartState()));
 
   const cartItems = useMemo(() => Object.values(cartById), [cartById]);
 
@@ -132,7 +123,7 @@ export function CartProvider({ children }) {
   useEffect(() => {
     try {
       window.localStorage.setItem(
-        STORAGE_KEY,
+        STORAGE_KEYS.CART,
         JSON.stringify({
           cartById
         })

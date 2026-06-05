@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { STORAGE_KEYS } from '../utils/constants';
 
 const WishlistContext = createContext(null);
-const STORAGE_KEY = 'aurora-goods-wishlist';
-const LEGACY_STORAGE_KEY = 'aurora-goods-cart';
 
 function loadStoredWishlist() {
   if (typeof window === 'undefined') {
@@ -10,12 +9,12 @@ function loadStoredWishlist() {
   }
 
   try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEY);
+    const storedValue = window.localStorage.getItem(STORAGE_KEYS.WISHLIST);
     if (storedValue) {
       return JSON.parse(storedValue) ?? [];
     }
 
-    const legacyValue = window.localStorage.getItem(LEGACY_STORAGE_KEY);
+    const legacyValue = window.localStorage.getItem(STORAGE_KEYS.CART);
     if (!legacyValue) {
       return [];
     }
@@ -40,7 +39,7 @@ export function WishlistProvider({ children }) {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wishlist));
+      window.localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
     } catch (error) {
     }
   }, [wishlist]);

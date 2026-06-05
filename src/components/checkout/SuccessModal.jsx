@@ -16,7 +16,7 @@ export default function SuccessModal({
     <div className="checkout-success-modal">
       <div className="success-modal-card">
         <div className="success-icon-wrap">
-          <CheckCircle2 className="icon" style={{ width: '40px', height: '40px' }} />
+          <CheckCircle2 className="icon success-icon" />
         </div>
         
         <h2 className="success-title">Order Placed Successfully!</h2>
@@ -35,23 +35,22 @@ export default function SuccessModal({
           </div>
           <div className="success-detail-row">
             <span>Delivery Address Info:</span>
-            <span style={{ fontSize: '0.8rem', maxWidth: '240px', textAlign: 'right', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <span className="success-address-detail-text">
               {currentAddress?.details}
             </span>
           </div>
           <div className="success-detail-row">
             <span>Expected Delivery:</span>
-            <span style={{ color: 'var(--accent-color)' }}>In 5 Days ({deliveryDateString})</span>
+            <span className="expected-delivery-date">In 5 Days ({deliveryDateString})</span>
           </div>
-          <div className="success-detail-row" style={{ borderBottom: 'none' }}>
+          <div className="success-detail-row border-none">
             <span>Paid Amount:</span>
             <span>₹{total.toLocaleString('en-IN')}</span>
           </div>
         </div>
 
         <button 
-          className="btn btn-primary"
-          style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-sm)' }}
+          className="btn btn-primary success-continue-btn"
           onClick={handleCloseSuccessModal}
         >
           Continue Shopping

@@ -63,7 +63,7 @@ export default function Shop({ onQuickView }) {
   };
 
   return (
-    <div className="shop-page" style={{ padding: '40px 0 80px' }}>
+    <div className="shop-page">
       <section className="product-section" id="products">
         <div className="section-container">
 

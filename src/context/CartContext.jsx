@@ -47,10 +47,6 @@ function isValidProduct(product) {
   );
 }
 
-function roundMoney(value) {
-  return Math.round((value + Number.EPSILON) * 100) / 100;
-}
-
 export function CartProvider({ children }) {
   const [cartById, setCartById] = useState(() => hydrateCartById(loadStoredCartState()));
 
@@ -128,7 +124,7 @@ export function CartProvider({ children }) {
           cartById
         })
       );
-    } catch (error) {
+    } catch {
     }
   }, [cartById]);
 

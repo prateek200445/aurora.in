@@ -1,11 +1,9 @@
 import React from 'react'
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ProductGrid from '../ProductGrid'
 import { api } from '../../data/products'
-import { useCart } from '../../context/CartContext'
-import { useWishlist } from '../../context/WishlistContext'
 import { MemoryRouter } from 'react-router-dom'
 
 vi.mock('../../context/CartContext', () => ({

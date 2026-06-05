@@ -1,4 +1,4 @@
-import { useState, useTransition, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
@@ -16,7 +16,6 @@ import SuccessModal from '../components/checkout/SuccessModal';
 export default function Checkout() {
   const { cartItems, subtotal, clearCart } = useCart();
   const {
-    couponCode,
     discountPercent,
     couponMessage,
     isCouponLoading,
@@ -234,11 +233,11 @@ export default function Checkout() {
     return (
       <div className="checkout-page empty-checkout-page">
         <div className="grid-empty-state checkout-empty-state">
-          <div className="empty-search-icon" style={{ marginBottom: '20px' }}>
-            <ShoppingBag className="icon-lg" style={{ color: 'var(--text-muted)', margin: '0 auto' }} />
+          <div className="empty-icon-box">
+            <ShoppingBag className="icon-lg empty-shopping-bag" />
           </div>
-          <h3 style={{ fontSize: '1.40rem', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '8px' }}>Your cart is empty</h3>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
+          <h3 className="empty-cart-title">Your cart is empty</h3>
+          <p className="empty-cart-text">
             You cannot proceed to checkout without items in your cart. Add premium essentials to your bag first.
           </p>
           <Link to="/shop" className="btn btn-primary">
@@ -254,7 +253,7 @@ export default function Checkout() {
       <div className="checkout-header">
         <div>
           <span className="section-subtitle">Secure Checkout</span>
-          <h1 className="section-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--text-dark)' }}>Checkout</h1>
+          <h1 className="section-title checkout-title">Checkout</h1>
         </div>
         <Link to="/shop" className="btn btn-outline checkout-back-btn">
           <ArrowLeft className="icon-xs" />

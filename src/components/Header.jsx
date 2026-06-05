@@ -263,15 +263,13 @@ export default function Header({ onCartToggle, onQuickView }) {
             )}
           </div>
 
-          {/* Wishlist Link Shortcut */}
-          <Link to="/wishlist" className="action-btn" aria-label="View Wishlist" style={{ position: 'relative' }} onClick={closeMobileMenu}>
+          <Link to="/wishlist" className="action-btn" aria-label="View Wishlist" onClick={closeMobileMenu}>
             <Heart 
-              className="icon" 
+              className={`icon ${wishlist.length > 0 ? 'wishlist-active' : ''}`}
               fill={wishlist.length > 0 ? 'var(--accent-color)' : 'none'} 
-              style={{ color: wishlist.length > 0 ? 'var(--accent-color)' : 'var(--text-dark)' }} 
             />
             {wishlist.length > 0 && (
-              <span className="cart-badge" style={{ position: 'absolute', top: '0', right: '0', backgroundColor: 'var(--accent-color)', width: '16px', height: '16px', border: '2px solid var(--bg-primary)' }}>
+              <span className="cart-badge">
                 {wishlist.length}
               </span>
             )}

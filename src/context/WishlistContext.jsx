@@ -21,7 +21,7 @@ function loadStoredWishlist() {
 
     const legacyState = JSON.parse(legacyValue);
     return legacyState?.wishlist ?? [];
-  } catch (error) {
+  } catch {
     return [];
   }
 }

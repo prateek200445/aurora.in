@@ -1,5 +1,3 @@
-/* Checkout Page Premium Styling */
-
 .checkout-page {
   max-width: 1280px;
   margin: 0 auto;
@@ -749,5 +747,232 @@
     white-space: normal !important;
     word-break: break-word;
   }
+}
+
+.success-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.success-address-detail-text {
+  font-size: 0.8rem;
+  max-width: 240px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expected-delivery-date {
+  color: var(--accent-color);
+}
+
+.border-none {
+  border-bottom: none !important;
+}
+
+.success-continue-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.address-form-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-dark);
+}
+
+.address-form-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+}
+
+.no-addresses-notice {
+  padding: 32px 24px;
+  border: 1.5px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.no-address-icon-wrap {
+  background-color: rgba(214, 128, 50, 0.1);
+  color: var(--accent-color);
+  padding: 12px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-md {
+  width: 24px;
+  height: 24px;
+}
+
+.no-address-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 4px 0 0 0;
+}
+
+.no-address-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 380px;
+  line-height: 1.5;
+}
+
+.checkout-promo-section {
+  margin-bottom: 20px;
+}
+
+.promo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.promo-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.promo-input-container {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  padding: 2px;
+}
+
+.promo-input-field {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.btn-promo-remove {
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  background-color: var(--text-muted);
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.btn-promo-apply {
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.promo-message {
+  font-size: 0.8rem;
+  margin-top: 2px;
+  font-weight: 500;
+}
+.promo-message.success {
+  color: var(--success-color);
+}
+.promo-message.error {
+  color: var(--error-color);
+}
+
+.offers-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-quick-apply {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.shipping-free {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+.checkout-summary-row.total {
+  margin-bottom: 24px;
+}
+
+.ssl-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.ssl-icon {
+  color: var(--success-color);
+}
+
+.pincode-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.pincode-btn {
+  border-radius: var(--radius-sm);
+}
+
+.pincode-status-icon {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.delivery-icon {
+  color: var(--accent-color);
+}
+
+.empty-icon-box {
+  margin-bottom: 20px;
+}
+
+.empty-shopping-bag {
+  color: var(--text-muted);
+  margin: 0 auto;
+}
+
+.empty-cart-title {
+  font-size: 1.40rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.empty-cart-text {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.checkout-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--text-dark);
 }
 

@@ -23,34 +23,14 @@ export default function AddressSection({
       </div>
 
       {addresses.length === 0 ? (
-        <div className="no-addresses-notice" style={{
-          padding: '32px 24px',
-          border: '1.5px dashed var(--border-color)',
-          borderRadius: 'var(--radius-sm)',
-          backgroundColor: 'var(--bg-secondary)',
-          textAlign: 'center',
-          marginBottom: '24px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '12px'
-        }}>
-          <div style={{
-            backgroundColor: 'rgba(214, 128, 50, 0.1)',
-            color: 'var(--accent-color)',
-            padding: '12px',
-            borderRadius: '50%',
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <MapPin style={{ width: '24px', height: '24px' }} />
+        <div className="no-addresses-notice">
+          <div className="no-address-icon-wrap">
+            <MapPin className="icon-md" />
           </div>
-          <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-dark)', margin: '4px 0 0 0' }}>
+          <h4 className="no-address-title">
             No Shipping Address Found
           </h4>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0, maxWidth: '380px', lineHeight: '1.5' }}>
+          <p className="no-address-desc">
             Since you are checking out as a guest, there are no saved addresses. Please add a shipping address to complete your order.
           </p>
         </div>
@@ -63,10 +43,10 @@ export default function AddressSection({
               onClick={() => handleSelectAddress(address.id)}
             >
               <div className="address-selection-indicator"></div>
-              <span className="address-tag">{address.tag}</span>
-              <div className="address-name">{address.name}</div>
-              <div className="address-details">{address.details} - {address.pincode}</div>
-              <div className="address-phone">{address.phone}</div>
+               <span className="address-tag">{address.tag}</span>
+               <div className="address-name">{address.name}</div>
+               <div className="address-details">{address.details} - {address.pincode}</div>
+               <div className="address-phone">{address.phone}</div>
               <button
                 className="address-delete-btn"
                 onClick={(e) => {
@@ -76,7 +56,7 @@ export default function AddressSection({
                 title="Delete Address"
                 aria-label={`Delete Address ${address.tag}`}
               >
-                <Trash2 style={{ width: '15px', height: '15px' }} />
+                <Trash2 className="icon-xs" />
               </button>
             </div>
           ))}

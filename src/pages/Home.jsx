@@ -54,12 +54,12 @@ export default function Home({ onQuickView }) {
 
       <section className="product-section">
         <div className="section-container">
-          <div className="section-header" style={{ marginBottom: '40px' }}>
+          <div className="section-header">
             <div>
               <span className="section-subtitle">Weekly Highlights</span>
               <h2 className="section-title">Trending Best Sellers</h2>
             </div>
-            <Link to="/shop" className="btn btn-outline" style={{ padding: '8px 20px', fontSize: '0.9rem' }}>
+            <Link to="/shop" className="btn btn-outline">
               <span>View All Products</span>
               <ArrowRight className="icon-xs" />
             </Link>

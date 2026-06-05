@@ -23,7 +23,7 @@ export default function OrderSummary({
     <div className="checkout-sidebar">
       {/* Order Summary & Coupon Form Card */}
       <div className="checkout-card">
-        <div className="card-title-area" style={{ marginBottom: '16px' }}>
+        <div className="card-title-area">
           <div className="card-title-icon">
             <ShoppingBag className="icon-sm" />
           </div>
@@ -54,12 +54,12 @@ export default function OrderSummary({
         </div>
 
         {/* Coupons & Promo Codes */}
-        <div style={{ marginBottom: '20px' }}>
-          <form onSubmit={handleApplyPromoCode} className="promo-form" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label htmlFor="checkout-promo-code" style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-dark)' }}>
+        <div className="checkout-promo-section">
+          <form onSubmit={handleApplyPromoCode} className="promo-form">
+            <label htmlFor="checkout-promo-code" className="promo-label">
               Apply Coupon Code
             </label>
-            <div className="promo-input-container" style={{ display: 'flex', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', overflow: 'hidden', backgroundColor: 'var(--bg-secondary)', padding: '2px' }}>
+            <div className="promo-input-container">
               <input
                 id="checkout-promo-code"
                 type="text"
@@ -67,7 +67,7 @@ export default function OrderSummary({
                 value={promoInput}
                 onChange={(e) => setPromoInput(e.target.value)}
                 disabled={couponApplied || isCouponLoading}
-                style={{ flex: 1, padding: '10px 12px', fontSize: '0.9rem', outline: 'none', border: 'none', background: 'transparent' }}
+                className="promo-input-field"
               />
               {couponApplied ? (
                 <button
@@ -76,8 +76,7 @@ export default function OrderSummary({
                     removePromoCode();
                     setPromoInput('');
                   }}
-                  className="btn btn-sm"
-                  style={{ padding: '0 16px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--text-muted)', color: '#fff', fontSize: '0.85rem' }}
+                  className="btn btn-sm btn-promo-remove"
                 >
                   Remove
                 </button>
@@ -85,15 +84,14 @@ export default function OrderSummary({
                 <button
                   type="submit"
                   disabled={isCouponLoading || !promoInput.trim()}
-                  className="btn btn-sm btn-primary"
-                  style={{ padding: '0 16px', borderRadius: 'var(--radius-sm)', fontSize: '0.85rem' }}
+                  className="btn btn-sm btn-primary btn-promo-apply"
                 >
                   {isCouponLoading ? <span className="spinner-sm"></span> : 'Apply'}
                 </button>
               )}
             </div>
             {couponMessage && (
-              <p className={`promo-message ${couponApplied ? 'success' : 'error'}`} style={{ fontSize: '0.8rem', marginTop: '2px', color: couponApplied ? 'var(--success-color)' : 'var(--error-color)', fontWeight: '500' }}>
+              <p className={`promo-message ${couponApplied ? 'success' : 'error'}`}>
                 {couponMessage}
               </p>
             )}
@@ -101,7 +99,7 @@ export default function OrderSummary({
 
           {/* Available Offers Quick Selection */}
           <div className="available-offers">
-            <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <span className="offers-heading">
               Available Offers
             </span>
             
@@ -111,8 +109,7 @@ export default function OrderSummary({
                 <div className="offer-desc">10% OFF on all items.</div>
               </div>
               <button 
-                className="btn btn-sm btn-outline"
-                style={{ padding: '4px 10px', fontSize: '0.75rem', borderRadius: 'var(--radius-sm)' }}
+                className="btn btn-sm btn-outline btn-quick-apply"
                 onClick={() => handleQuickApply('AURORA10')}
                 disabled={couponApplied}
               >
@@ -126,8 +123,7 @@ export default function OrderSummary({
                 <div className="offer-desc">Free Delivery on all orders.</div>
               </div>
               <button 
-                className="btn btn-sm btn-outline"
-                style={{ padding: '4px 10px', fontSize: '0.75rem', borderRadius: 'var(--radius-sm)' }}
+                className="btn btn-sm btn-outline btn-quick-apply"
                 onClick={() => handleQuickApply('FREESHIP')}
                 disabled={couponApplied}
               >
@@ -151,11 +147,11 @@ export default function OrderSummary({
           )}
           <div className="checkout-summary-row">
             <span>Shipping</span>
-            <span style={{ color: 'var(--success-color)', fontWeight: '600' }}>FREE</span>
+            <span className="shipping-free">FREE</span>
           </div>
         </div>
 
-        <div className="checkout-summary-row total" style={{ marginBottom: '24px' }}>
+        <div className="checkout-summary-row total">
           <span>Total</span>
           <span>₹{total.toLocaleString('en-IN')}</span>
         </div>
@@ -182,8 +178,8 @@ export default function OrderSummary({
           )}
         </button>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '16px', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-          <ShieldCheck className="icon-xs" style={{ color: 'var(--success-color)' }} />
+        <div className="ssl-info-container">
+          <ShieldCheck className="icon-xs ssl-icon" />
           <span>SSL Encrypted Payments</span>
         </div>
       </div>

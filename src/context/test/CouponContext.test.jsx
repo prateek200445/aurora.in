@@ -3,7 +3,6 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { render, screen, act, waitFor } from '@testing-library/react'
 import { CartProvider, useCart } from '../CartContext'
 import { CouponProvider, useCoupon } from '../CouponContext'
-import { api } from '../../data/products'
 
 vi.mock('../../data/products', async () => {
   const actual = await vi.importActual('../../data/products')

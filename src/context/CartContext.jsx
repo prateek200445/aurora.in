@@ -59,9 +59,7 @@ function roundMoney(value) {
 }
 
 export function CartProvider({ children }) {
-  const storedState = loadStoredCartState();
-
-  const [cartById, setCartById] = useState(() => hydrateCartById(storedState));
+  const [cartById, setCartById] = useState(() => hydrateCartById(loadStoredCartState()));
 
   const cartItems = useMemo(() => Object.values(cartById), [cartById]);
 

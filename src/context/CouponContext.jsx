@@ -30,12 +30,11 @@ function roundMoney(value) {
 
 export function CouponProvider({ children }) {
   const { subtotal } = useCart();
-  const storedState = loadStoredCouponState();
   const latestCouponRequestId = useRef(0);
-  const [couponCode, setCouponCode] = useState(() => storedState?.couponCode ?? '');
-  const [discountPercent, setDiscountPercent] = useState(() => storedState?.discountPercent ?? 0);
-  const [couponMessage, setCouponMessage] = useState(() => storedState?.couponMessage ?? '');
-  const [couponApplied, setCouponApplied] = useState(() => storedState?.couponApplied ?? false);
+  const [couponCode, setCouponCode] = useState(() => loadStoredCouponState()?.couponCode ?? '');
+  const [discountPercent, setDiscountPercent] = useState(() => loadStoredCouponState()?.discountPercent ?? 0);
+  const [couponMessage, setCouponMessage] = useState(() => loadStoredCouponState()?.couponMessage ?? '');
+  const [couponApplied, setCouponApplied] = useState(() => loadStoredCouponState()?.couponApplied ?? false);
   const [isPending, startTransition] = useTransition();
 
   const applyPromoCode = async (code) => {

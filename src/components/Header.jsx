@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { api } from '../data/products';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { BRAND_NAME, BRAND_SHORT } from '../utils/constants';
 
 export default function Header({ onCartToggle, onQuickView }) {
   const navigate = useNavigate();
@@ -146,8 +147,8 @@ export default function Header({ onCartToggle, onQuickView }) {
             to="/"
             className="site-logo"
           >
-            <span className="logo-full">Aurora Goods</span>
-            <span className="logo-short">AG</span>
+            <span className="logo-full">{BRAND_NAME}</span>
+            <span className="logo-short">{BRAND_SHORT}</span>
           </Link>
         </div>
 

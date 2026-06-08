@@ -1,3 +1,5 @@
+import { BRAND_NAME } from '../utils/constants';
+
 export default function PrivacyPolicy() {
   return (
     <div className="privacy-policy-page" style={{ padding: '80px 24px', maxWidth: '800px', margin: '0 auto', fontFamily: 'inherit' }}>
@@ -5,7 +7,7 @@ export default function PrivacyPolicy() {
         Privacy Policy
       </h1>
       <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '16px' }}>
-        Your privacy is important to us. This Privacy Policy explains how Aurora Goods collects, uses, and protects your personal information when you use our website.
+        Your privacy is important to us. This Privacy Policy explains how {BRAND_NAME} collects, uses, and protects your personal information when you use our website.
       </p>
 
       <h2 style={{ fontSize: '1.5rem', marginTop: '32px', marginBottom: '16px', color: 'var(--text-dark)' }}>Information Collection</h2>

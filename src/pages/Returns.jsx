@@ -1,3 +1,5 @@
+import { BRAND_NAME } from '../utils/constants';
+
 export default function Returns() {
   return (
     <div className="returns-page" style={{ padding: '80px 24px', maxWidth: '800px', margin: '0 auto', fontFamily: 'inherit' }}>
@@ -5,7 +7,7 @@ export default function Returns() {
         Return & Exchange Policy
       </h1>
       <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '16px' }}>
-        At Aurora Goods, we want you to love your essentials. If you are not completely satisfied with your purchase, we are here to help.
+        At {BRAND_NAME}, we want you to love your essentials. If you are not completely satisfied with your purchase, we are here to help.
       </p>
       
       <h2 style={{ fontSize: '1.5rem', marginTop: '32px', marginBottom: '16px', color: 'var(--text-dark)' }}>Returns</h2>

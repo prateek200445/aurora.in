@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderAppAt } from './test/renderApp.jsx'
-import { isValidEmail } from './utils/validation.js'
+import { isValidEmail } from './utils/validation'
 
 vi.mock('./data/products', async () => {
   const actual = await vi.importActual('./data/products')

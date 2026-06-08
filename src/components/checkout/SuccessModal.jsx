@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
+import { BRAND_NAME } from '../../utils/constants';
 
 export default function SuccessModal({
   isOrderPlaced,
@@ -20,7 +21,7 @@ export default function SuccessModal({
         
         <h2 className="success-title">Order Placed Successfully!</h2>
         <p className="success-text">
-          Thank you for shopping with Aurora Goods. Your purchase is fully confirmed, and we've scheduled standard 5-day delivery to your selected address.
+          Thank you for shopping with {BRAND_NAME}. Your purchase is fully confirmed, and we've scheduled standard 5-day delivery to your selected address.
         </p>
 
         <div className="success-details-card">

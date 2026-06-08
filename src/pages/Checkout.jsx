@@ -11,25 +11,6 @@ import PaymentSection from '../components/checkout/PaymentSection';
 import OrderSummary from '../components/checkout/OrderSummary';
 import SuccessModal from '../components/checkout/SuccessModal';
 
-const INITIAL_ADDRESSES = [
-  {
-    id: '1',
-    tag: 'Home (Default)',
-    name: 'Prateek Sharma',
-    details: '123, Lavender Heights, Sector 62, Noida, Uttar Pradesh',
-    pincode: '201301',
-    phone: '+91 98765 43210'
-  },
-  {
-    id: '2',
-    tag: 'Office',
-    name: 'Prateek Sharma',
-    details: 'Block B, Sector 63, Noida, Uttar Pradesh',
-    pincode: '201301',
-    phone: '+91 98765 49999'
-  }
-];
-
 export default function Checkout() {
   const { cartItems, subtotal, clearCart } = useCart();
   const {
@@ -232,7 +213,7 @@ export default function Checkout() {
     setTimeout(() => {
       setIsPlacingOrder(false);
       setIsOrderPlaced(true);
-      setPlacedOrderId(`AUR-2026-${Math.floor(100000 + Math.random() * 900000)}`);
+      setPlacedOrderId(`AUR-2026-${crypto.randomUUID().slice(0, 8).toUpperCase()}`);
     }, 1800);
   };
 

@@ -6,7 +6,7 @@ import { ArrowLeft, ShoppingBag } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { STORAGE_KEYS } from '../utils/constants';
 import { isValidPincode } from '../utils/validation';
-import { getDeliveryDateString } from '../utils/helpers';
+import { getDeliveryDateString, getStorageItem, setStorageItem } from '../utils/helpers';
 import '../styles/checkout.css';
 
 import PincodeChecker from '../components/checkout/PincodeChecker';
@@ -30,23 +30,8 @@ export default function Checkout() {
 
   const navigate = useNavigate();
 
-  const [addresses, setAddresses] = useState(() => {
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEYS.CHECKOUT_ADDRESSES);
-      return saved ? JSON.parse(saved) : [];
-    } catch (e) {
-      console.error('Error loading checkout addresses from localStorage', e);
-      return [];
-    }
-  });
-  const [selectedAddressId, setSelectedAddressId] = useState(() => {
-    try {
-      return window.localStorage.getItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID) || null;
-    } catch (e) {
-      console.error('Error loading selected address ID from localStorage', e);
-      return null;
-    }
-  });
+  const [addresses, setAddresses] = useState(() => getStorageItem(STORAGE_KEYS.CHECKOUT_ADDRESSES, []));
+  const [selectedAddressId, setSelectedAddressId] = useState(() => getStorageItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID, null));
   const [showAddressForm, setShowAddressForm] = useState(false);
 
   // New Address Form State
@@ -76,23 +61,11 @@ export default function Checkout() {
   const deliveryDateString = useMemo(() => getDeliveryDateString(5), []);
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem(STORAGE_KEYS.CHECKOUT_ADDRESSES, JSON.stringify(addresses));
-    } catch (e) {
-      console.error('Error saving checkout addresses to localStorage', e);
-    }
+    setStorageItem(STORAGE_KEYS.CHECKOUT_ADDRESSES, addresses);
   }, [addresses]);
 
   useEffect(() => {
-    try {
-      if (selectedAddressId) {
-        window.localStorage.setItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID, selectedAddressId);
-      } else {
-        window.localStorage.removeItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID);
-      }
-    } catch (e) {
-      console.error('Error saving selected address ID to localStorage', e);
-    }
+    setStorageItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID, selectedAddressId);
   }, [selectedAddressId]);
 
   useEffect(() => {

@@ -1,29 +1,17 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { STORAGE_KEYS } from '../utils/constants';
+import { getStorageItem, setStorageItem } from '../utils/helpers';
 
 const WishlistContext = createContext(null);
 
 function loadStoredWishlist() {
-  if (typeof window === 'undefined') {
-    return [];
+  const storedValue = getStorageItem(STORAGE_KEYS.WISHLIST, null);
+  if (storedValue) {
+    return storedValue;
   }
 
-  try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEYS.WISHLIST);
-    if (storedValue) {
-      return JSON.parse(storedValue) ?? [];
-    }
-
-    const legacyValue = window.localStorage.getItem(STORAGE_KEYS.CART);
-    if (!legacyValue) {
-      return [];
-    }
-
-    const legacyState = JSON.parse(legacyValue);
-    return legacyState?.wishlist ?? [];
-  } catch {
-    return [];
-  }
+  const legacyValue = getStorageItem(STORAGE_KEYS.CART, null);
+  return legacyValue?.wishlist ?? [];
 }
 
 export function WishlistProvider({ children }) {
@@ -38,10 +26,7 @@ export function WishlistProvider({ children }) {
   };
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
-    } catch {
-    }
+    setStorageItem(STORAGE_KEYS.WISHLIST, wishlist);
   }, [wishlist]);
 
   const value = useMemo(() => ({

@@ -47,3 +47,72 @@ export function getDeliveryDateString(daysAhead = 5) {
     day: 'numeric'
   });
 }
+
+/**
+ * Safely retrieves and parses an item from localStorage.
+ * @param {string} key - The localStorage key.
+ * @param {*} defaultValue - The default value if key is not found or parsing fails.
+ * @returns {*} The parsed item or default value.
+ */
+export function getStorageItem(key, defaultValue) {
+  if (typeof window === 'undefined') return defaultValue;
+  try {
+    const value = window.localStorage.getItem(key);
+    if (value === null) return defaultValue;
+    
+    // Only parse if it looks like a serialized JSON object, array, boolean, or null
+    const trimmed = value.trim();
+    if (
+      (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+      (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
+      trimmed === 'true' ||
+      trimmed === 'false' ||
+      trimmed === 'null'
+    ) {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value;
+      }
+    }
+    return value;
+  } catch (error) {
+    console.error(`Error reading localStorage key "${key}":`, error);
+    return defaultValue;
+  }
+}
+
+/**
+ * Safely serializes and saves an item to localStorage.
+ * @param {string} key - The localStorage key.
+ * @param {*} value - The value to save.
+ */
+export function setStorageItem(key, value) {
+  if (typeof window === 'undefined') return;
+  try {
+    if (value === null || value === undefined) {
+      window.localStorage.removeItem(key);
+    } else if (typeof value === 'string') {
+      window.localStorage.setItem(key, value);
+    } else {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }
+  } catch (error) {
+    console.error(`Error writing localStorage key "${key}":`, error);
+  }
+}
+
+
+/**
+ * Safely removes an item from localStorage.
+ * @param {string} key - The localStorage key.
+ */
+export function removeStorageItem(key) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.removeItem(key);
+  } catch (error) {
+    console.error(`Error removing localStorage key "${key}":`, error);
+  }
+}
+

@@ -2,32 +2,21 @@ import React, { createContext, useContext, useEffect, useMemo, useRef, useState,
 import { api } from '../data/products';
 import { useCart } from './CartContext';
 import { STORAGE_KEYS } from '../utils/constants';
-import { roundMoney } from '../utils/helpers';
+import { roundMoney, getStorageItem, setStorageItem } from '../utils/helpers';
 
 const CouponContext = createContext(null);
 
 function loadStoredCouponState() {
-  if (typeof window === 'undefined') {
-    return null;
+  const storedValue = getStorageItem(STORAGE_KEYS.COUPON, null);
+  if (storedValue) {
+    return storedValue;
   }
 
-  try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEYS.COUPON);
-    if (storedValue) {
-      return JSON.parse(storedValue);
-    }
-
-    const legacyValue = window.localStorage.getItem(STORAGE_KEYS.CART);
-    if (legacyValue) {
-      const parsed = JSON.parse(legacyValue);
-      if (parsed && typeof parsed === 'object' && ('couponCode' in parsed || 'couponApplied' in parsed)) {
-        return parsed;
-      }
-    }
-    return null;
-  } catch {
-    return null;
+  const legacyValue = getStorageItem(STORAGE_KEYS.CART, null);
+  if (legacyValue && typeof legacyValue === 'object' && ('couponCode' in legacyValue || 'couponApplied' in legacyValue)) {
+    return legacyValue;
   }
+  return null;
 }
 
 
@@ -94,18 +83,12 @@ export function CouponProvider({ children }) {
   );
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEYS.COUPON,
-        JSON.stringify({
-          couponCode,
-          discountPercent,
-          couponMessage,
-          couponApplied
-        })
-      );
-    } catch {
-    }
+    setStorageItem(STORAGE_KEYS.COUPON, {
+      couponCode,
+      discountPercent,
+      couponMessage,
+      couponApplied
+    });
   }, [couponCode, discountPercent, couponMessage, couponApplied]);
 
   const value = useMemo(() => ({

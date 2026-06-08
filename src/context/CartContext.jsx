@@ -1,20 +1,12 @@
 import React, { createContext, useEffect, useMemo, useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { STORAGE_KEYS } from '../utils/constants';
+import { getStorageItem, setStorageItem } from '../utils/helpers';
 
 const CartContext = createContext(null);
 
 function loadStoredCartState() {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEYS.CART);
-    return storedValue ? JSON.parse(storedValue) : null;
-  } catch {
-    return null;
-  }
+  return getStorageItem(STORAGE_KEYS.CART, null);
 }
 
 function hydrateCartById(storedState) {
@@ -117,15 +109,7 @@ export function CartProvider({ children }) {
   };
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEYS.CART,
-        JSON.stringify({
-          cartById
-        })
-      );
-    } catch {
-    }
+    setStorageItem(STORAGE_KEYS.CART, { cartById });
   }, [cartById]);
 
   // Derived values

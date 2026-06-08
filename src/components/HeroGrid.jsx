@@ -1,4 +1,4 @@
-import { HERO_GRID_CARDS } from "../utils/constants";
+import { HERO_GRID_CARDS, PLACEHOLDER_IMAGE } from "../utils/constants";
 import { products } from "../data/products";
 
 export default function HeroGrid() {
@@ -6,8 +6,8 @@ export default function HeroGrid() {
     const product = products.find((p) => p.id === card.productId);
     return {
       id: index + 1,
-      image: product ? product.image : "",
-      alt: product ? product.name : "",
+      image: product && product.image ? product.image : PLACEHOLDER_IMAGE,
+      alt: product ? product.name : "Product Placeholder",
       className: card.className,
     };
   });

@@ -35,3 +35,6 @@ export const LABELS = {
   ADD_TO_WISHLIST: "Add to Wishlist",
   CART_EMPTY: "Your cart is empty",
 };
+
+export const PLACEHOLDER_IMAGE = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'><rect width='100%' height='100%' fill='%23f3f4f6'/><text x='50%' y='50%' font-family='sans-serif' font-size='24' fill='%239ca3af' text-anchor='middle'>Aurora Goods</text></svg>";
+

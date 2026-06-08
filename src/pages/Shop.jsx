@@ -5,10 +5,7 @@ import {
   SortControls,
   SearchBanner,
   FilterBanner,
-  ProductSkeletonGrid,
-  ProductGridError,
-  ProductGridEmpty,
-  ProductsList
+  ProductGridStates
 } from '../components/ProductCatalogShared';
 
 export default function Shop({ onQuickView }) {
@@ -114,30 +111,20 @@ export default function Shop({ onQuickView }) {
             />
           </div>
 
-          {/* Error State */}
-          {isError && (
-            <ProductGridError message={error?.message} onRetry={refetch} />
-          )}
-
-          {/* Loading Skeletons */}
-          {isLoading && (
-            <ProductSkeletonGrid count={8} />
-          )}
-
-          {/* Empty State */}
-          {!isLoading && !isError && productsList.length === 0 && (
-            <ProductGridEmpty
-              onReset={() => {
-                setSearchParams({});
-                setSortBy('featured');
-              }}
-            />
-          )}
-
-          {/* Products Grid */}
-          {!isLoading && !isError && productsList.length > 0 && (
-            <ProductsList products={productsList} onQuickView={onQuickView} />
-          )}
+          {/* Product Grid States (Loading / Error / Empty / List) */}
+          <ProductGridStates
+            isLoading={isLoading}
+            isError={isError}
+            error={error}
+            productsList={productsList}
+            refetch={refetch}
+            skeletonCount={8}
+            onReset={() => {
+              setSearchParams({});
+              setSortBy('featured');
+            }}
+            onQuickView={onQuickView}
+          />
         </div>
       </section>
     </div>

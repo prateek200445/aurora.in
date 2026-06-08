@@ -4,10 +4,7 @@ import {
   CategoryTabs,
   SortControls,
   SearchBanner,
-  ProductSkeletonGrid,
-  ProductGridError,
-  ProductGridEmpty,
-  ProductsList
+  ProductGridStates
 } from './ProductCatalogShared';
 
 export default function ProductGrid({
@@ -63,31 +60,21 @@ export default function ProductGrid({
           />
         </div>
 
-        {/* Error State */}
-        {isError && (
-          <ProductGridError message={error?.message} onRetry={refetch} />
-        )}
-
-        {/* Loading Skeletons */}
-        {isLoading && (
-          <ProductSkeletonGrid count={4} />
-        )}
-
-        {/* Empty State */}
-        {!isLoading && !isError && productsList.length === 0 && (
-          <ProductGridEmpty
-            onReset={() => {
-              onCategorySelect('All');
-              onSearchClear();
-              setSortBy('featured');
-            }}
-          />
-        )}
-
-        {/* Products Grid */}
-        {!isLoading && !isError && productsList.length > 0 && (
-          <ProductsList products={productsList} onQuickView={onQuickView} />
-        )}
+        {/* Product Grid States (Loading / Error / Empty / List) */}
+        <ProductGridStates
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+          productsList={productsList}
+          refetch={refetch}
+          skeletonCount={4}
+          onReset={() => {
+            onCategorySelect('All');
+            onSearchClear();
+            setSortBy('featured');
+          }}
+          onQuickView={onQuickView}
+        />
       </div>
     </section>
   );

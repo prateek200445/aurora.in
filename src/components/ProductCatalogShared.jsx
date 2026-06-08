@@ -144,3 +144,29 @@ export function ProductsList({ products, onQuickView }) {
     </div>
   );
 }
+
+export function ProductGridStates({
+  isLoading,
+  isError,
+  error,
+  productsList,
+  refetch,
+  skeletonCount = 8,
+  onReset,
+  onQuickView
+}) {
+  if (isError) {
+    return <ProductGridError message={error?.message} onRetry={refetch} />;
+  }
+
+  if (isLoading) {
+    return <ProductSkeletonGrid count={skeletonCount} />;
+  }
+
+  if (!productsList || productsList.length === 0) {
+    return <ProductGridEmpty onReset={onReset} />;
+  }
+
+  return <ProductsList products={productsList} onQuickView={onQuickView} />;
+}
+

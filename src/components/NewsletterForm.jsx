@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { api } from '../data/products';
 import Spinner from './Spinner';
+import { useAsyncAction } from '../hooks/useAsyncAction';
 
 export default function NewsletterForm() {
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { execute: subscribe, isLoading } = useAsyncAction(api.subscribeNewsletter);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,17 +17,14 @@ export default function NewsletterForm() {
     const email = data.newsletterEmail?.trim();
     if (!email) return;
 
-    setIsLoading(true);
     try {
-      const result = await api.subscribeNewsletter(email);
+      const result = await subscribe(email);
       setMessage(result.message);
       setIsSuccess(true);
       form.reset();
     } catch (err) {
       setMessage(err.message || 'Something went wrong. Please try again.');
       setIsSuccess(false);
-    } finally {
-      setIsLoading(false);
     }
   };
 

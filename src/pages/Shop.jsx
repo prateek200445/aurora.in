@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
+import { LABELS } from '../utils/constants';
 import {
   CategoryTabs,
   SortControls,
@@ -72,9 +73,9 @@ export default function Shop({ onQuickView }) {
                  selectedFilter === 'sale' ? 'Limited Time Discounts' : 'Our Curated Catalog'}
               </span>
               <h2 className="section-title">
-                {selectedFilter === 'new' ? 'New Arrivals' :
-                 selectedFilter === 'bestseller' ? 'Trending Best Sellers' :
-                 selectedFilter === 'sale' ? 'Exclusive Sale Offers' : 'Discover Our Essentials'}
+                {selectedFilter === 'new' ? LABELS.NEW_ARRIVALS :
+                 selectedFilter === 'bestseller' ? `Trending ${LABELS.BEST_SELLERS}` :
+                 selectedFilter === 'sale' ? `Exclusive ${LABELS.SALE} Offers` : 'Discover Our Essentials'}
               </h2>
             </div>
 

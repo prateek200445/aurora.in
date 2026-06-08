@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useEffect, useRef } from 'react';
 import { formatCurrency } from '../utils/helpers';
+import { LABELS } from '../utils/constants';
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 import RatingStars from './RatingStars';
 
@@ -14,7 +15,6 @@ export default function QuickViewModal({ product, onClose }) {
 
   const hasDiscount = product.discountPrice !== undefined;
 
-  // Escape key closes modal
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -48,8 +48,8 @@ export default function QuickViewModal({ product, onClose }) {
         <div className="modal-grid">
           {/* Left Column: Product Image */}
           <div className="modal-image-container">
-            {product.isNew && <span className="modal-badge badge-new">New</span>}
-            {product.isBestSeller && <span className="modal-badge badge-bestseller">Best Seller</span>}
+            {product.isNew && <span className="modal-badge badge-new">{LABELS.NEW}</span>}
+            {product.isBestSeller && <span className="modal-badge badge-bestseller">{LABELS.BEST_SELLER}</span>}
             <img src={product.image} alt={product.name} className="modal-image" />
           </div>
 
@@ -112,7 +112,7 @@ export default function QuickViewModal({ product, onClose }) {
                 disabled={!product.inStock}
               >
                 <ShoppingBag className="icon-sm" />
-                <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
+                <span>{product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}</span>
               </button>
               <button
                 className={`btn btn-outline btn-lg btn-wishlist-toggle ${isWishlisted ? 'active' : ''}`}
@@ -120,7 +120,7 @@ export default function QuickViewModal({ product, onClose }) {
                 aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
               >
                 <Heart className="icon-sm" fill={isWishlisted ? 'var(--accent-color)' : 'none'} />
-                <span>{isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}</span>
+                <span>{isWishlisted ? LABELS.WISHLISTED : LABELS.ADD_TO_WISHLIST}</span>
               </button>
             </div>
           </div>

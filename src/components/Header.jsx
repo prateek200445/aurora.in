@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { api } from '../data/products';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { BRAND_NAME, BRAND_SHORT } from '../utils/constants';
+import { BRAND_NAME, BRAND_SHORT, LABELS } from '../utils/constants';
 
 export default function Header({ onCartToggle, onQuickView }) {
   const navigate = useNavigate();
@@ -186,18 +186,18 @@ export default function Header({ onCartToggle, onQuickView }) {
 
             <li className="nav-item">
               <Link to="/shop?filter=new" className={`nav-link ${isNewArrivalsActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                New Arrivals
+                {LABELS.NEW_ARRIVALS}
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/shop?filter=bestseller" className={`nav-link ${isBestSellersActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                Best Sellers
+                {LABELS.BEST_SELLERS}
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/shop?filter=sale" className={`nav-link text-sale ${isSaleActive ? 'active' : ''}`} onClick={closeMobileMenu}>
                 <Sparkles className="icon-xs sale-icon" />
-                <span>Sale</span>
+                <span>{LABELS.SALE}</span>
               </Link>
             </li>
           </ul>
@@ -286,13 +286,13 @@ export default function Header({ onCartToggle, onQuickView }) {
       <div className={`mobile-navigation ${isMobileMenuOpen ? 'open' : ''}`} aria-hidden={!isMobileMenuOpen}>
         <div className="mobile-navigation-inner">
           <Link to="/shop?filter=new" className={`mobile-nav-link ${isNewArrivalsActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-            New Arrivals
+            {LABELS.NEW_ARRIVALS}
           </Link>
           <Link to="/shop?filter=bestseller" className={`mobile-nav-link ${isBestSellersActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-            Best Sellers
+            {LABELS.BEST_SELLERS}
           </Link>
           <Link to="/shop?filter=sale" className={`mobile-nav-link text-sale ${isSaleActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-            <span>Sale</span>
+            <span>{LABELS.SALE}</span>
             <Sparkles className="icon-xs sale-icon" />
           </Link>
 

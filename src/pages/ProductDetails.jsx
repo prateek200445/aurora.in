@@ -5,6 +5,7 @@ import { Heart, ShoppingBag, Check, ArrowLeft, Shield, RotateCcw, Truck } from '
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { formatCurrency } from '../utils/helpers';
+import { LABELS } from '../utils/constants';
 import Spinner from '../components/Spinner';
 import RatingStars from '../components/RatingStars';
 
@@ -60,8 +61,8 @@ export default function ProductDetails() {
 
       <div className="details-grid">
         <div className="details-image-container">
-          {product.isNew && <span className="modal-badge badge-new">New</span>}
-          {product.isBestSeller && <span className="modal-badge badge-bestseller">Best Seller</span>}
+          {product.isNew && <span className="modal-badge badge-new">{LABELS.NEW}</span>}
+          {product.isBestSeller && <span className="modal-badge badge-bestseller">{LABELS.BEST_SELLER}</span>}
           <img src={product.image} alt={product.name} className="details-image" />
         </div>
 
@@ -118,7 +119,7 @@ export default function ProductDetails() {
               disabled={!product.inStock}
             >
               <ShoppingBag className="icon-sm" />
-              <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
+              <span>{product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}</span>
             </button>
             <button
               className={`btn btn-outline btn-lg btn-wishlist-toggle ${isWishlisted ? 'active' : ''}`}
@@ -126,7 +127,7 @@ export default function ProductDetails() {
               aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
             >
               <Heart className="icon-sm" fill={isWishlisted ? 'var(--accent-color)' : 'none'} />
-              <span>{isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}</span>
+              <span>{isWishlisted ? LABELS.WISHLISTED : LABELS.ADD_TO_WISHLIST}</span>
             </button>
           </div>
 

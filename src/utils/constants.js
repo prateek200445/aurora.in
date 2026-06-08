@@ -22,3 +22,17 @@ export const HERO_GRID_CARDS = [
   { productId: 'prod-1', className: 'card-5' },
   { productId: 'prod-8', className: 'card-6' }
 ];
+
+export const LABELS = {
+  NEW: 'New',
+  BEST_SELLER: 'Best Seller',
+  SALE: 'Sale',
+  NEW_ARRIVALS: 'New Arrivals',
+  BEST_SELLERS: 'Best Sellers',
+  ADD_TO_CART: 'Add to Cart',
+  OUT_OF_STOCK: 'Out of Stock',
+  WISHLISTED: 'Wishlisted',
+  ADD_TO_WISHLIST: 'Add to Wishlist',
+  CART_EMPTY: 'Your cart is empty',
+};
+

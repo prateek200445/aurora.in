@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
 import { ArrowLeft, ShoppingBag } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { STORAGE_KEYS } from '../utils/constants';
+import { STORAGE_KEYS, LABELS } from '../utils/constants';
 import { isValidPincode } from '../utils/validation';
 import { getDeliveryDateString, getStorageItem, setStorageItem } from '../utils/helpers';
 import '../styles/checkout.css';
@@ -201,7 +201,7 @@ export default function Checkout() {
           <div className="empty-icon-box">
             <ShoppingBag className="icon-lg empty-shopping-bag" />
           </div>
-          <h3 className="empty-cart-title">Your cart is empty</h3>
+          <h3 className="empty-cart-title">{LABELS.CART_EMPTY}</h3>
           <p className="empty-cart-text">
             You cannot proceed to checkout without items in your cart. Add premium essentials to your bag first.
           </p>

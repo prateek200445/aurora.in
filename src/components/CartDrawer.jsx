@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useCoupon } from '../context/CouponContext';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BRAND_NAME, PROMO_CODE_AURORA10 } from '../utils/constants';
+import { BRAND_NAME, PROMO_CODE_AURORA10, LABELS } from '../utils/constants';
 import { formatCurrency } from '../utils/helpers';
 import Spinner from './Spinner';
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
@@ -30,7 +30,6 @@ export default function CartDrawer({ isOpen, onClose }) {
   const [promoInput, setPromoInput] = useState('');
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
 
-  // Prevent background scrolling when Cart drawer is open
   useLockBodyScroll(isOpen);
 
   const handleApplyPromo = (e) => {
@@ -90,7 +89,7 @@ export default function CartDrawer({ isOpen, onClose }) {
               <div className="empty-icon-container">
                 <ShoppingCart className="empty-icon" />
               </div>
-              <h3>Your cart is empty</h3>
+              <h3>{LABELS.CART_EMPTY}</h3>
               <p>Explore our premium collections and find everything you love today.</p>
               <button
                 className="btn btn-primary"

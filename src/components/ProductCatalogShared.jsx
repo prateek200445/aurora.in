@@ -1,4 +1,5 @@
 import React from 'react';
+import { LABELS } from '../utils/constants';
 import { ArrowUpDown, RefreshCw, Search, X } from 'lucide-react';
 import ProductCard from './ProductCard';
 
@@ -65,9 +66,9 @@ export function FilterBanner({ selectedFilter, onFilterClear, style }) {
   
   const getFilterLabel = (filter) => {
     switch (filter) {
-      case 'new': return 'New Arrivals';
-      case 'bestseller': return 'Best Sellers';
-      case 'sale': return 'Sale';
+      case 'new': return LABELS.NEW_ARRIVALS;
+      case 'bestseller': return LABELS.BEST_SELLERS;
+      case 'sale': return LABELS.SALE;
       default: return filter;
     }
   };

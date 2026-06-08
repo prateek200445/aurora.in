@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { Link } from 'react-router-dom';
 import { formatCurrency, calculateDiscountPercentage } from '../utils/helpers';
+import { LABELS } from '../utils/constants';
 import RatingStars from './RatingStars';
 
 export default function ProductCard({ product, onQuickView }) {
@@ -18,8 +19,8 @@ export default function ProductCard({ product, onQuickView }) {
       <div className="product-card-image-container">
         {/* Badges */}
         <div className="product-card-badges">
-          {product.isNew && <span className="badge badge-new">New</span>}
-          {product.isBestSeller && <span className="badge badge-bestseller">Best Seller</span>}
+          {product.isNew && <span className="badge badge-new">{LABELS.NEW}</span>}
+          {product.isBestSeller && <span className="badge badge-bestseller">{LABELS.BEST_SELLER}</span>}
           {hasDiscount && (
             <span className="badge badge-sale">
               -{discountPercentage}%
@@ -62,7 +63,7 @@ export default function ProductCard({ product, onQuickView }) {
             disabled={!product.inStock}
           >
             <ShoppingBag className="icon-sm" />
-            <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
+            <span>{product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}</span>
           </button>
         </div>
       </div>

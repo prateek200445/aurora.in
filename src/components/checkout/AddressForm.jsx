@@ -1,11 +1,11 @@
-import React from 'react';
-import { cleanPincode } from '../../utils/validation';
+import React from "react";
+import { cleanPincode } from "../../utils/validation";
 
 export default function AddressForm({
   newAddress,
   setNewAddress,
   handleNewAddressSubmit,
-  setShowAddressForm
+  setShowAddressForm,
 }) {
   return (
     <div className="address-form-container">
@@ -14,11 +14,13 @@ export default function AddressForm({
         <div className="form-grid">
           <div className="form-group">
             <label htmlFor="address-tag">Address Type</label>
-            <select 
+            <select
               id="address-tag"
               className="checkout-input"
               value={newAddress.tag}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, tag: e.target.value }))}
+              onChange={(e) =>
+                setNewAddress((prev) => ({ ...prev, tag: e.target.value }))
+              }
             >
               <option value="Home">Home</option>
               <option value="Office">Office</option>
@@ -28,96 +30,110 @@ export default function AddressForm({
 
           <div className="form-group">
             <label htmlFor="address-name">Full Name *</label>
-            <input 
+            <input
               id="address-name"
-              type="text" 
+              type="text"
               required
               className="checkout-input"
               placeholder="e.g. Prateek Sharma"
               value={newAddress.name}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, name: e.target.value }))}
+              onChange={(e) =>
+                setNewAddress((prev) => ({ ...prev, name: e.target.value }))
+              }
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="address-phone">Phone Number *</label>
-            <input 
+            <input
               id="address-phone"
-              type="tel" 
+              type="tel"
               required
               className="checkout-input"
               placeholder="e.g. +91 98765 43210"
               value={newAddress.phone}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, phone: e.target.value }))}
+              onChange={(e) =>
+                setNewAddress((prev) => ({ ...prev, phone: e.target.value }))
+              }
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="address-pincode">Pincode *</label>
-            <input 
+            <input
               id="address-pincode"
-              type="text" 
+              type="text"
               required
               maxLength={6}
               className="checkout-input"
               placeholder="e.g. 201301"
               value={newAddress.pincode}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, pincode: cleanPincode(e.target.value) }))}
+              onChange={(e) =>
+                setNewAddress((prev) => ({
+                  ...prev,
+                  pincode: cleanPincode(e.target.value),
+                }))
+              }
             />
           </div>
 
           <div className="form-group full-width">
-            <label htmlFor="address-street">Flat, House no., Building, Street *</label>
-            <input 
+            <label htmlFor="address-street">
+              Flat, House no., Building, Street *
+            </label>
+            <input
               id="address-street"
-              type="text" 
+              type="text"
               required
               className="checkout-input"
               placeholder="e.g. 123, Lavender Heights, Sector 62"
               value={newAddress.street}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, street: e.target.value }))}
+              onChange={(e) =>
+                setNewAddress((prev) => ({ ...prev, street: e.target.value }))
+              }
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="address-city">City *</label>
-            <input 
+            <input
               id="address-city"
-              type="text" 
+              type="text"
               required
               className="checkout-input"
               placeholder="e.g. Noida"
               value={newAddress.city}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, city: e.target.value }))}
+              onChange={(e) =>
+                setNewAddress((prev) => ({ ...prev, city: e.target.value }))
+              }
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="address-state">State *</label>
-            <input 
+            <input
               id="address-state"
-              type="text" 
+              type="text"
               required
               className="checkout-input"
               placeholder="e.g. Uttar Pradesh"
               value={newAddress.state}
-              onChange={(e) => setNewAddress(prev => ({ ...prev, state: e.target.value }))}
+              onChange={(e) =>
+                setNewAddress((prev) => ({ ...prev, state: e.target.value }))
+              }
             />
           </div>
         </div>
 
         <div className="form-actions">
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="btn btn-outline address-form-btn"
             onClick={() => setShowAddressForm(false)}
           >
             Cancel
           </button>
-          <button 
-            type="submit" 
-            className="btn btn-primary address-form-btn"
-          >
+          <button type="submit" className="btn btn-primary address-form-btn">
             Save & Use Address
           </button>
         </div>

@@ -8,8 +8,8 @@
  * @returns {string} The formatted currency string.
  */
 export function formatCurrency(amount) {
-  if (amount == null) return '';
-  return `₹${amount.toLocaleString('en-IN')}`;
+  if (amount == null) return "";
+  return `₹${amount.toLocaleString("en-IN")}`;
 }
 
 /**
@@ -40,11 +40,11 @@ export function roundMoney(value) {
 export function getDeliveryDateString(daysAhead = 5) {
   const date = new Date();
   date.setDate(date.getDate() + daysAhead);
-  return date.toLocaleDateString('en-IN', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
+  return date.toLocaleDateString("en-IN", {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   });
 }
 
@@ -55,19 +55,19 @@ export function getDeliveryDateString(daysAhead = 5) {
  * @returns {*} The parsed item or default value.
  */
 export function getStorageItem(key, defaultValue) {
-  if (typeof window === 'undefined') return defaultValue;
+  if (typeof window === "undefined") return defaultValue;
   try {
     const value = window.localStorage.getItem(key);
     if (value === null) return defaultValue;
-    
+
     // Only parse if it looks like a serialized JSON object, array, boolean, or null
     const trimmed = value.trim();
     if (
-      (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
-      (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
-      trimmed === 'true' ||
-      trimmed === 'false' ||
-      trimmed === 'null'
+      (trimmed.startsWith("{") && trimmed.endsWith("}")) ||
+      (trimmed.startsWith("[") && trimmed.endsWith("]")) ||
+      trimmed === "true" ||
+      trimmed === "false" ||
+      trimmed === "null"
     ) {
       try {
         return JSON.parse(value);
@@ -88,11 +88,11 @@ export function getStorageItem(key, defaultValue) {
  * @param {*} value - The value to save.
  */
 export function setStorageItem(key, value) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   try {
     if (value === null || value === undefined) {
       window.localStorage.removeItem(key);
-    } else if (typeof value === 'string') {
+    } else if (typeof value === "string") {
       window.localStorage.setItem(key, value);
     } else {
       window.localStorage.setItem(key, JSON.stringify(value));
@@ -102,17 +102,15 @@ export function setStorageItem(key, value) {
   }
 }
 
-
 /**
  * Safely removes an item from localStorage.
  * @param {string} key - The localStorage key.
  */
 export function removeStorageItem(key) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   try {
     window.localStorage.removeItem(key);
   } catch (error) {
     console.error(`Error removing localStorage key "${key}":`, error);
   }
 }
-

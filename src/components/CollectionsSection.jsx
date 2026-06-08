@@ -1,14 +1,14 @@
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { collections } from '../data/products';
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { collections } from "../data/products";
 
 const categoryByCollectionName = {
-  'Featured Collections': 'Home Decor',
-  'New Arrivals': 'Skincare'
+  "Featured Collections": "Home Decor",
+  "New Arrivals": "Skincare",
 };
 
 function getCollectionCategory(name) {
-  return categoryByCollectionName[name] || 'Apparel';
+  return categoryByCollectionName[name] || "Apparel";
 }
 
 export default function CollectionsSection() {

@@ -1,18 +1,18 @@
-import React from 'react';
-import { useProducts } from '../hooks/useProducts';
+import React from "react";
+import { useProducts } from "../hooks/useProducts";
 import {
   CategoryTabs,
   SortControls,
   SearchBanner,
-  ProductGridStates
-} from './ProductCatalogShared';
+  ProductGridStates,
+} from "./ProductCatalogShared";
 
 export default function ProductGrid({
   selectedCategory,
   onCategorySelect,
   searchQuery,
   onSearchClear,
-  onQuickView
+  onQuickView,
 }) {
   const {
     productsList,
@@ -22,13 +22,19 @@ export default function ProductGrid({
     refetch,
     isFetching,
     sortBy,
-    setSortBy
+    setSortBy,
   } = useProducts({
     category: selectedCategory,
-    search: searchQuery
+    search: searchQuery,
   });
 
-  const categories = ['All', 'Apparel', 'Home Decor', 'Skincare', 'Electronics'];
+  const categories = [
+    "All",
+    "Apparel",
+    "Home Decor",
+    "Skincare",
+    "Electronics",
+  ];
 
   return (
     <section className="product-section" id="products">
@@ -40,7 +46,10 @@ export default function ProductGrid({
             <h2 className="section-title">Discover Our Essentials</h2>
           </div>
 
-          <SearchBanner searchQuery={searchQuery} onSearchClear={onSearchClear} />
+          <SearchBanner
+            searchQuery={searchQuery}
+            onSearchClear={onSearchClear}
+          />
         </div>
 
         {/* Filter and Sort Toolbar */}
@@ -69,9 +78,9 @@ export default function ProductGrid({
           refetch={refetch}
           skeletonCount={4}
           onReset={() => {
-            onCategorySelect('All');
+            onCategorySelect("All");
             onSearchClear();
-            setSortBy('featured');
+            setSortBy("featured");
           }}
           onQuickView={onQuickView}
         />

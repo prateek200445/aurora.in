@@ -1,7 +1,7 @@
-import React from 'react';
-import { ShoppingBag, ShieldCheck } from 'lucide-react';
-import { formatCurrency } from '../../utils/helpers';
-import Spinner from '../Spinner';
+import React from "react";
+import { ShoppingBag, ShieldCheck } from "lucide-react";
+import { formatCurrency } from "../../utils/helpers";
+import Spinner from "../Spinner";
 
 export default function OrderSummary({
   cartItems,
@@ -19,7 +19,7 @@ export default function OrderSummary({
   handlePlaceOrder,
   isPlacingOrder,
   selectedAddressId,
-  removePromoCode
+  removePromoCode,
 }) {
   return (
     <div className="checkout-sidebar">
@@ -35,17 +35,20 @@ export default function OrderSummary({
         {/* Items List */}
         <div className="checkout-items-list">
           {cartItems.map((item) => {
-            const activePrice = item.product.discountPrice ?? item.product.price;
+            const activePrice =
+              item.product.discountPrice ?? item.product.price;
             return (
               <div key={item.product.id} className="checkout-item-row">
-                <img 
-                  src={item.product.image} 
-                  alt={item.product.name} 
+                <img
+                  src={item.product.image}
+                  alt={item.product.name}
                   className="checkout-item-thumb"
                 />
                 <div className="checkout-item-details">
                   <div className="checkout-item-title">{item.product.name}</div>
-                  <div className="checkout-item-qty">Qty: {item.quantity} • {formatCurrency(activePrice)}</div>
+                  <div className="checkout-item-qty">
+                    Qty: {item.quantity} • {formatCurrency(activePrice)}
+                  </div>
                 </div>
                 <div className="checkout-item-total">
                   {formatCurrency(activePrice * item.quantity)}
@@ -76,7 +79,7 @@ export default function OrderSummary({
                   type="button"
                   onClick={() => {
                     removePromoCode();
-                    setPromoInput('');
+                    setPromoInput("");
                   }}
                   className="btn btn-sm btn-promo-remove"
                 >
@@ -88,12 +91,14 @@ export default function OrderSummary({
                   disabled={isCouponLoading || !promoInput.trim()}
                   className="btn btn-sm btn-primary btn-promo-apply"
                 >
-                  {isCouponLoading ? <Spinner size="sm" /> : 'Apply'}
+                  {isCouponLoading ? <Spinner size="sm" /> : "Apply"}
                 </button>
               )}
             </div>
             {couponMessage && (
-              <p className={`promo-message ${couponApplied ? 'success' : 'error'}`}>
+              <p
+                className={`promo-message ${couponApplied ? "success" : "error"}`}
+              >
                 {couponMessage}
               </p>
             )}
@@ -101,18 +106,16 @@ export default function OrderSummary({
 
           {/* Available Offers Quick Selection */}
           <div className="available-offers">
-            <span className="offers-heading">
-              Available Offers
-            </span>
-            
+            <span className="offers-heading">Available Offers</span>
+
             <div className="offer-card">
               <div>
                 <span className="offer-badge">AURORA10</span>
                 <div className="offer-desc">10% OFF on all items.</div>
               </div>
-              <button 
+              <button
                 className="btn btn-sm btn-outline btn-quick-apply"
-                onClick={() => handleQuickApply('AURORA10')}
+                onClick={() => handleQuickApply("AURORA10")}
                 disabled={couponApplied}
               >
                 Apply
@@ -124,9 +127,9 @@ export default function OrderSummary({
                 <span className="offer-badge">FREESHIP</span>
                 <div className="offer-desc">Free Delivery on all orders.</div>
               </div>
-              <button 
+              <button
                 className="btn btn-sm btn-outline btn-quick-apply"
-                onClick={() => handleQuickApply('FREESHIP')}
+                onClick={() => handleQuickApply("FREESHIP")}
                 disabled={couponApplied}
               >
                 Apply
@@ -164,8 +167,8 @@ export default function OrderSummary({
           onClick={handlePlaceOrder}
           disabled={isPlacingOrder || !selectedAddressId}
           style={{
-            opacity: (!selectedAddressId && !isPlacingOrder) ? 0.6 : 1,
-            cursor: !selectedAddressId ? 'not-allowed' : 'pointer'
+            opacity: !selectedAddressId && !isPlacingOrder ? 0.6 : 1,
+            cursor: !selectedAddressId ? "not-allowed" : "pointer",
           }}
         >
           {isPlacingOrder ? (

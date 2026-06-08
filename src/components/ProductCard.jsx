@@ -1,10 +1,10 @@
-import { Heart, ShoppingBag, Eye } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
-import { Link } from 'react-router-dom';
-import { formatCurrency, calculateDiscountPercentage } from '../utils/helpers';
-import { LABELS } from '../utils/constants';
-import RatingStars from './RatingStars';
+import { Heart, ShoppingBag, Eye } from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
+import { Link } from "react-router-dom";
+import { formatCurrency, calculateDiscountPercentage } from "../utils/helpers";
+import { LABELS } from "../utils/constants";
+import RatingStars from "./RatingStars";
 
 export default function ProductCard({ product, onQuickView }) {
   const { addToCart } = useCart();
@@ -12,19 +12,24 @@ export default function ProductCard({ product, onQuickView }) {
   const isWishlisted = wishlist.includes(product.id);
 
   const hasDiscount = product.discountPrice !== undefined;
-  const discountPercentage = calculateDiscountPercentage(product.price, product.discountPrice);
+  const discountPercentage = calculateDiscountPercentage(
+    product.price,
+    product.discountPrice,
+  );
 
   return (
     <div className="product-card">
       <div className="product-card-image-container">
         {/* Badges */}
         <div className="product-card-badges">
-          {product.isNew && <span className="badge badge-new">{LABELS.NEW}</span>}
-          {product.isBestSeller && <span className="badge badge-bestseller">{LABELS.BEST_SELLER}</span>}
+          {product.isNew && (
+            <span className="badge badge-new">{LABELS.NEW}</span>
+          )}
+          {product.isBestSeller && (
+            <span className="badge badge-bestseller">{LABELS.BEST_SELLER}</span>
+          )}
           {hasDiscount && (
-            <span className="badge badge-sale">
-              -{discountPercentage}%
-            </span>
+            <span className="badge badge-sale">-{discountPercentage}%</span>
           )}
         </div>
 
@@ -40,11 +45,14 @@ export default function ProductCard({ product, onQuickView }) {
 
         {/* Wishlist Button */}
         <button
-          className={`product-card-wishlist ${isWishlisted ? 'active' : ''}`}
+          className={`product-card-wishlist ${isWishlisted ? "active" : ""}`}
           onClick={() => toggleWishlist(product.id)}
-          aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >
-          <Heart className="icon" fill={isWishlisted ? 'var(--accent-color)' : 'none'} />
+          <Heart
+            className="icon"
+            fill={isWishlisted ? "var(--accent-color)" : "none"}
+          />
         </button>
 
         {/* Action Overlay */}
@@ -63,7 +71,9 @@ export default function ProductCard({ product, onQuickView }) {
             disabled={!product.inStock}
           >
             <ShoppingBag className="icon-sm" />
-            <span>{product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}</span>
+            <span>
+              {product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}
+            </span>
           </button>
         </div>
       </div>
@@ -86,8 +96,12 @@ export default function ProductCard({ product, onQuickView }) {
         <div className="product-card-price-container">
           {hasDiscount ? (
             <>
-              <span className="price price-discount">{formatCurrency(product.discountPrice)}</span>
-              <span className="price price-original">{formatCurrency(product.price)}</span>
+              <span className="price price-discount">
+                {formatCurrency(product.discountPrice)}
+              </span>
+              <span className="price price-original">
+                {formatCurrency(product.price)}
+              </span>
             </>
           ) : (
             <span className="price">{formatCurrency(product.price)}</span>

@@ -1,6 +1,12 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { STORAGE_KEYS } from '../utils/constants';
-import { getStorageItem, setStorageItem } from '../utils/helpers';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { STORAGE_KEYS } from "../utils/constants";
+import { getStorageItem, setStorageItem } from "../utils/helpers";
 
 const WishlistContext = createContext(null);
 
@@ -21,7 +27,7 @@ export function WishlistProvider({ children }) {
     setWishlist((prev) =>
       prev.includes(productId)
         ? prev.filter((id) => id !== productId)
-        : [...prev, productId]
+        : [...prev, productId],
     );
   };
 
@@ -29,19 +35,26 @@ export function WishlistProvider({ children }) {
     setStorageItem(STORAGE_KEYS.WISHLIST, wishlist);
   }, [wishlist]);
 
-  const value = useMemo(() => ({
-    wishlist,
-    toggleWishlist,
-    wishlistCount: wishlist.length
-  }), [wishlist]);
+  const value = useMemo(
+    () => ({
+      wishlist,
+      toggleWishlist,
+      wishlistCount: wishlist.length,
+    }),
+    [wishlist],
+  );
 
-  return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>;
+  return (
+    <WishlistContext.Provider value={value}>
+      {children}
+    </WishlistContext.Provider>
+  );
 }
 
 export function useWishlist() {
   const context = useContext(WishlistContext);
   if (!context) {
-    throw new Error('useWishlist must be used within a WishlistProvider');
+    throw new Error("useWishlist must be used within a WishlistProvider");
   }
   return context;
 }

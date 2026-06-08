@@ -1,7 +1,7 @@
-import React from 'react';
-import { CheckCircle2 } from 'lucide-react';
-import { BRAND_NAME } from '../../utils/constants';
-import { formatCurrency } from '../../utils/helpers';
+import React from "react";
+import { CheckCircle2 } from "lucide-react";
+import { BRAND_NAME } from "../../utils/constants";
+import { formatCurrency } from "../../utils/helpers";
 
 export default function SuccessModal({
   isOrderPlaced,
@@ -9,7 +9,7 @@ export default function SuccessModal({
   currentAddress,
   deliveryDateString,
   total,
-  handleCloseSuccessModal
+  handleCloseSuccessModal,
 }) {
   if (!isOrderPlaced) return null;
 
@@ -19,10 +19,12 @@ export default function SuccessModal({
         <div className="success-icon-wrap">
           <CheckCircle2 className="icon success-icon" />
         </div>
-        
+
         <h2 className="success-title">Order Placed Successfully!</h2>
         <p className="success-text">
-          Thank you for shopping with {BRAND_NAME}. Your purchase is fully confirmed, and we've scheduled standard 5-day delivery to your selected address.
+          Thank you for shopping with {BRAND_NAME}. Your purchase is fully
+          confirmed, and we've scheduled standard 5-day delivery to your
+          selected address.
         </p>
 
         <div className="success-details-card">
@@ -32,7 +34,7 @@ export default function SuccessModal({
           </div>
           <div className="success-detail-row">
             <span>Delivery Address:</span>
-            <span>{currentAddress?.name || 'Saved Address'}</span>
+            <span>{currentAddress?.name || "Saved Address"}</span>
           </div>
           <div className="success-detail-row">
             <span>Delivery Address Info:</span>
@@ -42,7 +44,9 @@ export default function SuccessModal({
           </div>
           <div className="success-detail-row">
             <span>Expected Delivery:</span>
-            <span className="expected-delivery-date">In 5 Days ({deliveryDateString})</span>
+            <span className="expected-delivery-date">
+              In 5 Days ({deliveryDateString})
+            </span>
           </div>
           <div className="success-detail-row border-none">
             <span>Paid Amount:</span>
@@ -50,7 +54,7 @@ export default function SuccessModal({
           </div>
         </div>
 
-        <button 
+        <button
           className="btn btn-primary success-continue-btn"
           onClick={handleCloseSuccessModal}
         >

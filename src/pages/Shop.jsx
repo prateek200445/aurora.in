@@ -1,19 +1,19 @@
-import { useSearchParams } from 'react-router-dom';
-import { useProducts } from '../hooks/useProducts';
-import { LABELS } from '../utils/constants';
+import { useSearchParams } from "react-router-dom";
+import { useProducts } from "../hooks/useProducts";
+import { LABELS } from "../utils/constants";
 import {
   CategoryTabs,
   SortControls,
   SearchBanner,
   FilterBanner,
-  ProductGridStates
-} from '../components/ProductCatalogShared';
+  ProductGridStates,
+} from "../components/ProductCatalogShared";
 
 export default function Shop({ onQuickView }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedCategory = searchParams.get('category') || 'All';
-  const searchQuery = searchParams.get('search') || '';
-  const selectedFilter = searchParams.get('filter') || ''; // 'new', 'bestseller', 'sale'
+  const selectedCategory = searchParams.get("category") || "All";
+  const searchQuery = searchParams.get("search") || "";
+  const selectedFilter = searchParams.get("filter") || ""; // 'new', 'bestseller', 'sale'
 
   const {
     productsList,
@@ -23,22 +23,28 @@ export default function Shop({ onQuickView }) {
     refetch,
     isFetching,
     sortBy,
-    setSortBy
+    setSortBy,
   } = useProducts({
     category: selectedCategory,
     search: searchQuery,
-    filter: selectedFilter
+    filter: selectedFilter,
   });
 
-  const categories = ['All', 'Apparel', 'Home Decor', 'Skincare', 'Electronics'];
+  const categories = [
+    "All",
+    "Apparel",
+    "Home Decor",
+    "Skincare",
+    "Electronics",
+  ];
 
   const handleCategorySelect = (cat) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev.toString());
-      if (cat === 'All') {
-        next.delete('category');
+      if (cat === "All") {
+        next.delete("category");
       } else {
-        next.set('category', cat);
+        next.set("category", cat);
       }
       return next;
     });
@@ -47,7 +53,7 @@ export default function Shop({ onQuickView }) {
   const handleSearchClear = () => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev.toString());
-      next.delete('search');
+      next.delete("search");
       return next;
     });
   };
@@ -55,7 +61,7 @@ export default function Shop({ onQuickView }) {
   const handleFilterClear = () => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev.toString());
-      next.delete('filter');
+      next.delete("filter");
       return next;
     });
   };
@@ -64,23 +70,38 @@ export default function Shop({ onQuickView }) {
     <div className="shop-page">
       <section className="product-section" id="products">
         <div className="section-container">
-
           <div className="section-header">
             <div className="section-title-wrapper">
               <span className="section-subtitle">
-                {selectedFilter === 'new' ? 'Freshly Added' :
-                 selectedFilter === 'bestseller' ? 'Most Popular' :
-                 selectedFilter === 'sale' ? 'Limited Time Discounts' : 'Our Curated Catalog'}
+                {selectedFilter === "new"
+                  ? "Freshly Added"
+                  : selectedFilter === "bestseller"
+                    ? "Most Popular"
+                    : selectedFilter === "sale"
+                      ? "Limited Time Discounts"
+                      : "Our Curated Catalog"}
               </span>
               <h2 className="section-title">
-                {selectedFilter === 'new' ? LABELS.NEW_ARRIVALS :
-                 selectedFilter === 'bestseller' ? `Trending ${LABELS.BEST_SELLERS}` :
-                 selectedFilter === 'sale' ? `Exclusive ${LABELS.SALE} Offers` : 'Discover Our Essentials'}
+                {selectedFilter === "new"
+                  ? LABELS.NEW_ARRIVALS
+                  : selectedFilter === "bestseller"
+                    ? `Trending ${LABELS.BEST_SELLERS}`
+                    : selectedFilter === "sale"
+                      ? `Exclusive ${LABELS.SALE} Offers`
+                      : "Discover Our Essentials"}
               </h2>
             </div>
 
             {/* Search and Filter Result Banners */}
-            <div className="banners-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '16px' }}>
+            <div
+              className="banners-container"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "12px",
+                marginTop: "16px",
+              }}
+            >
               <SearchBanner
                 searchQuery={searchQuery}
                 onSearchClear={handleSearchClear}
@@ -122,7 +143,7 @@ export default function Shop({ onQuickView }) {
             skeletonCount={8}
             onReset={() => {
               setSearchParams({});
-              setSortBy('featured');
+              setSortBy("featured");
             }}
             onQuickView={onQuickView}
           />

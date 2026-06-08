@@ -29,7 +29,8 @@ export default function Wishlist({ onQuickView }) {
           </div>
           <h3>Your wishlist is empty</h3>
           <p>
-            Browse through our catalog of sustainable garments, ceramics, and daily skincare to save your favorites!
+            Browse through our catalog of sustainable garments, ceramics, and
+            daily skincare to save your favorites!
           </p>
           <Link to="/shop" className="btn btn-primary">
             <span>Explore the Shop</span>

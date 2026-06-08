@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Reusable Spinner component for displaying loading indicators.
@@ -9,21 +9,23 @@ import React from 'react';
  * @param {string} [props.message] - Optional text message to display alongside the spinner (for block/page layout).
  * @param {string} [props.className=''] - Additional custom CSS classes.
  */
-export default function Spinner({ size = 'sm', message, className = '' }) {
-  if (size === 'sm') {
+export default function Spinner({ size = "sm", message, className = "" }) {
+  if (size === "sm") {
     return <span className={`spinner-sm ${className}`} />;
   }
 
   // Large or medium block-level spinner
-  const containerClass = size === 'lg' 
-    ? 'product-details-page loading' 
-    : 'spinner-block-container';
+  const containerClass =
+    size === "lg" ? "product-details-page loading" : "spinner-block-container";
 
   return (
     <div className={`${containerClass} ${className}`}>
       <div className="spinner"></div>
       {message && (
-        <p className="spinner-message" style={{ marginTop: '12px', color: 'var(--text-muted)' }}>
+        <p
+          className="spinner-message"
+          style={{ marginTop: "12px", color: "var(--text-muted)" }}
+        >
           {message}
         </p>
       )}

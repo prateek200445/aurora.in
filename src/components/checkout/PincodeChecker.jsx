@@ -1,7 +1,7 @@
-import React from 'react';
-import { Truck, CheckCircle2, AlertCircle, Calendar } from 'lucide-react';
-import { cleanPincode } from '../../utils/validation';
-import Spinner from '../Spinner';
+import React from "react";
+import { Truck, CheckCircle2, AlertCircle, Calendar } from "lucide-react";
+import { cleanPincode } from "../../utils/validation";
+import Spinner from "../Spinner";
 
 export default function PincodeChecker({
   pincodeQuery,
@@ -10,7 +10,7 @@ export default function PincodeChecker({
   pincodeStatus,
   pincodeMessage,
   deliveryDateString,
-  handleCheckPincode
+  handleCheckPincode,
 }) {
   return (
     <div className="checkout-card">
@@ -20,12 +20,13 @@ export default function PincodeChecker({
         </div>
         <h3>1. Delivery Availability & Pincode</h3>
       </div>
-      
+
       <div className="pincode-checker-box">
         <p className="pincode-desc">
-          Enter your delivery pincode to check service availability. Enjoy static guaranteed 5-day delivery on all orders.
+          Enter your delivery pincode to check service availability. Enjoy
+          static guaranteed 5-day delivery on all orders.
         </p>
-        
+
         <form onSubmit={handleCheckPincode} className="pincode-input-row">
           <input
             type="text"
@@ -35,18 +36,18 @@ export default function PincodeChecker({
             value={pincodeQuery}
             onChange={(e) => setPincodeQuery(cleanPincode(e.target.value))}
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="btn btn-primary pincode-btn"
             disabled={isPincodeChecking}
           >
-            {isPincodeChecking ? <Spinner size="sm" /> : 'Check'}
+            {isPincodeChecking ? <Spinner size="sm" /> : "Check"}
           </button>
         </form>
 
         {pincodeStatus && (
           <div className={`pincode-result ${pincodeStatus}`}>
-            {pincodeStatus === 'success' ? (
+            {pincodeStatus === "success" ? (
               <CheckCircle2 className="icon-xs pincode-status-icon" />
             ) : (
               <AlertCircle className="icon-xs pincode-status-icon" />
@@ -58,7 +59,8 @@ export default function PincodeChecker({
         <div className="delivery-badge-card">
           <Calendar className="icon-sm delivery-icon" />
           <div className="delivery-badge-text">
-            Standard Delivery Guaranteed: <span>Delivered in 5 Days</span> ({deliveryDateString})
+            Standard Delivery Guaranteed: <span>Delivered in 5 Days</span> (
+            {deliveryDateString})
           </div>
         </div>
       </div>

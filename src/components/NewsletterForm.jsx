@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { api } from '../data/products';
-import Spinner from './Spinner';
-import { useAsyncAction } from '../hooks/useAsyncAction';
+import { useState } from "react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { api } from "../data/products";
+import Spinner from "./Spinner";
+import { useAsyncAction } from "../hooks/useAsyncAction";
 
 export default function NewsletterForm() {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const { execute: subscribe, isLoading } = useAsyncAction(api.subscribeNewsletter);
+  const { execute: subscribe, isLoading } = useAsyncAction(
+    api.subscribeNewsletter,
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ export default function NewsletterForm() {
       setIsSuccess(true);
       form.reset();
     } catch (err) {
-      setMessage(err.message || 'Something went wrong. Please try again.');
+      setMessage(err.message || "Something went wrong. Please try again.");
       setIsSuccess(false);
     }
   };
@@ -37,7 +39,8 @@ export default function NewsletterForm() {
         </div>
         <h2 className="newsletter-title">Unlock 10% Off Your First Order</h2>
         <p className="newsletter-description">
-          Subscribe to recieve curated collections announcements, exclusive promotions, and limited product alerts.
+          Subscribe to recieve curated collections announcements, exclusive
+          promotions, and limited product alerts.
         </p>
       </div>
 
@@ -71,7 +74,9 @@ export default function NewsletterForm() {
       </form>
 
       {message && (
-        <div className={`newsletter-message-alert ${isSuccess ? 'success' : 'error'}`}>
+        <div
+          className={`newsletter-message-alert ${isSuccess ? "success" : "error"}`}
+        >
           <p>{message}</p>
         </div>
       )}

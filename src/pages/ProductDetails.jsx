@@ -1,13 +1,21 @@
-import { useParams, Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../data/products';
-import { Heart, ShoppingBag, Check, ArrowLeft, Shield, RotateCcw, Truck } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
-import { formatCurrency } from '../utils/helpers';
-import { LABELS } from '../utils/constants';
-import Spinner from '../components/Spinner';
-import RatingStars from '../components/RatingStars';
+import { useParams, Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../data/products";
+import {
+  Heart,
+  ShoppingBag,
+  Check,
+  ArrowLeft,
+  Shield,
+  RotateCcw,
+  Truck,
+} from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
+import { formatCurrency } from "../utils/helpers";
+import { LABELS } from "../utils/constants";
+import Spinner from "../components/Spinner";
+import RatingStars from "../components/RatingStars";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -15,20 +23,25 @@ export default function ProductDetails() {
   const { wishlist, toggleWishlist } = useWishlist();
 
   // Fetch product details by ID
-  const { data: product, isLoading, isError, error } = useQuery({
-    queryKey: ['product', id],
-    queryFn: () => api.getProductById(id)
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => api.getProductById(id),
   });
 
   // Fetch related products of the same category
 
   const { data: relatedProducts = [] } = useQuery({
-    queryKey: ['related-products', product?.category],
+    queryKey: ["related-products", product?.category],
     enabled: !!product?.category,
     queryFn: async () => {
       const all = await api.getProducts({ category: product.category });
-      return all.filter(p => p.id !== product.id).slice(0, 4);
-    }
+      return all.filter((p) => p.id !== product.id).slice(0, 4);
+    },
   });
 
   if (isLoading) {
@@ -39,7 +52,7 @@ export default function ProductDetails() {
     return (
       <div className="product-details-page error">
         <p className="product-details-error-msg">
-          {error?.message || 'Product not found.'}
+          {error?.message || "Product not found."}
         </p>
         <Link to="/shop" className="btn btn-primary">
           <ArrowLeft className="icon-sm" />
@@ -61,9 +74,19 @@ export default function ProductDetails() {
 
       <div className="details-grid">
         <div className="details-image-container">
-          {product.isNew && <span className="modal-badge badge-new">{LABELS.NEW}</span>}
-          {product.isBestSeller && <span className="modal-badge badge-bestseller">{LABELS.BEST_SELLER}</span>}
-          <img src={product.image} alt={product.name} className="details-image" />
+          {product.isNew && (
+            <span className="modal-badge badge-new">{LABELS.NEW}</span>
+          )}
+          {product.isBestSeller && (
+            <span className="modal-badge badge-bestseller">
+              {LABELS.BEST_SELLER}
+            </span>
+          )}
+          <img
+            src={product.image}
+            alt={product.name}
+            className="details-image"
+          />
         </div>
 
         <div className="details-info-pane">
@@ -74,17 +97,25 @@ export default function ProductDetails() {
           <div className="details-rating-row">
             <RatingStars rating={product.rating} />
             <span className="rating-value">{product.rating}</span>
-            <span className="reviews-count">({product.reviewsCount} verified customer reviews)</span>
+            <span className="reviews-count">
+              ({product.reviewsCount} verified customer reviews)
+            </span>
           </div>
 
           <div className="details-price-row">
             {hasDiscount ? (
               <>
-                <span className="price price-discount details-price-discount">{formatCurrency(product.discountPrice)}</span>
-                <span className="price price-original details-price-original">{formatCurrency(product.price)}</span>
+                <span className="price price-discount details-price-discount">
+                  {formatCurrency(product.discountPrice)}
+                </span>
+                <span className="price price-original details-price-original">
+                  {formatCurrency(product.price)}
+                </span>
               </>
             ) : (
-              <span className="price details-price-regular">{formatCurrency(product.price)}</span>
+              <span className="price details-price-regular">
+                {formatCurrency(product.price)}
+              </span>
             )}
           </div>
 
@@ -92,7 +123,9 @@ export default function ProductDetails() {
 
           {/* Features Checklist */}
           <div className="details-features-section">
-            <h4 className="details-features-heading">Product Specifications:</h4>
+            <h4 className="details-features-heading">
+              Product Specifications:
+            </h4>
             <ul className="features-list">
               {product.features.map((feature, i) => (
                 <li key={i} className="details-feature-item">
@@ -105,9 +138,13 @@ export default function ProductDetails() {
 
           {/* Inventory Status */}
           <div className="details-status-row">
-            <span className={`status-indicator ${product.inStock ? 'in-stock' : 'out-of-stock'}`}></span>
+            <span
+              className={`status-indicator ${product.inStock ? "in-stock" : "out-of-stock"}`}
+            ></span>
             <span className="status-text">
-              {product.inStock ? 'In Stock — Dispatched within 24 hours' : 'Out of Stock'}
+              {product.inStock
+                ? "In Stock — Dispatched within 24 hours"
+                : "Out of Stock"}
             </span>
           </div>
 
@@ -119,20 +156,29 @@ export default function ProductDetails() {
               disabled={!product.inStock}
             >
               <ShoppingBag className="icon-sm" />
-              <span>{product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}</span>
+              <span>
+                {product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}
+              </span>
             </button>
             <button
-              className={`btn btn-outline btn-lg btn-wishlist-toggle ${isWishlisted ? 'active' : ''}`}
+              className={`btn btn-outline btn-lg btn-wishlist-toggle ${isWishlisted ? "active" : ""}`}
               onClick={() => toggleWishlist(product.id)}
-              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+              aria-label={
+                isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+              }
             >
-              <Heart className="icon-sm" fill={isWishlisted ? 'var(--accent-color)' : 'none'} />
-              <span>{isWishlisted ? LABELS.WISHLISTED : LABELS.ADD_TO_WISHLIST}</span>
+              <Heart
+                className="icon-sm"
+                fill={isWishlisted ? "var(--accent-color)" : "none"}
+              />
+              <span>
+                {isWishlisted ? LABELS.WISHLISTED : LABELS.ADD_TO_WISHLIST}
+              </span>
             </button>
           </div>
 
           {/* Shipping Perks Footer Info */}
-          
+
           <div className="details-trust-badges">
             <div className="details-trust-item">
               <Truck className="icon-sm details-trust-icon" />
@@ -151,7 +197,7 @@ export default function ProductDetails() {
       </div>
 
       {/* Related Products Showcase */}
-      
+
       {relatedProducts.length > 0 && (
         <section className="product-section details-related-section">
           <div className="section-container">
@@ -165,16 +211,26 @@ export default function ProductDetails() {
             <div className="products-grid">
               {relatedProducts.map((p) => (
                 <div key={p.id} className="details-related-card-wrap">
-
-                  <Link to={`/product/${p.id}`} className="details-related-link-overlay" />
+                  <Link
+                    to={`/product/${p.id}`}
+                    className="details-related-link-overlay"
+                  />
                   <div className="details-related-inner">
                     <div className="details-related-interactive">
                       <Link to={`/product/${p.id}`}>
-                        <img src={p.image} alt={p.name} className="details-related-img" />
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className="details-related-img"
+                        />
                       </Link>
-                      <span className="details-related-category">{p.category}</span>
+                      <span className="details-related-category">
+                        {p.category}
+                      </span>
                       <h4 className="details-related-name">{p.name}</h4>
-                      <span className="details-related-price">{formatCurrency(p.price)}</span>
+                      <span className="details-related-price">
+                        {formatCurrency(p.price)}
+                      </span>
                     </div>
                   </div>
                 </div>

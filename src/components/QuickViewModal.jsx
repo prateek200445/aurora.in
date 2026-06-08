@@ -1,11 +1,11 @@
-import { X, Heart, ShoppingBag, Check } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
-import { useEffect, useRef } from 'react';
-import { formatCurrency } from '../utils/helpers';
-import { LABELS } from '../utils/constants';
-import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
-import RatingStars from './RatingStars';
+import { X, Heart, ShoppingBag, Check } from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
+import { useEffect, useRef } from "react";
+import { formatCurrency } from "../utils/helpers";
+import { LABELS } from "../utils/constants";
+import { useLockBodyScroll } from "../hooks/useLockBodyScroll";
+import RatingStars from "./RatingStars";
 
 export default function QuickViewModal({ product, onClose }) {
   const { addToCart } = useCart();
@@ -17,10 +17,10 @@ export default function QuickViewModal({ product, onClose }) {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
   // Prevent background scrolling when Quick View modal is open
@@ -35,7 +35,12 @@ export default function QuickViewModal({ product, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content" ref={modalRef} role="dialog" aria-modal="true">
+      <div
+        className="modal-content"
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+      >
         {/* Close Button */}
         <button
           className="modal-close"
@@ -48,9 +53,19 @@ export default function QuickViewModal({ product, onClose }) {
         <div className="modal-grid">
           {/* Left Column: Product Image */}
           <div className="modal-image-container">
-            {product.isNew && <span className="modal-badge badge-new">{LABELS.NEW}</span>}
-            {product.isBestSeller && <span className="modal-badge badge-bestseller">{LABELS.BEST_SELLER}</span>}
-            <img src={product.image} alt={product.name} className="modal-image" />
+            {product.isNew && (
+              <span className="modal-badge badge-new">{LABELS.NEW}</span>
+            )}
+            {product.isBestSeller && (
+              <span className="modal-badge badge-bestseller">
+                {LABELS.BEST_SELLER}
+              </span>
+            )}
+            <img
+              src={product.image}
+              alt={product.name}
+              className="modal-image"
+            />
           </div>
 
           {/* Right Column: Product Details */}
@@ -62,15 +77,21 @@ export default function QuickViewModal({ product, onClose }) {
             <div className="modal-rating">
               <RatingStars rating={product.rating} />
               <span className="rating-value">{product.rating}</span>
-              <span className="reviews-count">({product.reviewsCount} verified reviews)</span>
+              <span className="reviews-count">
+                ({product.reviewsCount} verified reviews)
+              </span>
             </div>
 
             {/* Price */}
             <div className="modal-price">
               {hasDiscount ? (
                 <>
-                  <span className="price price-discount">{formatCurrency(product.discountPrice)}</span>
-                  <span className="price price-original">{formatCurrency(product.price)}</span>
+                  <span className="price price-discount">
+                    {formatCurrency(product.discountPrice)}
+                  </span>
+                  <span className="price price-original">
+                    {formatCurrency(product.price)}
+                  </span>
                 </>
               ) : (
                 <span className="price">{formatCurrency(product.price)}</span>
@@ -95,9 +116,13 @@ export default function QuickViewModal({ product, onClose }) {
 
             {/* Inventory Status */}
             <div className="modal-status">
-              <span className={`status-indicator ${product.inStock ? 'in-stock' : 'out-of-stock'}`}></span>
+              <span
+                className={`status-indicator ${product.inStock ? "in-stock" : "out-of-stock"}`}
+              ></span>
               <span className="status-text">
-                {product.inStock ? 'In Stock — Available to ship immediately' : 'Out of Stock'}
+                {product.inStock
+                  ? "In Stock — Available to ship immediately"
+                  : "Out of Stock"}
               </span>
             </div>
 
@@ -112,15 +137,24 @@ export default function QuickViewModal({ product, onClose }) {
                 disabled={!product.inStock}
               >
                 <ShoppingBag className="icon-sm" />
-                <span>{product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}</span>
+                <span>
+                  {product.inStock ? LABELS.ADD_TO_CART : LABELS.OUT_OF_STOCK}
+                </span>
               </button>
               <button
-                className={`btn btn-outline btn-lg btn-wishlist-toggle ${isWishlisted ? 'active' : ''}`}
+                className={`btn btn-outline btn-lg btn-wishlist-toggle ${isWishlisted ? "active" : ""}`}
                 onClick={() => toggleWishlist(product.id)}
-                aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+                aria-label={
+                  isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+                }
               >
-                <Heart className="icon-sm" fill={isWishlisted ? 'var(--accent-color)' : 'none'} />
-                <span>{isWishlisted ? LABELS.WISHLISTED : LABELS.ADD_TO_WISHLIST}</span>
+                <Heart
+                  className="icon-sm"
+                  fill={isWishlisted ? "var(--accent-color)" : "none"}
+                />
+                <span>
+                  {isWishlisted ? LABELS.WISHLISTED : LABELS.ADD_TO_WISHLIST}
+                </span>
               </button>
             </div>
           </div>

@@ -1,7 +1,13 @@
-import React, { createContext, useEffect, useMemo, useState, useContext } from 'react';
-import { toast } from 'react-toastify';
-import { STORAGE_KEYS } from '../utils/constants';
-import { getStorageItem, setStorageItem } from '../utils/helpers';
+import React, {
+  createContext,
+  useEffect,
+  useMemo,
+  useState,
+  useContext,
+} from "react";
+import { toast } from "react-toastify";
+import { STORAGE_KEYS } from "../utils/constants";
+import { getStorageItem, setStorageItem } from "../utils/helpers";
 
 const CartContext = createContext(null);
 
@@ -14,7 +20,7 @@ function hydrateCartById(storedState) {
     return {};
   }
 
-  if (storedState.cartById && typeof storedState.cartById === 'object') {
+  if (storedState.cartById && typeof storedState.cartById === "object") {
     return storedState.cartById;
   }
 
@@ -33,14 +39,16 @@ function hydrateCartById(storedState) {
 function isValidProduct(product) {
   return Boolean(
     product &&
-    typeof product === 'object' &&
+    typeof product === "object" &&
     product.id != null &&
-    typeof product.price === 'number'
+    typeof product.price === "number",
   );
 }
 
 export function CartProvider({ children }) {
-  const [cartById, setCartById] = useState(() => hydrateCartById(loadStoredCartState()));
+  const [cartById, setCartById] = useState(() =>
+    hydrateCartById(loadStoredCartState()),
+  );
 
   const cartItems = useMemo(() => Object.values(cartById), [cartById]);
 
@@ -55,7 +63,7 @@ export function CartProvider({ children }) {
         ...prevItems,
         [product.id]: existing
           ? { ...existing, quantity: existing.quantity + quantity }
-          : { product, quantity }
+          : { product, quantity },
       };
     });
 
@@ -82,7 +90,11 @@ export function CartProvider({ children }) {
   const updateQuantity = (productId, quantity) => {
     const nextQuantity = Number(quantity);
 
-    if (!Number.isInteger(nextQuantity) || nextQuantity < 1 || nextQuantity > 99) {
+    if (
+      !Number.isInteger(nextQuantity) ||
+      nextQuantity < 1 ||
+      nextQuantity > 99
+    ) {
       return;
     }
 
@@ -99,7 +111,7 @@ export function CartProvider({ children }) {
 
       return {
         ...prevItems,
-        [productId]: { ...existing, quantity: nextQuantity }
+        [productId]: { ...existing, quantity: nextQuantity },
       };
     });
   };
@@ -116,39 +128,38 @@ export function CartProvider({ children }) {
 
   const cartCount = useMemo(
     () => cartItems.reduce((acc, item) => acc + item.quantity, 0),
-    [cartItems]
+    [cartItems],
   );
 
   const subtotal = useMemo(
-    () => cartItems.reduce((acc, item) => {
-      const activePrice = item.product.discountPrice ?? item.product.price;
-      return acc + activePrice * item.quantity;
-    }, 0),
-    [cartItems]
+    () =>
+      cartItems.reduce((acc, item) => {
+        const activePrice = item.product.discountPrice ?? item.product.price;
+        return acc + activePrice * item.quantity;
+      }, 0),
+    [cartItems],
   );
 
-  const value = useMemo(() => ({
-    cartItems,
-    addToCart,
-    removeFromCart,
-    updateQuantity,
-    clearCart,
-    cartCount,
-    subtotal
-  }), [
-    cartItems,
-    cartCount,
-    subtotal
-  ]);
-
+  const value = useMemo(
+    () => ({
+      cartItems,
+      addToCart,
+      removeFromCart,
+      updateQuantity,
+      clearCart,
+      cartCount,
+      subtotal,
+    }),
+    [cartItems, cartCount, subtotal],
+  );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {
-  const context = useContext(CartContext); 
+  const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 }

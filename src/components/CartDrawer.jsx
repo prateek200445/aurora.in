@@ -1,20 +1,24 @@
-import { X, Minus, Plus, Trash2, Tag, ShoppingCart, ArrowRight, ShieldCheck } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { useCoupon } from '../context/CouponContext';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BRAND_NAME, PROMO_CODE_AURORA10, LABELS } from '../utils/constants';
-import { formatCurrency } from '../utils/helpers';
-import Spinner from './Spinner';
-import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
+import {
+  X,
+  Minus,
+  Plus,
+  Trash2,
+  Tag,
+  ShoppingCart,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { useCoupon } from "../context/CouponContext";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BRAND_NAME, PROMO_CODE_AURORA10, LABELS } from "../utils/constants";
+import { formatCurrency } from "../utils/helpers";
+import Spinner from "./Spinner";
+import { useLockBodyScroll } from "../hooks/useLockBodyScroll";
 
 export default function CartDrawer({ isOpen, onClose }) {
-  const {
-    cartItems,
-    updateQuantity,
-    removeFromCart,
-    subtotal
-  } = useCart();
+  const { cartItems, updateQuantity, removeFromCart, subtotal } = useCart();
   const {
     discountPercent,
     couponMessage,
@@ -23,11 +27,11 @@ export default function CartDrawer({ isOpen, onClose }) {
     applyPromoCode,
     removePromoCode,
     discountAmount,
-    total
+    total,
   } = useCoupon();
 
   const navigate = useNavigate();
-  const [promoInput, setPromoInput] = useState('');
+  const [promoInput, setPromoInput] = useState("");
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
 
   useLockBodyScroll(isOpen);
@@ -40,7 +44,7 @@ export default function CartDrawer({ isOpen, onClose }) {
 
   const handleCheckout = () => {
     onClose();
-    navigate('/checkout');
+    navigate("/checkout");
   };
 
   if (!isOpen) return null;
@@ -48,7 +52,7 @@ export default function CartDrawer({ isOpen, onClose }) {
   return (
     <div className="cart-overlay" onClick={onClose}>
       <div
-        className={`cart-drawer ${isOpen ? 'open' : ''}`}
+        className={`cart-drawer ${isOpen ? "open" : ""}`}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -59,7 +63,11 @@ export default function CartDrawer({ isOpen, onClose }) {
             <h2>Your Cart</h2>
             <span className="cart-badge">{cartItems.length}</span>
           </div>
-          <button className="btn-close" onClick={onClose} aria-label="Close cart">
+          <button
+            className="btn-close"
+            onClick={onClose}
+            aria-label="Close cart"
+          >
             <X className="icon" />
           </button>
         </div>
@@ -72,7 +80,8 @@ export default function CartDrawer({ isOpen, onClose }) {
               </div>
               <h3>Order Placed Successfully!</h3>
               <p>
-                Thank you for shopping with {BRAND_NAME}. We have sent a confirmation email along with shipping details.
+                Thank you for shopping with {BRAND_NAME}. We have sent a
+                confirmation email along with shipping details.
               </p>
               <button
                 className="btn btn-primary"
@@ -90,12 +99,15 @@ export default function CartDrawer({ isOpen, onClose }) {
                 <ShoppingCart className="empty-icon" />
               </div>
               <h3>{LABELS.CART_EMPTY}</h3>
-              <p>Explore our premium collections and find everything you love today.</p>
+              <p>
+                Explore our premium collections and find everything you love
+                today.
+              </p>
               <button
                 className="btn btn-primary"
                 onClick={() => {
                   onClose();
-                  navigate('/shop');
+                  navigate("/shop");
                 }}
               >
                 Start Shopping
@@ -104,7 +116,8 @@ export default function CartDrawer({ isOpen, onClose }) {
           ) : (
             <div className="cart-items-list">
               {cartItems.map((item) => {
-                const activePrice = item.product.discountPrice ?? item.product.price;
+                const activePrice =
+                  item.product.discountPrice ?? item.product.price;
                 return (
                   <div key={item.product.id} className="cart-item">
                     <img
@@ -114,21 +127,29 @@ export default function CartDrawer({ isOpen, onClose }) {
                     />
                     <div className="cart-item-info">
                       <div className="cart-item-header">
-                        <span className="cart-item-category">{item.product.category}</span>
+                        <span className="cart-item-category">
+                          {item.product.category}
+                        </span>
                         <h4 className="cart-item-name">{item.product.name}</h4>
                       </div>
                       <div className="cart-item-actions">
                         <div className="quantity-controls">
                           <button
-                            onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                            onClick={() =>
+                              updateQuantity(item.product.id, item.quantity - 1)
+                            }
                             className="quantity-btn"
                             aria-label="Decrease quantity"
                           >
                             <Minus className="icon-xs" />
                           </button>
-                          <span className="quantity-value">{item.quantity}</span>
+                          <span className="quantity-value">
+                            {item.quantity}
+                          </span>
                           <button
-                            onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                            onClick={() =>
+                              updateQuantity(item.product.id, item.quantity + 1)
+                            }
                             className="quantity-btn"
                             aria-label="Increase quantity"
                           >
@@ -182,7 +203,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                     type="button"
                     onClick={() => {
                       removePromoCode();
-                      setPromoInput('');
+                      setPromoInput("");
                     }}
                     className="btn btn-sm btn-outline btn-promo"
                   >
@@ -194,17 +215,22 @@ export default function CartDrawer({ isOpen, onClose }) {
                     disabled={isCouponLoading || !promoInput.trim()}
                     className="btn btn-sm btn-primary btn-promo"
                   >
-                    {isCouponLoading ? <Spinner size="sm" /> : 'Apply'}
+                    {isCouponLoading ? <Spinner size="sm" /> : "Apply"}
                   </button>
                 )}
               </div>
               {couponMessage && (
-                <p className={`promo-message ${couponApplied ? 'success' : 'error'}`}>
+                <p
+                  className={`promo-message ${couponApplied ? "success" : "error"}`}
+                >
                   {couponMessage}
                 </p>
               )}
               {!couponApplied && (
-                <span className="promo-hint">Tip: Try promo code <strong>{PROMO_CODE_AURORA10}</strong> to get 10% off</span>
+                <span className="promo-hint">
+                  Tip: Try promo code <strong>{PROMO_CODE_AURORA10}</strong> to
+                  get 10% off
+                </span>
               )}
             </form>
 

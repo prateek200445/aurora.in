@@ -1,6 +1,6 @@
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import HeroGrid from './HeroGrid';
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import HeroGrid from "./HeroGrid";
 
 export default function HeroSection() {
   return (
@@ -12,7 +12,9 @@ export default function HeroSection() {
             <span>For Modern Living</span>
           </h1>
           <p className="hero-subtitle">
-            A curated collection of minimalist organic apparel, beautiful hand-crafted stoneware decor, and sustainable skincare solutions. Experience goods built for beauty, purpose, and longevity.
+            A curated collection of minimalist organic apparel, beautiful
+            hand-crafted stoneware decor, and sustainable skincare solutions.
+            Experience goods built for beauty, purpose, and longevity.
           </p>
           <div className="hero-actions">
             <Link to="/shop" className="btn btn-primary btn-lg btn-hero">

@@ -1,15 +1,19 @@
-import React from 'react';
-import { LABELS } from '../utils/constants';
-import { ArrowUpDown, RefreshCw, Search, X } from 'lucide-react';
-import ProductCard from './ProductCard';
+import React from "react";
+import { LABELS } from "../utils/constants";
+import { ArrowUpDown, RefreshCw, Search, X } from "lucide-react";
+import ProductCard from "./ProductCard";
 
-export function CategoryTabs({ categories, selectedCategory, onCategorySelect }) {
+export function CategoryTabs({
+  categories,
+  selectedCategory,
+  onCategorySelect,
+}) {
   return (
     <div className="tabs-container">
       {categories.map((cat) => (
         <button
           key={cat}
-          className={`tab-btn ${selectedCategory === cat ? 'active' : ''}`}
+          className={`tab-btn ${selectedCategory === cat ? "active" : ""}`}
           onClick={() => onCategorySelect(cat)}
         >
           {cat}
@@ -19,7 +23,13 @@ export function CategoryTabs({ categories, selectedCategory, onCategorySelect })
   );
 }
 
-export function SortControls({ sortBy, onSortChange, onRefresh, isFetching, isLoading }) {
+export function SortControls({
+  sortBy,
+  onSortChange,
+  onRefresh,
+  isFetching,
+  isLoading,
+}) {
   return (
     <div className="sort-controls">
       <div className="sort-select-wrapper">
@@ -39,7 +49,7 @@ export function SortControls({ sortBy, onSortChange, onRefresh, isFetching, isLo
 
       <button
         onClick={onRefresh}
-        className={`btn-refetch ${isFetching && !isLoading ? 'spinning' : ''}`}
+        className={`btn-refetch ${isFetching && !isLoading ? "spinning" : ""}`}
         title="Refresh Products"
         aria-label="Refresh product list"
       >
@@ -53,8 +63,14 @@ export function SearchBanner({ searchQuery, onSearchClear, style }) {
   if (!searchQuery) return null;
   return (
     <div className="search-banner" style={style}>
-      <span>Showing results for "<strong>{searchQuery}</strong>"</span>
-      <button onClick={onSearchClear} className="btn-clear-search" aria-label="Clear search">
+      <span>
+        Showing results for "<strong>{searchQuery}</strong>"
+      </span>
+      <button
+        onClick={onSearchClear}
+        className="btn-clear-search"
+        aria-label="Clear search"
+      >
         <X className="icon-xs" />
       </button>
     </div>
@@ -63,21 +79,27 @@ export function SearchBanner({ searchQuery, onSearchClear, style }) {
 
 export function FilterBanner({ selectedFilter, onFilterClear, style }) {
   if (!selectedFilter) return null;
-  
+
   const getFilterLabel = (filter) => {
     switch (filter) {
-      case 'new': return LABELS.NEW_ARRIVALS;
-      case 'bestseller': return LABELS.BEST_SELLERS;
-      case 'sale': return LABELS.SALE;
-      default: return filter;
+      case "new":
+        return LABELS.NEW_ARRIVALS;
+      case "bestseller":
+        return LABELS.BEST_SELLERS;
+      case "sale":
+        return LABELS.SALE;
+      default:
+        return filter;
     }
   };
 
   return (
     <div className="search-banner" style={style}>
-      <span>Filtered by: <strong>{getFilterLabel(selectedFilter)}</strong></span>
-      <button 
-        onClick={onFilterClear} 
+      <span>
+        Filtered by: <strong>{getFilterLabel(selectedFilter)}</strong>
+      </span>
+      <button
+        onClick={onFilterClear}
         className="btn-clear-search"
         aria-label="Clear filter"
       >
@@ -108,7 +130,7 @@ export function ProductSkeletonGrid({ count = 8 }) {
 export function ProductGridError({ message, onRetry }) {
   return (
     <div className="grid-error-state">
-      <p>Failed to load products: {message || 'Unknown error'}</p>
+      <p>Failed to load products: {message || "Unknown error"}</p>
       <button onClick={onRetry} className="btn btn-primary">
         <RefreshCw className="icon-sm" />
         <span>Retry Load</span>
@@ -124,7 +146,10 @@ export function ProductGridEmpty({ onReset }) {
         <Search className="icon-lg" />
       </div>
       <h3>No products found</h3>
-      <p>We couldn't find anything matching your filters or search query. Try resetting them.</p>
+      <p>
+        We couldn't find anything matching your filters or search query. Try
+        resetting them.
+      </p>
       <button onClick={onReset} className="btn btn-outline">
         Reset Filters
       </button>
@@ -154,7 +179,7 @@ export function ProductGridStates({
   refetch,
   skeletonCount = 8,
   onReset,
-  onQuickView
+  onQuickView,
 }) {
   if (isError) {
     return <ProductGridError message={error?.message} onRetry={refetch} />;
@@ -170,4 +195,3 @@ export function ProductGridStates({
 
   return <ProductsList products={productsList} onQuickView={onQuickView} />;
 }
-

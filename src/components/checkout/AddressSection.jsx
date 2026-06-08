@@ -1,6 +1,6 @@
-import React from 'react';
-import { MapPin, Plus, Trash2 } from 'lucide-react';
-import AddressForm from './AddressForm';
+import React from "react";
+import { MapPin, Plus, Trash2 } from "lucide-react";
+import AddressForm from "./AddressForm";
 
 export default function AddressSection({
   addresses,
@@ -11,7 +11,7 @@ export default function AddressSection({
   setShowAddressForm,
   newAddress,
   setNewAddress,
-  handleNewAddressSubmit
+  handleNewAddressSubmit,
 }) {
   return (
     <div className="checkout-card">
@@ -27,26 +27,27 @@ export default function AddressSection({
           <div className="no-address-icon-wrap">
             <MapPin className="icon-md" />
           </div>
-          <h4 className="no-address-title">
-            No Shipping Address Found
-          </h4>
+          <h4 className="no-address-title">No Shipping Address Found</h4>
           <p className="no-address-desc">
-            Since you are checking out as a guest, there are no saved addresses. Please add a shipping address to complete your order.
+            Since you are checking out as a guest, there are no saved addresses.
+            Please add a shipping address to complete your order.
           </p>
         </div>
       ) : (
         <div className="addresses-grid">
           {addresses.map((address) => (
-            <div 
-              key={address.id} 
-              className={`address-card ${selectedAddressId === address.id ? 'selected' : ''}`}
+            <div
+              key={address.id}
+              className={`address-card ${selectedAddressId === address.id ? "selected" : ""}`}
               onClick={() => handleSelectAddress(address.id)}
             >
               <div className="address-selection-indicator"></div>
-               <span className="address-tag">{address.tag}</span>
-               <div className="address-name">{address.name}</div>
-               <div className="address-details">{address.details} - {address.pincode}</div>
-               <div className="address-phone">{address.phone}</div>
+              <span className="address-tag">{address.tag}</span>
+              <div className="address-name">{address.name}</div>
+              <div className="address-details">
+                {address.details} - {address.pincode}
+              </div>
+              <div className="address-phone">{address.phone}</div>
               <button
                 className="address-delete-btn"
                 onClick={(e) => {
@@ -64,7 +65,7 @@ export default function AddressSection({
       )}
 
       {!showAddressForm ? (
-        <button 
+        <button
           className="address-form-toggle-btn"
           onClick={() => setShowAddressForm(true)}
         >

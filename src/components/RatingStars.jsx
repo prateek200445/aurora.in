@@ -1,5 +1,5 @@
-import React from 'react';
-import { Star } from 'lucide-react';
+import React from "react";
+import { Star } from "lucide-react";
 
 /**
  * Reusable Star Rating Component.
@@ -16,8 +16,8 @@ export default function RatingStars({ rating }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
-          className={`star-icon ${i < floorRating ? 'filled' : ''}`}
-          fill={i < floorRating ? 'var(--star-color)' : 'none'}
+          className={`star-icon ${i < floorRating ? "filled" : ""}`}
+          fill={i < floorRating ? "var(--star-color)" : "none"}
         />
       ))}
     </div>

@@ -1,9 +1,13 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../data/products';
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../data/products";
 
-export function useProducts({ category = 'All', search = '', filter = '' } = {}) {
-  const [sortBy, setSortBy] = useState('featured');
+export function useProducts({
+  category = "All",
+  search = "",
+  filter = "",
+} = {}) {
+  const [sortBy, setSortBy] = useState("featured");
 
   const {
     data: productsList = [],
@@ -11,20 +15,20 @@ export function useProducts({ category = 'All', search = '', filter = '' } = {})
     isError,
     error,
     refetch,
-    isFetching
+    isFetching,
   } = useQuery({
-    queryKey: ['products', category, search, filter, sortBy],
+    queryKey: ["products", category, search, filter, sortBy],
     queryFn: () => {
       const params = {
         category,
         search,
-        sortBy
+        sortBy,
       };
       if (filter) {
         params.filter = filter;
       }
       return api.getProducts(params);
-    }
+    },
   });
 
   return {
@@ -35,6 +39,6 @@ export function useProducts({ category = 'All', search = '', filter = '' } = {})
     refetch,
     isFetching,
     sortBy,
-    setSortBy
+    setSortBy,
   };
 }

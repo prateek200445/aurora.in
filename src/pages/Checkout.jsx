@@ -1,19 +1,23 @@
-import { useState, useMemo, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import { useCoupon } from '../context/CouponContext';
-import { ArrowLeft, ShoppingBag } from 'lucide-react';
-import { toast } from 'react-toastify';
-import { STORAGE_KEYS, LABELS } from '../utils/constants';
-import { isValidPincode } from '../utils/validation';
-import { getDeliveryDateString, getStorageItem, setStorageItem } from '../utils/helpers';
-import '../styles/checkout.css';
+import { useState, useMemo, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { useCoupon } from "../context/CouponContext";
+import { ArrowLeft, ShoppingBag } from "lucide-react";
+import { toast } from "react-toastify";
+import { STORAGE_KEYS, LABELS } from "../utils/constants";
+import { isValidPincode } from "../utils/validation";
+import {
+  getDeliveryDateString,
+  getStorageItem,
+  setStorageItem,
+} from "../utils/helpers";
+import "../styles/checkout.css";
 
-import PincodeChecker from '../components/checkout/PincodeChecker';
-import AddressSection from '../components/checkout/AddressSection';
-import PaymentSection from '../components/checkout/PaymentSection';
-import OrderSummary from '../components/checkout/OrderSummary';
-import SuccessModal from '../components/checkout/SuccessModal';
+import PincodeChecker from "../components/checkout/PincodeChecker";
+import AddressSection from "../components/checkout/AddressSection";
+import PaymentSection from "../components/checkout/PaymentSection";
+import OrderSummary from "../components/checkout/OrderSummary";
+import SuccessModal from "../components/checkout/SuccessModal";
 
 export default function Checkout() {
   const { cartItems, subtotal, clearCart } = useCart();
@@ -25,38 +29,42 @@ export default function Checkout() {
     applyPromoCode,
     removePromoCode,
     discountAmount,
-    total
+    total,
   } = useCoupon();
 
   const navigate = useNavigate();
 
-  const [addresses, setAddresses] = useState(() => getStorageItem(STORAGE_KEYS.CHECKOUT_ADDRESSES, []));
-  const [selectedAddressId, setSelectedAddressId] = useState(() => getStorageItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID, null));
+  const [addresses, setAddresses] = useState(() =>
+    getStorageItem(STORAGE_KEYS.CHECKOUT_ADDRESSES, []),
+  );
+  const [selectedAddressId, setSelectedAddressId] = useState(() =>
+    getStorageItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID, null),
+  );
   const [showAddressForm, setShowAddressForm] = useState(false);
 
   // New Address Form State
   const [newAddress, setNewAddress] = useState({
-    tag: 'Home',
-    name: '',
-    phone: '',
-    street: '',
-    city: '',
-    state: '',
-    pincode: ''
+    tag: "Home",
+    name: "",
+    phone: "",
+    street: "",
+    city: "",
+    state: "",
+    pincode: "",
   });
 
   // Pincode State
-  const [pincodeQuery, setPincodeQuery] = useState('');
+  const [pincodeQuery, setPincodeQuery] = useState("");
   const [isPincodeChecking, setIsPincodeChecking] = useState(false);
   const [pincodeStatus, setPincodeStatus] = useState(null); // 'success', 'error', null
-  const [pincodeMessage, setPincodeMessage] = useState('');
+  const [pincodeMessage, setPincodeMessage] = useState("");
 
-  const [paymentMethod, setPaymentMethod] = useState('cod');
+  const [paymentMethod, setPaymentMethod] = useState("cod");
 
-  const [promoInput, setPromoInput] = useState('');
+  const [promoInput, setPromoInput] = useState("");
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
-  const [placedOrderId, setPlacedOrderId] = useState('');
+  const [placedOrderId, setPlacedOrderId] = useState("");
 
   const deliveryDateString = useMemo(() => getDeliveryDateString(5), []);
 
@@ -65,16 +73,21 @@ export default function Checkout() {
   }, [addresses]);
 
   useEffect(() => {
-    setStorageItem(STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID, selectedAddressId);
+    setStorageItem(
+      STORAGE_KEYS.CHECKOUT_SELECTED_ADDRESS_ID,
+      selectedAddressId,
+    );
   }, [selectedAddressId]);
 
   useEffect(() => {
     if (selectedAddressId && addresses.length > 0) {
-      const addr = addresses.find(a => a.id === selectedAddressId);
+      const addr = addresses.find((a) => a.id === selectedAddressId);
       if (addr) {
         setPincodeQuery(addr.pincode);
-        setPincodeStatus('success');
-        setPincodeMessage(`Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`);
+        setPincodeStatus("success");
+        setPincodeMessage(
+          `Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`,
+        );
       }
     }
   }, []);
@@ -82,42 +95,46 @@ export default function Checkout() {
   const handleCheckPincode = (e) => {
     e.preventDefault();
     if (!pincodeQuery.trim()) {
-      setPincodeStatus('error');
-      setPincodeMessage('Please enter a pincode.');
+      setPincodeStatus("error");
+      setPincodeMessage("Please enter a pincode.");
       return;
     }
-    
+
     if (!isValidPincode(pincodeQuery)) {
-      setPincodeStatus('error');
-      setPincodeMessage('Please enter a valid 6-digit pincode.');
+      setPincodeStatus("error");
+      setPincodeMessage("Please enter a valid 6-digit pincode.");
       return;
     }
 
     setIsPincodeChecking(true);
     setTimeout(() => {
       setIsPincodeChecking(false);
-      setPincodeStatus('success');
-      setPincodeMessage(`Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`);
+      setPincodeStatus("success");
+      setPincodeMessage(
+        `Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`,
+      );
     }, 600);
   };
 
   const handleSelectAddress = (id) => {
     setSelectedAddressId(id);
-    const addr = addresses.find(a => a.id === id);
+    const addr = addresses.find((a) => a.id === id);
     if (addr) {
       setPincodeQuery(addr.pincode);
-      setPincodeStatus('success');
-      setPincodeMessage(`Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`);
+      setPincodeStatus("success");
+      setPincodeMessage(
+        `Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`,
+      );
     }
   };
 
   const handleDeleteAddress = (id) => {
-    setAddresses(prev => prev.filter(a => a.id !== id));
+    setAddresses((prev) => prev.filter((a) => a.id !== id));
     if (selectedAddressId === id) {
       setSelectedAddressId(null);
-      setPincodeQuery('');
+      setPincodeQuery("");
       setPincodeStatus(null);
-      setPincodeMessage('');
+      setPincodeMessage("");
     }
   };
 
@@ -126,34 +143,36 @@ export default function Checkout() {
     const { tag, name, phone, street, city, state, pincode } = newAddress;
 
     if (!name || !phone || !street || !city || !state || !pincode) {
-      toast.error('Please fill out all address fields.');
+      toast.error("Please fill out all address fields.");
       return;
     }
 
     const createdAddress = {
       id: Date.now().toString(),
-      tag: tag || 'Other',
+      tag: tag || "Other",
       name,
       details: `${street}, ${city}, ${state}`,
       pincode,
-      phone
+      phone,
     };
 
-    setAddresses(prev => [...prev, createdAddress]);
+    setAddresses((prev) => [...prev, createdAddress]);
     setSelectedAddressId(createdAddress.id);
-    
+
     setPincodeQuery(pincode);
-    setPincodeStatus('success');
-    setPincodeMessage(`Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`);
+    setPincodeStatus("success");
+    setPincodeMessage(
+      `Deliverable! Standard delivery guaranteed in 5 days by ${deliveryDateString}.`,
+    );
 
     setNewAddress({
-      tag: 'Home',
-      name: '',
-      phone: '',
-      street: '',
-      city: '',
-      state: '',
-      pincode: ''
+      tag: "Home",
+      name: "",
+      phone: "",
+      street: "",
+      city: "",
+      state: "",
+      pincode: "",
     });
     setShowAddressForm(false);
   };
@@ -171,15 +190,19 @@ export default function Checkout() {
 
   const handlePlaceOrder = () => {
     if (!selectedAddressId) {
-      toast.error('Please add and select a shipping address before placing your order.');
+      toast.error(
+        "Please add and select a shipping address before placing your order.",
+      );
       return;
     }
     setIsPlacingOrder(true);
-    
+
     setTimeout(() => {
       setIsPlacingOrder(false);
       setIsOrderPlaced(true);
-      setPlacedOrderId(`AUR-2026-${crypto.randomUUID().slice(0, 8).toUpperCase()}`);
+      setPlacedOrderId(
+        `AUR-2026-${crypto.randomUUID().slice(0, 8).toUpperCase()}`,
+      );
     }, 1800);
   };
 
@@ -187,11 +210,11 @@ export default function Checkout() {
     clearCart();
     removePromoCode();
     setIsOrderPlaced(false);
-    navigate('/');
+    navigate("/");
   };
 
   const currentAddress = useMemo(() => {
-    return addresses.find(a => a.id === selectedAddressId) || null;
+    return addresses.find((a) => a.id === selectedAddressId) || null;
   }, [addresses, selectedAddressId]);
 
   if (cartItems.length === 0 && !isOrderPlaced) {
@@ -203,7 +226,8 @@ export default function Checkout() {
           </div>
           <h3 className="empty-cart-title">{LABELS.CART_EMPTY}</h3>
           <p className="empty-cart-text">
-            You cannot proceed to checkout without items in your cart. Add premium essentials to your bag first.
+            You cannot proceed to checkout without items in your cart. Add
+            premium essentials to your bag first.
           </p>
           <Link to="/shop" className="btn btn-primary">
             <span>Shop Our Collection</span>

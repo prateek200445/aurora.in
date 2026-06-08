@@ -1,8 +1,17 @@
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState, useTransition, useCallback } from 'react';
-import { api } from '../data/products';
-import { useCart } from './CartContext';
-import { STORAGE_KEYS } from '../utils/constants';
-import { roundMoney, getStorageItem, setStorageItem } from '../utils/helpers';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+  useCallback,
+} from "react";
+import { api } from "../data/products";
+import { useCart } from "./CartContext";
+import { STORAGE_KEYS } from "../utils/constants";
+import { roundMoney, getStorageItem, setStorageItem } from "../utils/helpers";
 
 const CouponContext = createContext(null);
 
@@ -13,21 +22,31 @@ function loadStoredCouponState() {
   }
 
   const legacyValue = getStorageItem(STORAGE_KEYS.CART, null);
-  if (legacyValue && typeof legacyValue === 'object' && ('couponCode' in legacyValue || 'couponApplied' in legacyValue)) {
+  if (
+    legacyValue &&
+    typeof legacyValue === "object" &&
+    ("couponCode" in legacyValue || "couponApplied" in legacyValue)
+  ) {
     return legacyValue;
   }
   return null;
 }
 
-
-
 export function CouponProvider({ children }) {
   const { subtotal } = useCart();
   const latestCouponRequestId = useRef(0);
-  const [couponCode, setCouponCode] = useState(() => loadStoredCouponState()?.couponCode ?? '');
-  const [discountPercent, setDiscountPercent] = useState(() => loadStoredCouponState()?.discountPercent ?? 0);
-  const [couponMessage, setCouponMessage] = useState(() => loadStoredCouponState()?.couponMessage ?? '');
-  const [couponApplied, setCouponApplied] = useState(() => loadStoredCouponState()?.couponApplied ?? false);
+  const [couponCode, setCouponCode] = useState(
+    () => loadStoredCouponState()?.couponCode ?? "",
+  );
+  const [discountPercent, setDiscountPercent] = useState(
+    () => loadStoredCouponState()?.discountPercent ?? 0,
+  );
+  const [couponMessage, setCouponMessage] = useState(
+    () => loadStoredCouponState()?.couponMessage ?? "",
+  );
+  const [couponApplied, setCouponApplied] = useState(
+    () => loadStoredCouponState()?.couponApplied ?? false,
+  );
   const [isPending, startTransition] = useTransition();
 
   const applyPromoCode = useCallback(async (code) => {
@@ -59,27 +78,27 @@ export function CouponProvider({ children }) {
 
       startTransition(() => {
         setDiscountPercent(0);
-        setCouponMessage('Failed to validate promo code.');
+        setCouponMessage("Failed to validate promo code.");
         setCouponApplied(false);
       });
     }
   }, []);
 
   const removePromoCode = useCallback(() => {
-    setCouponCode('');
+    setCouponCode("");
     setDiscountPercent(0);
-    setCouponMessage('');
+    setCouponMessage("");
     setCouponApplied(false);
   }, []);
 
   const discountAmount = useMemo(
     () => roundMoney((subtotal * discountPercent) / 100),
-    [subtotal, discountPercent]
+    [subtotal, discountPercent],
   );
 
   const total = useMemo(
     () => roundMoney(subtotal - discountAmount),
-    [subtotal, discountAmount]
+    [subtotal, discountAmount],
   );
 
   useEffect(() => {
@@ -87,39 +106,44 @@ export function CouponProvider({ children }) {
       couponCode,
       discountPercent,
       couponMessage,
-      couponApplied
+      couponApplied,
     });
   }, [couponCode, discountPercent, couponMessage, couponApplied]);
 
-  const value = useMemo(() => ({
-    couponCode,
-    discountPercent,
-    couponMessage,
-    isCouponLoading: isPending,
-    couponApplied,
-    applyPromoCode,
-    removePromoCode,
-    discountAmount,
-    total
-  }), [
-    couponCode,
-    discountPercent,
-    couponMessage,
-    isPending,
-    couponApplied,
-    applyPromoCode,
-    removePromoCode,
-    discountAmount,
-    total
-  ]);
+  const value = useMemo(
+    () => ({
+      couponCode,
+      discountPercent,
+      couponMessage,
+      isCouponLoading: isPending,
+      couponApplied,
+      applyPromoCode,
+      removePromoCode,
+      discountAmount,
+      total,
+    }),
+    [
+      couponCode,
+      discountPercent,
+      couponMessage,
+      isPending,
+      couponApplied,
+      applyPromoCode,
+      removePromoCode,
+      discountAmount,
+      total,
+    ],
+  );
 
-  return <CouponContext.Provider value={value}>{children}</CouponContext.Provider>;
+  return (
+    <CouponContext.Provider value={value}>{children}</CouponContext.Provider>
+  );
 }
 
 export function useCoupon() {
   const context = useContext(CouponContext);
   if (!context) {
-    throw new Error('useCoupon must be used within a CouponProvider');
+    throw new Error("useCoupon must be used within a CouponProvider");
   }
   return context;
 }

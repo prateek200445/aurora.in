@@ -5,10 +5,10 @@ export function isValidEmail(email) {
 
 export function isValidPincode(pincode) {
   if (!pincode) return false;
-  const cleanPin = pincode.replace(/\s+/g, '');
+  const cleanPin = pincode.replace(/\s+/g, "");
   return /^\d{6}$/.test(cleanPin);
 }
 
 export function cleanPincode(pincode) {
-  return pincode ? pincode.replace(/\D/g, '') : '';
+  return pincode ? pincode.replace(/\D/g, "") : "";
 }
